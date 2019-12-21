@@ -130,8 +130,6 @@ public class LoginActivity extends LifecycleBaseActivity<LoginPresenter>
                 PreferenceHelper.write(PreferenceHelper.DEFAULT_FILE_NAME, AppConfig.AUTHORIZATION,authorization);
                 PreferenceHelper.readString(PreferenceHelper.DEFAULT_FILE_NAME,AppConfig.AUTHORIZATION,"");
                 Log.e("aaa","author:"+authorization);
-//                SaveUtils.setString(AppConfig.AUTHORIZATION,authorization);
-//                SaveUtils.getString(AppConfig.AUTHORIZATION);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -152,6 +150,11 @@ public class LoginActivity extends LifecycleBaseActivity<LoginPresenter>
         if(REQUEST_SMS.equals(tag)){
             timer.start();
         }
+    }
+
+    @Override
+    public void setRefreshData(JsonResponse<LoginEntity> loginEntity, String tag) {
+
     }
 
 

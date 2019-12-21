@@ -58,8 +58,6 @@ public abstract class LifecycleBaseActivity<P extends BasePresenter> extends Fra
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setStatusBar();
-        //添加Activity到堆栈
-        MyApplication.getInstance().addActivity(this);
         switch (0){
             case 0:
                 sTheme = R.style.AppThemeLightBlue;

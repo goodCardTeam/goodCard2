@@ -9,6 +9,7 @@ import com.dytj.leekbox.model.RegisterEntity;
 import com.dytj.leekbox.model.JsonResponse;
 import com.dytj.leekbox.mvpBase.BasePresenterImpl;
 import com.dytj.leekbox.ui.activity.LoginActivity;
+import com.dytj.leekbox.ui.activity.SplashActivity;
 
 import java.util.HashMap;
 
@@ -40,6 +41,8 @@ public class LoginPresenter extends BasePresenterImpl<LoginContact.view> impleme
             register(userNetWork,map);
         }else if(LoginActivity.REQUEST_SMS.equals(tag)){
             getSms(userNetWork,map);
+        }else if(SplashActivity.REQUEST_REFRESH.equals(tag)){
+            refreshToken(userNetWork,map);
         }
     }
 
@@ -136,6 +139,41 @@ public class LoginPresenter extends BasePresenterImpl<LoginContact.view> impleme
                     Toast.makeText(mActivity, "请求成功", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(mActivity, jsonResponse.getMsg(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                view.ErrorData(e);
+                view.dismissLoadingDialog();
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
+
+    /**
+     * 刷新token
+     * @param userNetWork
+     * @param map
+     */
+    private void refreshToken(UserNetWork userNetWork, HashMap map) {
+        userNetWork.refreshToken(map, new Observer<JsonResponse<LoginEntity>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(JsonResponse<LoginEntity> loginEntity) {
+                if (loginEntity.getCode()==0) {
+                    view.setRefreshData(loginEntity, SplashActivity.REQUEST_REFRESH);
+                    view.showLoadingDialog("成功");
+                } else {
+                    Toast.makeText(mActivity, loginEntity.getMsg(), Toast.LENGTH_SHORT).show();
                 }
             }
 

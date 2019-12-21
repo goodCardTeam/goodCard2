@@ -9,6 +9,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.dytj.leekbox.AppManager;
 import com.dytj.leekbox.MyApplication;
 import com.dytj.leekbox.R;
 import com.dytj.leekbox.base.LifecycleBaseActivity;
@@ -21,6 +22,7 @@ import com.dytj.leekbox.ui.fragment.HomeFragment;
 import com.dytj.leekbox.ui.fragment.MineFragment;
 import com.dytj.leekbox.ui.fragment.NewsFragment;
 import com.dytj.leekbox.ui.fragment.RainbowFragment;
+import com.dytj.leekbox.utils.MyToast;
 import com.dytj.leekbox.view.MyViewPager;
 
 import java.util.ArrayList;
@@ -193,7 +195,7 @@ public class Main2Activity extends LifecycleBaseActivity<TestContact.presenter>
         System.arraycopy(mHits, 1, mHits, 0, mHits.length - 1);// 数组向左移位操作
         mHits[mHits.length - 1] = SystemClock.uptimeMillis();
         if (mHits[0] >= (SystemClock.uptimeMillis() - 2000)) {
-            MyApplication.AppExit();
+            AppManager.getAppManager().AppExit(MyApplication.getInstance().getApplicationContext());
             finish();
         } else {
             showToast = true;

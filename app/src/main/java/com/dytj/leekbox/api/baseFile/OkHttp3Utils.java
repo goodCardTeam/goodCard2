@@ -234,7 +234,7 @@ public class OkHttp3Utils {
                 @Override
                 public void isdismiss(int tag) {
                     if (tag == DialogView.CANCEL_BUTTON_CLICK) {
-                        MyApplication.finishAllActivity();
+                        AppManager.getAppManager().finishAllActivity();
                         LoginActivity.start(mActivity);
                     }
                 }

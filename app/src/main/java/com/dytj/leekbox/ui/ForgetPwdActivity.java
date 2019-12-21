@@ -62,6 +62,11 @@ public class ForgetPwdActivity extends LifecycleBaseActivity<LoginPresenter>
     }
 
     @Override
+    public void setRefreshData(JsonResponse<LoginEntity> loginEntity, String tag) {
+
+    }
+
+    @Override
     public void ErrorData(Throwable e) {
 
     }

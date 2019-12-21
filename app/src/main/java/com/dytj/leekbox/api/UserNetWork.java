@@ -45,6 +45,15 @@ public class UserNetWork extends BaseNetWork {
         Observable<RegisterEntity> userRegister(@FieldMap HashMap<String, Object> modificationPassWordEntryMap);
 
         /**
+         * 刷新token
+         * @param modificationPassWordEntryMap
+         * @return
+         */
+        @FormUrlEncoded
+        @POST("api/refresh")
+        Observable<JsonResponse<LoginEntity>> refreshToken(@FieldMap HashMap<String, Object> modificationPassWordEntryMap);
+
+        /**
          * 获取验证码
          * @return
          */
@@ -130,4 +139,15 @@ public class UserNetWork extends BaseNetWork {
     public void tradeList(HashMap<String, Object> paramMap, Observer<JsonResponse<TradeListEntity>> observer){
         setSubscribe(service.tradeList(paramMap),observer);
     }
+
+    /**
+     * 刷新token
+     * @param paramMap
+     * @param observer
+     */
+    public void refreshToken(HashMap<String, Object> paramMap, Observer<JsonResponse<LoginEntity>> observer){
+        setSubscribe(service.refreshToken(paramMap),observer);
+    }
+
+
 }

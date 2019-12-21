@@ -35,6 +35,12 @@ public interface LoginContact {
          */
         void setSmsData(JsonResponse jsonResponse, String tag);
 
+        /**
+         * 刷新token
+         * @param tag
+         */
+        void setRefreshData(JsonResponse<LoginEntity> loginEntity,String tag);
+
 
         void ErrorData(Throwable e);
     }

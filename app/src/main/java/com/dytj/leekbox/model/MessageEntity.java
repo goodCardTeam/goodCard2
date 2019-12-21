@@ -8,7 +8,7 @@ import java.util.List;
  * Created by Admin on 2018/11/6.
  */
 
-public class MessageEntity extends TradeSimpleResult implements Serializable {
+public class MessageEntity extends JsonResponse implements Serializable {
 
 
     /**

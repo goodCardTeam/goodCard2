@@ -5,7 +5,7 @@ import android.app.Activity;
 import com.dytj.leekbox.AppConfig;
 import com.dytj.leekbox.AppManager;
 import com.dytj.leekbox.R;
-import com.dytj.leekbox.model.TradeSimpleResult;
+import com.dytj.leekbox.model.JsonResponse;
 import com.dytj.leekbox.view.DialogView;
 import com.google.gson.Gson;
 
@@ -18,15 +18,15 @@ import retrofit2.HttpException;
 public class ErrorHandler {
     private static String data = "{\"Success\": false,\"StatusCode\": 500,\"Message\": \"处理失败\", \"ErrorInfo\": {\"ErrorMessage\": \"网络请求错误\",\"ErrorCode\": \"404\" },\"Result\": null}";
 
-    public static TradeSimpleResult handle(Throwable throwable) {
+    public static JsonResponse handle(Throwable throwable) {
         if (throwable instanceof HttpException) {
             HttpException error = (HttpException) throwable;
             try {
                 String string = error.response().errorBody().string();
                 if (isJSONValid(string)) {
-                    return new Gson().fromJson(string, TradeSimpleResult.class);
+                    return new Gson().fromJson(string, JsonResponse.class);
                 } else {
-                    return new Gson().fromJson(data, TradeSimpleResult.class);
+                    return new Gson().fromJson(data, JsonResponse.class);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -39,7 +39,7 @@ public class ErrorHandler {
     }
 
     public static String errorMessage(Throwable e) {
-        TradeSimpleResult errBody = ErrorHandler.handle(e);
+        JsonResponse errBody = ErrorHandler.handle(e);
         if (errBody != null) {
             final Activity activity = AppManager.topActivity();
             //用户类型

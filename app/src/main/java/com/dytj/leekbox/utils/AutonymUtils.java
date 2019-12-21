@@ -3,7 +3,7 @@ package com.dytj.leekbox.utils;
 import android.app.Activity;
 
 import com.dytj.leekbox.api.UserNetWork;
-import com.dytj.leekbox.model.TradeSimpleResult;
+import com.dytj.leekbox.model.JsonResponse;
 
 import java.util.HashMap;
 
@@ -25,7 +25,7 @@ public class AutonymUtils {
     public static void refreshToken(Activity activity, final MyAutonymListener myAutonymListeners) {
         UserNetWork userNetWork = new UserNetWork();
         HashMap<String, Object> map = new HashMap<>();
-        userNetWork.getUserRecordEntity(map, new Observer<TradeSimpleResult>() {
+        userNetWork.getUserRecordEntity(map, new Observer<JsonResponse>() {
             @Override
             public void onSubscribe(Disposable d) {
                 //取消网络请求
@@ -33,10 +33,10 @@ public class AutonymUtils {
             }
 
             @Override
-            public void onNext(TradeSimpleResult tradeSimpleResult) {
-                if (tradeSimpleResult.getCode()==0) {
+            public void onNext(JsonResponse jsonResponse) {
+                if (jsonResponse.getCode()==0) {
                     //网络请求成功
-                    myAutonymListeners.onSuccessful(tradeSimpleResult);
+                    myAutonymListeners.onSuccessful(jsonResponse);
                 } else {
                     myAutonymListeners.onFailure();
                 }

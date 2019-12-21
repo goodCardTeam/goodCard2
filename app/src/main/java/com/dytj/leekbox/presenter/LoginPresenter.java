@@ -6,7 +6,7 @@ import android.widget.Toast;
 import com.dytj.leekbox.api.UserNetWork;
 import com.dytj.leekbox.model.LoginEntity;
 import com.dytj.leekbox.model.RegisterEntity;
-import com.dytj.leekbox.model.TradeSimpleResult;
+import com.dytj.leekbox.model.JsonResponse;
 import com.dytj.leekbox.mvpBase.BasePresenterImpl;
 import com.dytj.leekbox.ui.activity.LoginActivity;
 
@@ -50,14 +50,14 @@ public class LoginPresenter extends BasePresenterImpl<LoginContact.view> impleme
      * @param userNetWork
      */
     private void login(UserNetWork userNetWork, HashMap params) {
-        userNetWork.userLogin(params, new Observer<LoginEntity>() {
+        userNetWork.userLogin(params, new Observer<JsonResponse<LoginEntity>>() {
             @Override
             public void onSubscribe(Disposable d) {
 
             }
 
             @Override
-            public void onNext(LoginEntity loginEntity) {
+            public void onNext(JsonResponse<LoginEntity> loginEntity) {
                 if (loginEntity.getCode()==0) {
                     view.setData(loginEntity, LoginActivity.REQUEST_LOGIN);
                     view.showLoadingDialog("成功");
@@ -122,20 +122,20 @@ public class LoginPresenter extends BasePresenterImpl<LoginContact.view> impleme
      * @param map
      */
     private void getSms(UserNetWork userNetWork,HashMap map){
-        userNetWork.usergetSms(map, new Observer<TradeSimpleResult>() {
+        userNetWork.usergetSms(map, new Observer<JsonResponse>() {
             @Override
             public void onSubscribe(Disposable d) {
 
             }
 
             @Override
-            public void onNext(TradeSimpleResult tradeSimpleResult) {
-                if (tradeSimpleResult.getCode()==0) {
-                    view.setSmsData(tradeSimpleResult, LoginActivity.REQUEST_SMS);
+            public void onNext(JsonResponse jsonResponse) {
+                if (jsonResponse.getCode()==0) {
+                    view.setSmsData(jsonResponse, LoginActivity.REQUEST_SMS);
                     view.showLoadingDialog("成功");
                     Toast.makeText(mActivity, "请求成功", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(mActivity, tradeSimpleResult.getMsg(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mActivity, jsonResponse.getMsg(), Toast.LENGTH_SHORT).show();
                 }
             }
 

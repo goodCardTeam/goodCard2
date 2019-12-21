@@ -6,7 +6,7 @@ import com.dytj.leekbox.model.LunBoTuEntity;
 import com.dytj.leekbox.model.MessageEntity;
 import com.dytj.leekbox.model.RegisterEntity;
 import com.dytj.leekbox.model.TradeListEntity;
-import com.dytj.leekbox.model.TradeSimpleResult;
+import com.dytj.leekbox.model.JsonResponse;
 import com.dytj.leekbox.model.UserRechargeWay;
 
 import java.util.HashMap;
@@ -35,7 +35,7 @@ public class UserNetWork extends BaseNetWork {
          */
         @FormUrlEncoded
         @POST("api/login")
-        Observable<LoginEntity> userLogin(@FieldMap HashMap<String, Object> modificationPassWordEntryMap);
+        Observable<JsonResponse<LoginEntity>> userLogin(@FieldMap HashMap<String, Object> modificationPassWordEntryMap);
 
         /**
          * 用户注册
@@ -50,14 +50,14 @@ public class UserNetWork extends BaseNetWork {
          */
         @FormUrlEncoded
         @POST("api/register")
-        Observable<TradeSimpleResult> userGetSms(@FieldMap HashMap<String,Object> modificationPassWordEntryMap);
+        Observable<JsonResponse> userGetSms(@FieldMap HashMap<String,Object> modificationPassWordEntryMap);
 
         /**
          * 买卖列表
          */
         @FormUrlEncoded
         @POST("api/trades")
-        Observable<TradeListEntity> tradeList(@FieldMap HashMap<String, Object> modificationPassWordEntryMap);
+        Observable<JsonResponse<TradeListEntity>> tradeList(@FieldMap HashMap<String, Object> modificationPassWordEntryMap);
 
         //获取消息列表
         @GET("api/AppPrivate/get_messages")
@@ -78,11 +78,11 @@ public class UserNetWork extends BaseNetWork {
         //刷新token
         @FormUrlEncoded
         @POST("directlink/user/active/record")
-        Observable<TradeSimpleResult> getUserRecordEntity(@FieldMap HashMap<String, Object> paramMap);
+        Observable<JsonResponse> getUserRecordEntity(@FieldMap HashMap<String, Object> paramMap);
     }
 
     //登录
-    public void userLogin(HashMap<String, Object> paramMap, Observer<LoginEntity> observer) {
+    public void userLogin(HashMap<String, Object> paramMap, Observer<JsonResponse<LoginEntity>> observer) {
         setSubscribe(service.userLogin(paramMap), observer);
     }
 
@@ -92,7 +92,7 @@ public class UserNetWork extends BaseNetWork {
     }
 
     //获取验证码
-    public void usergetSms(HashMap<String, Object> paramMap, Observer<TradeSimpleResult> observer) {
+    public void usergetSms(HashMap<String, Object> paramMap, Observer<JsonResponse> observer) {
         setSubscribe(service.userGetSms(paramMap), observer);
     }
 
@@ -117,7 +117,7 @@ public class UserNetWork extends BaseNetWork {
     }
 
     //刷新token
-    public void getUserRecordEntity(HashMap<String, Object> paramMap, Observer<TradeSimpleResult> observer) {
+    public void getUserRecordEntity(HashMap<String, Object> paramMap, Observer<JsonResponse> observer) {
         setSubscribe(service.getUserRecordEntity(paramMap), observer);
     }
 //    ----------------------------------------------------------------------------------------------
@@ -127,7 +127,7 @@ public class UserNetWork extends BaseNetWork {
      * @param paramMap
      * @param observer
      */
-    public void tradeList(HashMap<String, Object> paramMap, Observer<TradeListEntity> observer){
+    public void tradeList(HashMap<String, Object> paramMap, Observer<JsonResponse<TradeListEntity>> observer){
         setSubscribe(service.tradeList(paramMap),observer);
     }
 }

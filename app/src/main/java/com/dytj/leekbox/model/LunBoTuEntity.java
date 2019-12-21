@@ -8,7 +8,7 @@ import java.util.List;
  * Created by Admin on 2018/11/7.
  */
 
-public class LunBoTuEntity extends TradeSimpleResult implements Serializable {
+public class LunBoTuEntity extends JsonResponse implements Serializable {
 
 
     /**

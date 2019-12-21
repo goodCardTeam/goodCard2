@@ -7,10 +7,19 @@ import java.io.Serializable;
  * Introduction: 交易系统基础返回实体类
  */
 
-public class TradeSimpleResult implements Serializable{
+public class JsonResponse<T> implements Serializable{
 
   int code;
   String msg;
+  T data;
+
+  public T getData() {
+    return data;
+  }
+
+  public void setData(T data) {
+    this.data = data;
+  }
 
   public int getCode() {
     return code;

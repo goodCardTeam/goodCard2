@@ -1,6 +1,6 @@
 package com.dytj.leekbox.utils;
 
-import com.dytj.leekbox.model.TradeSimpleResult;
+import com.dytj.leekbox.model.JsonResponse;
 
 
 /**
@@ -8,6 +8,6 @@ import com.dytj.leekbox.model.TradeSimpleResult;
  */
 
 public abstract class MyAutonymListener  {
-  public void onSuccessful(TradeSimpleResult accountInfoEntity){}
+  public void onSuccessful(JsonResponse accountInfoEntity){}
   public void onFailure(){}
 }

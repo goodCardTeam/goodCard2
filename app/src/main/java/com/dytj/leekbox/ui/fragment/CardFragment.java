@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import com.dytj.leekbox.R;
 import com.dytj.leekbox.base.LifecycleBaseFragment;
+import com.dytj.leekbox.model.JsonResponse;
 import com.dytj.leekbox.model.TradeListEntity;
 import com.dytj.leekbox.presenter.CardContact;
 import com.dytj.leekbox.presenter.CardPresenter;
@@ -88,7 +89,7 @@ public class CardFragment extends LifecycleBaseFragment<CardPresenter> implement
     }
 
     @Override
-    public void setTradeListData(TradeListEntity tradeListEntity, String tag) {
+    public void setTradeListData(JsonResponse<TradeListEntity> tradeListEntity, String tag) {
 
     }
 

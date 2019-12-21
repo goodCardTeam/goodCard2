@@ -10,7 +10,7 @@ import java.io.Serializable;
  * Purpose:TODO
  * update：
  */
-public class RegisterEntity extends TradeSimpleResult implements Serializable {
+public class RegisterEntity extends JsonResponse implements Serializable {
 
 
     /**

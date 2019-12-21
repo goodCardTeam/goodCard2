@@ -8,7 +8,7 @@ import java.util.List;
  * Created by zeng on 2019/1/8.
  */
 
-public class UserRechargeWay extends TradeSimpleResult implements Serializable {
+public class UserRechargeWay extends JsonResponse implements Serializable {
 
   /**
    * arguments : []

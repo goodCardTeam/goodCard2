@@ -1,9 +1,8 @@
 package com.dytj.leekbox.presenter;
 
 import com.dytj.leekbox.model.LoginEntity;
-import com.dytj.leekbox.model.LunBoTuEntity;
 import com.dytj.leekbox.model.RegisterEntity;
-import com.dytj.leekbox.model.TradeSimpleResult;
+import com.dytj.leekbox.model.JsonResponse;
 import com.dytj.leekbox.mvpBase.BasePresenter;
 import com.dytj.leekbox.mvpBase.BaseView;
 
@@ -21,7 +20,7 @@ public interface LoginContact {
          * 用于网络请求成功失败后，回调给view的方法
          * @param loginEntity
          */
-        void setData(LoginEntity loginEntity, String tag);
+        void setData(JsonResponse<LoginEntity> loginEntity, String tag);
 
         /**
          * 注册数据源
@@ -32,9 +31,9 @@ public interface LoginContact {
 
         /**
          * 获取短信
-         * @param tradeSimpleResult
+         * @param jsonResponse
          */
-        void setSmsData(TradeSimpleResult tradeSimpleResult,String tag);
+        void setSmsData(JsonResponse jsonResponse, String tag);
 
 
         void ErrorData(Throwable e);

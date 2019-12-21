@@ -25,11 +25,10 @@ import com.dytj.leekbox.R;
 import com.dytj.leekbox.base.LifecycleBaseActivity;
 import com.dytj.leekbox.model.LoginEntity;
 import com.dytj.leekbox.model.RegisterEntity;
-import com.dytj.leekbox.model.TradeSimpleResult;
+import com.dytj.leekbox.model.JsonResponse;
 import com.dytj.leekbox.presenter.LoginContact;
 import com.dytj.leekbox.presenter.LoginPresenter;
 import com.dytj.leekbox.utils.PreferenceHelper;
-import com.dytj.leekbox.utils.SaveUtils;
 import com.dytj.leekbox.utils.ToolUtils;
 
 import java.util.HashMap;
@@ -124,7 +123,7 @@ public class LoginActivity extends LifecycleBaseActivity<LoginPresenter>
     }
 
     @Override
-    public void setData(LoginEntity loginEntity, String tag) {
+    public void setData(JsonResponse<LoginEntity> loginEntity, String tag) {
         if(REQUEST_LOGIN.equals(tag)){
             String authorization=loginEntity.getData().getToken_type()+" "+loginEntity.getData().getAccess_token();
             try {
@@ -149,7 +148,7 @@ public class LoginActivity extends LifecycleBaseActivity<LoginPresenter>
     }
 
     @Override
-    public void setSmsData(TradeSimpleResult tradeSimpleResult, String tag) {
+    public void setSmsData(JsonResponse jsonResponse, String tag) {
         if(REQUEST_SMS.equals(tag)){
             timer.start();
         }

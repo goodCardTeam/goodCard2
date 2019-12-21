@@ -8,24 +8,8 @@ import java.util.List;
  * Created by MaRufei on 2018/10/20.
  */
 
-public class TradeListEntity extends TradeSimpleResult implements Serializable {
+public class TradeListEntity {
 
-
-    /**
-     * data : {"trades":[{"id":5,"trade_type":1,"point":1000,"left":1000,"price":"0.002"},{"id":4,"trade_type":1,"point":2000,"left":2000,"price":"0.002"},{"id":2,"trade_type":1,"point":2000,"left":2000,"price":"0.002"},{"id":1,"trade_type":1,"point":1000,"left":1000,"price":"0.001"}],"per_page":10,"pages":1,"page":1,"total":4}
-     */
-
-    private DataBean data;
-
-    public DataBean getData() {
-        return data;
-    }
-
-    public void setData(DataBean data) {
-        this.data = data;
-    }
-
-    public static class DataBean {
         /**
          * trades : [{"id":5,"trade_type":1,"point":1000,"left":1000,"price":"0.002"},{"id":4,"trade_type":1,"point":2000,"left":2000,"price":"0.002"},{"id":2,"trade_type":1,"point":2000,"left":2000,"price":"0.002"},{"id":1,"trade_type":1,"point":1000,"left":1000,"price":"0.001"}]
          * per_page : 10
@@ -135,5 +119,4 @@ public class TradeListEntity extends TradeSimpleResult implements Serializable {
                 this.price = price;
             }
         }
-    }
 }

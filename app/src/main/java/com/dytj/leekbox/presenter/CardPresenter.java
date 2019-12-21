@@ -1,19 +1,13 @@
 package com.dytj.leekbox.presenter;
 
 import android.app.Activity;
-import android.widget.Toast;
 
-import com.dytj.leekbox.MyApplication;
 import com.dytj.leekbox.api.UserNetWork;
 import com.dytj.leekbox.api.baseFile.OkHttp3Utils;
-import com.dytj.leekbox.model.LoginEntity;
-import com.dytj.leekbox.model.RegisterEntity;
+import com.dytj.leekbox.model.JsonResponse;
 import com.dytj.leekbox.model.TradeListEntity;
-import com.dytj.leekbox.model.TradeSimpleResult;
 import com.dytj.leekbox.mvpBase.BasePresenterImpl;
-import com.dytj.leekbox.ui.activity.LoginActivity;
 import com.dytj.leekbox.ui.fragment.CardFragment;
-import com.dytj.leekbox.utils.MyToast;
 
 import java.util.HashMap;
 
@@ -48,14 +42,14 @@ public class CardPresenter extends BasePresenterImpl<CardContact.view> implement
      * @param params
      */
     private void tradeList(UserNetWork userNetWork, HashMap params) {
-        userNetWork.tradeList(params, new Observer<TradeListEntity>() {
+        userNetWork.tradeList(params, new Observer<JsonResponse<TradeListEntity>>() {
             @Override
             public void onSubscribe(Disposable d) {
 
             }
 
             @Override
-            public void onNext(TradeListEntity tradeListEntity) {
+            public void onNext(JsonResponse<TradeListEntity> tradeListEntity) {
                 if (tradeListEntity.getCode()==0) {
                     view.setTradeListData(tradeListEntity, "tradeList");
 //                    view.showLoadingDialog("成功");

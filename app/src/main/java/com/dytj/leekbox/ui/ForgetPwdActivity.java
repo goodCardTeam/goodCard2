@@ -1,7 +1,5 @@
 package com.dytj.leekbox.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,10 +9,9 @@ import com.dytj.leekbox.R;
 import com.dytj.leekbox.base.LifecycleBaseActivity;
 import com.dytj.leekbox.model.LoginEntity;
 import com.dytj.leekbox.model.RegisterEntity;
-import com.dytj.leekbox.model.TradeSimpleResult;
+import com.dytj.leekbox.model.JsonResponse;
 import com.dytj.leekbox.presenter.LoginContact;
 import com.dytj.leekbox.presenter.LoginPresenter;
-import com.dytj.leekbox.presenter.TestPresenter;
 
 public class ForgetPwdActivity extends LifecycleBaseActivity<LoginPresenter>
         implements LoginContact.view, View.OnClickListener {
@@ -50,7 +47,7 @@ public class ForgetPwdActivity extends LifecycleBaseActivity<LoginPresenter>
     }
 
     @Override
-    public void setData(LoginEntity loginEntity, String tag) {
+    public void setData(JsonResponse<LoginEntity> loginEntity, String tag) {
 
     }
 
@@ -60,7 +57,7 @@ public class ForgetPwdActivity extends LifecycleBaseActivity<LoginPresenter>
     }
 
     @Override
-    public void setSmsData(TradeSimpleResult tradeSimpleResult, String tag) {
+    public void setSmsData(JsonResponse jsonResponse, String tag) {
 
     }
 

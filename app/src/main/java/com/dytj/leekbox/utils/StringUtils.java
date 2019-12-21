@@ -4,7 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.widget.EditText;
 
-import com.dytj.leekbox.model.TradeSimpleResult;
+import com.dytj.leekbox.model.JsonResponse;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -878,7 +878,7 @@ public class StringUtils {
   }
 
   //返回toast提示
-  public static String errorMessage(TradeSimpleResult value) {
+  public static String errorMessage(JsonResponse value) {
     if (value!=null){
       return  value.getMsg()+"";
     }else {

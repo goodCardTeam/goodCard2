@@ -7,24 +7,10 @@ import java.io.Serializable;
  * Created by zeng on 2018/10/20.
  */
 
-public class LoginEntity extends TradeSimpleResult implements Serializable {
+public class LoginEntity{
 
 
-    /**
-     * data : {"access_token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMTIuNzQuMTI3Ljk5OjUwMTZcL2FwaVwvbG9naW4iLCJpYXQiOjE1NzY4NTYxMTUsImV4cCI6MTU3ODE1MjExNSwibmJmIjoxNTc2ODU2MTE1LCJqdGkiOiJGUDlhcFk2QU9FY0RFVEFlIiwic3ViIjoxLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3IiwicGFzc3dvcmRfaGFzaCI6IiQyeSQxMCR4UmxGbTAwRk05WjNPV2FoeUw5Znd1Z1FFWlRIQkw1YXdPNGVDdDRjOUtVR0NKenRlb2kyRyJ9.KcH0X2ytT5cBX9bfXdhf06AFifUMPwSNWMlWcdulltg","token_type":"bearer","expires_in":1296000,"uid":1}
-     */
 
-    private DataBean data;
-
-    public DataBean getData() {
-        return data;
-    }
-
-    public void setData(DataBean data) {
-        this.data = data;
-    }
-
-    public static class DataBean {
         /**
          * access_token : eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMTIuNzQuMTI3Ljk5OjUwMTZcL2FwaVwvbG9naW4iLCJpYXQiOjE1NzY4NTYxMTUsImV4cCI6MTU3ODE1MjExNSwibmJmIjoxNTc2ODU2MTE1LCJqdGkiOiJGUDlhcFk2QU9FY0RFVEFlIiwic3ViIjoxLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3IiwicGFzc3dvcmRfaGFzaCI6IiQyeSQxMCR4UmxGbTAwRk05WjNPV2FoeUw5Znd1Z1FFWlRIQkw1YXdPNGVDdDRjOUtVR0NKenRlb2kyRyJ9.KcH0X2ytT5cBX9bfXdhf06AFifUMPwSNWMlWcdulltg
          * token_type : bearer
@@ -68,5 +54,5 @@ public class LoginEntity extends TradeSimpleResult implements Serializable {
         public void setUid(int uid) {
             this.uid = uid;
         }
-    }
+
 }

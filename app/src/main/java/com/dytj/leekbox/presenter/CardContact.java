@@ -1,9 +1,7 @@
 package com.dytj.leekbox.presenter;
 
-import com.dytj.leekbox.model.LoginEntity;
-import com.dytj.leekbox.model.RegisterEntity;
+import com.dytj.leekbox.model.JsonResponse;
 import com.dytj.leekbox.model.TradeListEntity;
-import com.dytj.leekbox.model.TradeSimpleResult;
 import com.dytj.leekbox.mvpBase.BasePresenter;
 import com.dytj.leekbox.mvpBase.BaseView;
 
@@ -21,7 +19,7 @@ public interface CardContact {
          * 用于网络请求成功失败后，回调给view的方法
          * @param tradeListEntity
          */
-        void setTradeListData(TradeListEntity tradeListEntity, String tag);
+        void setTradeListData(JsonResponse<TradeListEntity> tradeListEntity, String tag);
 
 
         void ErrorData(Throwable e);

@@ -88,7 +88,6 @@ public class SplashActivity extends LifecycleBaseActivity<LoginPresenter>
                 e.printStackTrace();
             }
             Main2Activity.start(this);
-            finish();
         }
     }
 

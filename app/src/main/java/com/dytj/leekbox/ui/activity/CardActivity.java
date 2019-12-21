@@ -69,6 +69,5 @@ public class CardActivity extends LifecycleBaseActivity<CardPresenter>{
     public static void start(Activity activity) {
         Intent intent = new Intent(activity, CardActivity.class);
         activity.startActivity(intent);
-        activity.finish();
     }
 }

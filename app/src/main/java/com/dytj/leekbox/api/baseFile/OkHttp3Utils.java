@@ -4,19 +4,27 @@ package com.dytj.leekbox.api.baseFile;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.webkit.WebSettings;
 import android.widget.Toast;
 
 import com.dytj.leekbox.AppConfig;
 import com.dytj.leekbox.AppManager;
 import com.dytj.leekbox.MyApplication;
+import com.dytj.leekbox.R;
+import com.dytj.leekbox.ui.activity.LoginActivity;
+import com.dytj.leekbox.utils.CipherUtils;
+import com.dytj.leekbox.utils.MyToast;
 import com.dytj.leekbox.utils.NetWorkUtils;
 import com.dytj.leekbox.utils.PreferenceHelper;
+import com.dytj.leekbox.utils.StringUtils;
+import com.dytj.leekbox.view.DialogView;
 
 import java.io.File;
 import java.io.IOException;
@@ -49,23 +57,23 @@ public class OkHttp3Utils {
                 //401 token失效
                 if (activity != null && !activity.isDestroyed()) {
                     try {
-                        PreferenceHelper.write(PreferenceHelper.DEFAULT_FILE_NAME, AppConfig.PREFER_TOKEN_TAG, "");
+                        PreferenceHelper.write(PreferenceHelper.DEFAULT_FILE_NAME, AppConfig.AUTHORIZATION, "");
                         /**
                          * TODO 有小伙伴想接口报401的时候自动刷新token，并且从新请求上一次的网络请求
                          * TODO 我这里实现这个业务需要，以上只是弹出一个对话框跳到登录页面，让用户再次登录
                          */
-                        NetWorkUtils.tokens(activity, "");
+//                        NetWorkUtils.tokens(activity, "");
 
                         /*********************************************以前的代码*************************************/
-                        /*DialogView dialogView = new DialogView(activity, 180, 180, R.layout.my_dialog, R.style.dialog) {
+                        DialogView dialogView = new DialogView(activity, 180, 180, R.layout.my_dialog, R.style.dialog) {
                             @Override
                             public void isdismiss(int tag) {
                                 if (tag == DialogView.CANCEL_BUTTON_CLICK) {
-
+                                    LoginActivity.start(activity);
                                 }
                             }
                         };
-                        dialogView.showdialog2("温馨提示", "登录失效，请重新登录", "去登录", "");*/
+                        dialogView.showdialog2("温馨提示", "登录失效，请重新登录", "去登录", "");
                         /*****************************************************************************************/
                     } catch (Exception es) {
                         es.printStackTrace();
@@ -131,11 +139,12 @@ public class OkHttp3Utils {
             if (activity.getPackageManager().checkPermission(Manifest.permission.READ_PHONE_STATE, activity.getPackageName()) == permissionGranted) {
                 phoneIMEI = SystemToolUtils.getPhoneIMEI(AppManager.topActivity());//设备唯一识别标识
             }*/
-
+            String token=PreferenceHelper.readString(PreferenceHelper.DEFAULT_FILE_NAME, AppConfig.AUTHORIZATION, "");
+            Log.e("aaa","token:"+token);
             build = RequestBuilder
-                    .removeHeader("User-Agent")
-                    .addHeader("User-Agent", getUserAgent())
-                    .addHeader("Authorization", "")
+//                    .removeHeader("User-Agent")
+//                    .addHeader("User-Agent", getUserAgent())
+                    .addHeader("Authorization", token)
                     .build();
 
             Response response = chain.proceed(build);
@@ -217,5 +226,27 @@ public class OkHttp3Utils {
             return false;
         }
         return (current.isAvailable());
+    }
+
+    public static void toLogin(final Activity mActivity, int errcode, String errMsg){
+        if(errcode==401) {
+            DialogView dialogView = new DialogView(mActivity, 180, 180, R.layout.my_dialog, R.style.dialog) {
+                @Override
+                public void isdismiss(int tag) {
+                    if (tag == DialogView.CANCEL_BUTTON_CLICK) {
+                        MyApplication.finishAllActivity();
+                        LoginActivity.start(mActivity);
+                    }
+                }
+            };
+            dialogView.showdialog2("温馨提示", "登录失效，请重新登录", "去登录", "");
+        }else {
+            MyToast.showMyToast2(mActivity,errMsg,Toast.LENGTH_SHORT);
+        }
+    }
+
+    public void showDialog(){
+
+
     }
 }

@@ -2,11 +2,14 @@ package com.dytj.leekbox.ui.activity;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
@@ -26,6 +29,7 @@ import com.dytj.leekbox.model.TradeSimpleResult;
 import com.dytj.leekbox.presenter.LoginContact;
 import com.dytj.leekbox.presenter.LoginPresenter;
 import com.dytj.leekbox.utils.PreferenceHelper;
+import com.dytj.leekbox.utils.SaveUtils;
 import com.dytj.leekbox.utils.ToolUtils;
 
 import java.util.HashMap;
@@ -122,9 +126,13 @@ public class LoginActivity extends LifecycleBaseActivity<LoginPresenter>
     @Override
     public void setData(LoginEntity loginEntity, String tag) {
         if(REQUEST_LOGIN.equals(tag)){
-            String authorization=loginEntity.getAccess_token();
+            String authorization=loginEntity.getData().getToken_type()+" "+loginEntity.getData().getAccess_token();
             try {
                 PreferenceHelper.write(PreferenceHelper.DEFAULT_FILE_NAME, AppConfig.AUTHORIZATION,authorization);
+                PreferenceHelper.readString(PreferenceHelper.DEFAULT_FILE_NAME,AppConfig.AUTHORIZATION,"");
+                Log.e("aaa","author:"+authorization);
+//                SaveUtils.setString(AppConfig.AUTHORIZATION,authorization);
+//                SaveUtils.getString(AppConfig.AUTHORIZATION);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -286,6 +294,12 @@ public class LoginActivity extends LifecycleBaseActivity<LoginPresenter>
 
     private void initData() {
 
+    }
+
+    public static void start(Activity activity){
+        Intent intent=new Intent(activity,LoginActivity.class);
+        activity.startActivity(intent);
+        activity.finish();
     }
 
     private void initView() {

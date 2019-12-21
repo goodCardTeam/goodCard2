@@ -74,4 +74,9 @@ public class AppConfig {
     //每个接口都需要穿的令牌
     public static final String AUTHORIZATION = "Authorization";
 
+
+
+
+
+
 }

@@ -3,6 +3,7 @@ package com.dytj.leekbox.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.dytj.leekbox.MyApplication;
 
@@ -74,7 +75,7 @@ public class PreferenceHelper {
                              String v) throws Exception {
         SharedPreferences preference = MyApplication.getInstance().getSharedPreferences(fileName,
                 Context.MODE_PRIVATE);
-        v = CipherUtils.encrypt(v==null?"":v);
+//        v = CipherUtils.encrypt(v==null?"":v);
         SharedPreferences.Editor editor = preference.edit();
         editor.putString(k, v==null?"":v);
         editor.commit();
@@ -110,16 +111,19 @@ public class PreferenceHelper {
                                     String defV) {
         SharedPreferences preference = MyApplication.getInstance().getSharedPreferences(fileName,
                 Context.MODE_PRIVATE);
-        if (defV.equals(preference.getString(k, defV))) {
-            return defV;
-        } else {
-            try {
-                return CipherUtils.decrypt(preference.getString(k, defV));
-            } catch (Exception e) {
-                e.printStackTrace();
-                return "";
-            }
-        }
+//        if (defV.equals(preference.getString(k, defV))) {
+//            return defV;
+//        } else {
+//            try {
+//                return CipherUtils.decrypt(preference.getString(k, defV));
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//                return "";
+//            }
+//        }
+        String str=preference.getString(k,"");
+        Log.e("aaa","str:"+str);
+        return str;
     }
 
     public static void remove(String fileNmae, String k) {

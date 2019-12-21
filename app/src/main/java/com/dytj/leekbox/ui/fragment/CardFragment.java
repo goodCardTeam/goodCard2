@@ -4,15 +4,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
 
 import com.dytj.leekbox.R;
 import com.dytj.leekbox.base.LifecycleBaseFragment;
-import com.dytj.leekbox.base.LifecycleLazyFragment;
 import com.dytj.leekbox.model.TradeListEntity;
 import com.dytj.leekbox.presenter.CardContact;
 import com.dytj.leekbox.presenter.CardPresenter;
-import com.dytj.leekbox.presenter.TestContact;
+
+import java.util.HashMap;
 
 import androidx.annotation.Nullable;
 
@@ -24,8 +23,9 @@ import androidx.annotation.Nullable;
  * Purpose:TODO
  * update：
  */
-public class CardFragment extends LifecycleBaseFragment<CardPresenter>  implements CardContact.view {
+public class CardFragment extends LifecycleBaseFragment<CardPresenter> implements CardContact.view {
     private View view;
+    public static final String TRADE_LIST = "tradeList";
     /**
      * 1.积分转交 2.积分获取
      */
@@ -33,14 +33,17 @@ public class CardFragment extends LifecycleBaseFragment<CardPresenter>  implemen
 
     @Override
     public CardPresenter initPresenter() {
-        return null;
+        return new CardPresenter(this, getActivity());
     }
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+//        super.onCreateView(inflater,container,savedInstanceState);
         view = View.inflate(getActivity(), R.layout.fragment_card, null);
+        setContentView(view);
+        super.onCreateView(inflater,container,savedInstanceState);
         initView();
         initData();
         return view;
@@ -50,9 +53,15 @@ public class CardFragment extends LifecycleBaseFragment<CardPresenter>  implemen
 //        type=getActivity().getIntent().getIntExtra("type",0);
         Bundle bundle = getArguments();
         if (bundle != null) {
-            type = bundle.getInt("type",0);
+            type = bundle.getInt("type", 0);
         }
-
+        String tradeType = "";
+        if (type == 1) {
+            tradeType = "2";
+        } else {
+            tradeType = "1";
+        }
+        getTradeList(tradeType);
     }
 
     private void initView() {
@@ -67,8 +76,19 @@ public class CardFragment extends LifecycleBaseFragment<CardPresenter>  implemen
         return myFragment;
     }
 
+    /**
+     * 获取交易列表
+     */
+    private void getTradeList(String trade_type) {
+        HashMap params = new HashMap();
+        params.put("page", "1");
+        params.put("per_page", "10");
+        params.put("trade_type", trade_type);
+        presenter.getData(params, TRADE_LIST);
+    }
+
     @Override
-    public void setData(TradeListEntity tradeListEntity, String tag) {
+    public void setTradeListData(TradeListEntity tradeListEntity, String tag) {
 
     }
 

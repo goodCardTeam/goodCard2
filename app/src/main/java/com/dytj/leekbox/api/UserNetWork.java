@@ -5,6 +5,7 @@ import com.dytj.leekbox.model.LoginEntity;
 import com.dytj.leekbox.model.LunBoTuEntity;
 import com.dytj.leekbox.model.MessageEntity;
 import com.dytj.leekbox.model.RegisterEntity;
+import com.dytj.leekbox.model.TradeListEntity;
 import com.dytj.leekbox.model.TradeSimpleResult;
 import com.dytj.leekbox.model.UserRechargeWay;
 
@@ -50,6 +51,13 @@ public class UserNetWork extends BaseNetWork {
         @FormUrlEncoded
         @POST("api/register")
         Observable<TradeSimpleResult> userGetSms(@FieldMap HashMap<String,Object> modificationPassWordEntryMap);
+
+        /**
+         * 买卖列表
+         */
+        @FormUrlEncoded
+        @POST("api/trades")
+        Observable<TradeListEntity> tradeList(@FieldMap HashMap<String, Object> modificationPassWordEntryMap);
 
         //获取消息列表
         @GET("api/AppPrivate/get_messages")
@@ -111,5 +119,15 @@ public class UserNetWork extends BaseNetWork {
     //刷新token
     public void getUserRecordEntity(HashMap<String, Object> paramMap, Observer<TradeSimpleResult> observer) {
         setSubscribe(service.getUserRecordEntity(paramMap), observer);
+    }
+//    ----------------------------------------------------------------------------------------------
+
+    /**
+     * 买卖列表
+     * @param paramMap
+     * @param observer
+     */
+    public void tradeList(HashMap<String, Object> paramMap, Observer<TradeListEntity> observer){
+        setSubscribe(service.tradeList(paramMap),observer);
     }
 }

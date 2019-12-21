@@ -20,8 +20,7 @@ import java.util.List;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
-public class CardActivity extends LifecycleBaseActivity<CardPresenter>
-        implements CardContact.view, View.OnClickListener {
+public class CardActivity extends LifecycleBaseActivity<CardPresenter>{
 
     private TabLayout cardTab;
     private ViewPager cardFragment;
@@ -71,22 +70,5 @@ public class CardActivity extends LifecycleBaseActivity<CardPresenter>
         Intent intent = new Intent(activity, CardActivity.class);
         activity.startActivity(intent);
         activity.finish();
-    }
-
-
-    @Override
-    public void onClick(View v) {
-
-    }
-
-
-    @Override
-    public void setData(TradeListEntity tradeListEntity, String tag) {
-
-    }
-
-    @Override
-    public void ErrorData(Throwable e) {
-
     }
 }

@@ -59,7 +59,7 @@ public class LoginPresenter extends BasePresenterImpl<LoginContact.view> impleme
             @Override
             public void onNext(LoginEntity loginEntity) {
                 if (loginEntity.getCode()==0) {
-                    view.setData(loginEntity, "login");
+                    view.setData(loginEntity, LoginActivity.REQUEST_LOGIN);
                     view.showLoadingDialog("成功");
                     Toast.makeText(mActivity, "请求成功", Toast.LENGTH_SHORT).show();
                 } else {

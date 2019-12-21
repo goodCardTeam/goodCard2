@@ -21,7 +21,7 @@ public interface CardContact {
          * 用于网络请求成功失败后，回调给view的方法
          * @param tradeListEntity
          */
-        void setData(TradeListEntity tradeListEntity, String tag);
+        void setTradeListData(TradeListEntity tradeListEntity, String tag);
 
 
         void ErrorData(Throwable e);

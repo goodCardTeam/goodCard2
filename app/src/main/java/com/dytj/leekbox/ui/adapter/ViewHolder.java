@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -50,6 +51,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
         View view = mViews.get(viewId);
         if (view == null) {
             view = mConvertView.findViewById(viewId);
+
             mViews.put(viewId, view);
         }
         return (T) view;
@@ -68,6 +70,54 @@ public class ViewHolder extends RecyclerView.ViewHolder {
             mViews.put(viewId, view);
         }
         return (T) view;
+    }
+
+    /**
+     * 点击事件
+     * @param viewId
+     * @param listener
+     * @return
+     */
+    public ViewHolder setOnClickListener(int viewId,
+                                         View.OnClickListener listener)
+    {
+        View view = mViews.get(viewId);
+        view.setOnClickListener(listener);
+        return this;
+    }
+
+    /**
+     * 设置TextView
+     * @param viewId
+     * @param text
+     * @return
+     */
+    public ViewHolder setText(int viewId, String text)
+    {
+        TextView tv = (TextView) mViews.get(viewId);
+        if(null==tv){
+            tv=mConvertView.findViewById(viewId);
+            mViews.put(viewId,tv);
+        }
+        tv.setText(text);
+        return this;
+    }
+
+    /**
+     * 设置ImageView
+     * @param viewId
+     * @param resId
+     * @return
+     */
+    public ViewHolder setImage(int viewId, int resId)
+    {
+        ImageView view = (ImageView) mViews.get(viewId);
+        if(null==view){
+            view=mConvertView.findViewById(viewId);
+            mViews.put(viewId,view);
+        }
+        view.setImageResource(resId);
+        return this;
     }
 
 }

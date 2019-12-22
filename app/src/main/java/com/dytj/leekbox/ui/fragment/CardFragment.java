@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.dytj.leekbox.R;
 import com.dytj.leekbox.base.LifecycleBaseFragment;
@@ -11,10 +12,21 @@ import com.dytj.leekbox.model.JsonResponse;
 import com.dytj.leekbox.model.TradeListEntity;
 import com.dytj.leekbox.presenter.CardContact;
 import com.dytj.leekbox.presenter.CardPresenter;
+import com.dytj.leekbox.ui.adapter.CommonAdapter;
+import com.dytj.leekbox.ui.adapter.ViewHolder;
+import com.dytj.leekbox.utils.MyToast;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by MaRufei
@@ -31,6 +43,29 @@ public class CardFragment extends LifecycleBaseFragment<CardPresenter> implement
      * 1.积分转交 2.积分获取
      */
     private int type;
+    private RecyclerView cardRv;
+    private SmartRefreshLayout cardRefresh;
+
+    /**
+     * 判断是买入还是卖出标识
+     */
+    String tradeType = "";
+
+    /**
+     * 数据源
+     */
+    private  List<TradeListEntity.TradesBean> listData=new ArrayList<>();
+
+    /**
+     * 当前页 默认为1
+     */
+    private int currentPage=1;
+    private RefreshLayout myRefreshlayout;
+    private RefreshLayout myLoadMoreLayout;
+    /**
+     * 总页数
+     */
+    private int pages;
 
     @Override
     public CardPresenter initPresenter() {
@@ -46,8 +81,35 @@ public class CardFragment extends LifecycleBaseFragment<CardPresenter> implement
         setContentView(view);
         super.onCreateView(inflater,container,savedInstanceState);
         initView();
+        initListener();
         initData();
         return view;
+    }
+
+    private void initListener() {
+        cardRefresh.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshLayout) {
+                myRefreshlayout = refreshLayout;
+                listData.clear();
+                currentPage = 1;
+                getTradeList();
+            }
+        });
+
+        cardRefresh.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(RefreshLayout refreshLayout) {
+                myLoadMoreLayout = refreshLayout;
+                if (pages > currentPage) {
+                    currentPage++;
+                    getTradeList();
+                } else {
+                    myLoadMoreLayout.finishLoadMore(true);
+                    MyToast.showMyToast2(getActivity(), "没有更多数据了",Toast.LENGTH_SHORT);
+                }
+            }
+        });
     }
 
     private void initData() {
@@ -56,16 +118,21 @@ public class CardFragment extends LifecycleBaseFragment<CardPresenter> implement
         if (bundle != null) {
             type = bundle.getInt("type", 0);
         }
-        String tradeType = "";
+
         if (type == 1) {
             tradeType = "2";
         } else {
             tradeType = "1";
         }
-        getTradeList(tradeType);
+        getTradeList();
     }
 
     private void initView() {
+        cardRefresh=view.findViewById(R.id.card_refresh);
+
+        cardRv=view.findViewById(R.id.card_rv);
+        //设置LayoutManager为LinearLayoutManager
+        cardRv.setLayoutManager(new LinearLayoutManager(getActivity()));
 
     }
 
@@ -80,17 +147,36 @@ public class CardFragment extends LifecycleBaseFragment<CardPresenter> implement
     /**
      * 获取交易列表
      */
-    private void getTradeList(String trade_type) {
+    private void getTradeList() {
         HashMap params = new HashMap();
-        params.put("page", "1");
+        params.put("page", currentPage);
         params.put("per_page", "10");
-        params.put("trade_type", trade_type);
+        params.put("trade_type", tradeType);
         presenter.getData(params, TRADE_LIST);
     }
 
     @Override
     public void setTradeListData(JsonResponse<TradeListEntity> tradeListEntity, String tag) {
-
+        //刷新成功
+        if (myRefreshlayout != null) {
+            myRefreshlayout.finishRefresh(true);
+        }
+        if (myLoadMoreLayout != null) {
+            myLoadMoreLayout.finishLoadMore(true);
+        }
+        pages=tradeListEntity.getData().getPages();
+        currentPage=tradeListEntity.getData().getPage();
+        List<TradeListEntity.TradesBean> trades=tradeListEntity.getData().getTrades();
+        listData.addAll(trades);
+        cardRv.setAdapter(new CommonAdapter<TradeListEntity.TradesBean>(getActivity(), R.layout.card_item, listData)
+        {
+            @Override
+            public void convert(ViewHolder holder, TradeListEntity.TradesBean bean )
+            {
+                holder.setText(R.id.card_item_price,"￥"+bean.getPrice());
+                holder.setText(R.id.card_item_point,String.valueOf(bean.getPoint()));
+            }
+        });
     }
 
     @Override

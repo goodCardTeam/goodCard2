@@ -67,6 +67,10 @@ public class CardFragment extends LifecycleBaseFragment<CardPresenter> implement
      */
     private int pages;
 
+    private static final String TRADE_BUY="2";
+
+    private static final String TRADE_SELL="1";
+
     @Override
     public CardPresenter initPresenter() {
         return new CardPresenter(this, getActivity());
@@ -120,9 +124,9 @@ public class CardFragment extends LifecycleBaseFragment<CardPresenter> implement
         }
 
         if (type == 1) {
-            tradeType = "2";
+            tradeType = TRADE_BUY;
         } else {
-            tradeType = "1";
+            tradeType = TRADE_SELL;
         }
         getTradeList();
     }
@@ -175,6 +179,19 @@ public class CardFragment extends LifecycleBaseFragment<CardPresenter> implement
             {
                 holder.setText(R.id.card_item_price,"￥"+bean.getPrice());
                 holder.setText(R.id.card_item_point,String.valueOf(bean.getPoint()));
+                if(TRADE_BUY.equals(tradeType)){
+                    holder.setText(R.id.card_item_trade,"买入积分");
+                }else {
+                    holder.setText(R.id.card_item_trade,"卖出积分");
+                }
+                holder.setOnClickListener(R.id.card_item_trade, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(TRADE_BUY.equals(tradeType)){
+
+                        }
+                    }
+                });
             }
         });
     }

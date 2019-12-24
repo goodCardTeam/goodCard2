@@ -12,7 +12,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dytj.leekbox.R;
+import com.dytj.leekbox.base.LifecycleBaseFragment;
 import com.dytj.leekbox.base.LifecycleLazyFragment;
+import com.dytj.leekbox.model.JsonResponse;
+import com.dytj.leekbox.model.RainbowEntity;
+import com.dytj.leekbox.presenter.CardContact;
+import com.dytj.leekbox.presenter.CardPresenter;
+import com.dytj.leekbox.presenter.RainbowContact;
+import com.dytj.leekbox.presenter.RainbowPresenter;
 import com.dytj.leekbox.presenter.TestContact;
 import com.dytj.leekbox.ui.activity.CardActivity;
 import com.dytj.leekbox.view.galleryView.BlurBitmapUtils;
@@ -21,6 +28,7 @@ import com.dytj.leekbox.view.galleryView.CardScaleHelper;
 import com.dytj.leekbox.view.galleryView.ViewSwitchUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import androidx.annotation.Nullable;
@@ -35,7 +43,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * Purpose:TODO
  * update：
  */
-public class RainbowFragment extends LifecycleLazyFragment implements View.OnClickListener {
+public class RainbowFragment extends LifecycleBaseFragment<RainbowPresenter> implements RainbowContact.view, View.OnClickListener {
 
     private View view;
 
@@ -47,17 +55,20 @@ public class RainbowFragment extends LifecycleLazyFragment implements View.OnCli
     private Runnable mBlurRunnable;
     private int mLastPos = -1;
     private TextView menu;
+    public static final String RAINBOW="rainbow";
 
 
     @Override
-    public TestContact.presenter initPresenter() {
-        return presenter;
+    public RainbowPresenter initPresenter() {
+        return new RainbowPresenter(this, getActivity());
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = View.inflate(getActivity(), R.layout.fragment_rain_bow, null);
+        setContentView(view);
+        super.onCreateView(inflater,container,savedInstanceState);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             View decorView = getActivity().getWindow().getDecorView();
             int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
@@ -93,6 +104,7 @@ public class RainbowFragment extends LifecycleLazyFragment implements View.OnCli
         mCardScaleHelper.attachToRecyclerView(mRecyclerView);
 
         initBlurBackground();
+        getRainbowList();
 
     }
 
@@ -144,5 +156,20 @@ public class RainbowFragment extends LifecycleLazyFragment implements View.OnCli
                 CardActivity.start(getActivity());
                 break;
         }
+    }
+
+    @Override
+    public void setRainbowListData(JsonResponse<RainbowEntity> response, String tag) {
+
+    }
+
+    @Override
+    public void ErrorData(Throwable e) {
+
+    }
+
+    private void getRainbowList(){
+        HashMap params = new HashMap();
+        presenter.getData(params, RAINBOW);
     }
 }

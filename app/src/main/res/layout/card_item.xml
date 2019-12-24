@@ -93,12 +93,14 @@
                 android:textColor="@color/gray_9"/>
         </LinearLayout>
     </LinearLayout>
+
     <TextView
+        android:id="@+id/card_item_trade"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="卖给TA"
-        android:textSize="13sp"
+        android:background="@drawable/toast_text_shape"
         android:padding="5dp"
+        android:text="卖给TA"
         android:textColor="@color/white"
-        android:background="@drawable/toast_text_shape"/>
+        android:textSize="13sp" />
 </LinearLayout>

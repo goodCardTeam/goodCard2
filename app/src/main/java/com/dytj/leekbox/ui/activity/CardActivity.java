@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 
+import com.dytj.leekbox.AppManager;
 import com.dytj.leekbox.R;
 import com.dytj.leekbox.base.LifecycleBaseActivity;
 import com.dytj.leekbox.model.TradeListEntity;
@@ -20,17 +22,18 @@ import java.util.List;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
-public class CardActivity extends LifecycleBaseActivity<CardPresenter>{
+public class CardActivity extends LifecycleBaseActivity<CardPresenter> implements View.OnClickListener {
 
     private TabLayout cardTab;
     private ViewPager cardFragment;
     private List<Fragment> fragmentList = new ArrayList<>();
+    private ImageButton myBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setStatusYesBar();
         setContentView(R.layout.activity_card);
-        setStatusNoBar();
         initView();
         initData();
 
@@ -64,10 +67,21 @@ public class CardActivity extends LifecycleBaseActivity<CardPresenter>{
     private void initView() {
         cardTab = findViewById(R.id.card_tab);
         cardFragment = findViewById(R.id.card_fragment);
+        myBack=findViewById(R.id.myBack);
+        myBack.setOnClickListener(this);
     }
 
     public static void start(Activity activity) {
         Intent intent = new Intent(activity, CardActivity.class);
         activity.startActivity(intent);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.myBack:
+                AppManager.getAppManager().finishActivity(this);
+                break;
+        }
     }
 }

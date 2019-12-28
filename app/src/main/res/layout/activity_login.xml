@@ -129,7 +129,6 @@
                         android:background="@drawable/edit_shape"
                         android:inputType="number"
                         android:maxLength="11"
-                        android:paddingEnd="56dp"
                         android:paddingStart="16dp"
                         android:singleLine="true"
                         android:textSize="16sp" />

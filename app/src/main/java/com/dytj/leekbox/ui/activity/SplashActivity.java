@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.dytj.leekbox.AppConfig;
 import com.dytj.leekbox.R;
+import com.dytj.leekbox.api.baseFile.OkHttp3Utils;
 import com.dytj.leekbox.base.LifecycleBaseActivity;
 import com.dytj.leekbox.model.JsonResponse;
 import com.dytj.leekbox.model.LoginEntity;
@@ -27,6 +29,11 @@ public class SplashActivity extends LifecycleBaseActivity<LoginPresenter>
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
+            String token=PreferenceHelper.readString(PreferenceHelper.DEFAULT_FILE_NAME, AppConfig.AUTHORIZATION, "");
+            if(TextUtils.isEmpty(token)){
+                LoginActivity.start(SplashActivity.this);
+                return;
+            }
             refreshToken();
         }
     };

@@ -116,6 +116,14 @@ public class LoginActivity extends LifecycleBaseActivity<LoginPresenter>
     private EditText editInvite;
     private ImageView ivInviteClose;
     private CountDownTimer timer;
+    /**
+     * 登录手机号
+     */
+    private String tel;
+    /**
+     * 登录密码
+     */
+    private String password;
 
     @Override
     public LoginPresenter initPresenter() {
@@ -141,7 +149,9 @@ public class LoginActivity extends LifecycleBaseActivity<LoginPresenter>
     public void setRegisterData(RegisterEntity registerData, String tag) {
 
         if(REQUEST_REGISTER.equals(tag)){
-
+            tel=editPhone.getText().toString().trim();
+            password=editPassword.getText().toString().trim();
+            login();
         }
     }
 
@@ -487,8 +497,10 @@ public class LoginActivity extends LifecycleBaseActivity<LoginPresenter>
      */
     private void login(){
         HashMap params=new HashMap();
-        params.put("tel",etLoginOtpAccount.getText().toString().trim());
-        params.put("password",etLoginOtpOtp.getText().toString().trim());
+        tel=etLoginOtpAccount.getText().toString().trim();
+        password=etLoginOtpOtp.getText().toString().trim();
+        params.put("tel",tel);
+        params.put("password",password);
         presenter.getData(params, REQUEST_LOGIN);
     }
 
@@ -500,7 +512,11 @@ public class LoginActivity extends LifecycleBaseActivity<LoginPresenter>
         params.put("tel",editPhone.getText().toString().trim());
         params.put("vercode",editCode.getText().toString().trim());
         params.put("password",editPassword.getText().toString().trim());
-        params.put("invite_code",editInvite.getText().toString().trim());
+        String inventCode=editInvite.getText().toString().trim();
+        if(TextUtils.isEmpty(inventCode)){
+            inventCode="";
+        }
+        params.put("invite_code",inventCode);
         presenter.getData(params,REQUEST_REGISTER);
     }
 

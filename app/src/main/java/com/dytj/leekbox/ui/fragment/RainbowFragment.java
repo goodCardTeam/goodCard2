@@ -22,6 +22,7 @@ import com.dytj.leekbox.presenter.RainbowContact;
 import com.dytj.leekbox.presenter.RainbowPresenter;
 import com.dytj.leekbox.presenter.TestContact;
 import com.dytj.leekbox.ui.activity.CardActivity;
+import com.dytj.leekbox.ui.activity.PointActivity;
 import com.dytj.leekbox.view.galleryView.BlurBitmapUtils;
 import com.dytj.leekbox.view.galleryView.CardAdapter;
 import com.dytj.leekbox.view.galleryView.CardScaleHelper;
@@ -153,7 +154,7 @@ public class RainbowFragment extends LifecycleBaseFragment<RainbowPresenter> imp
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.menu:
-                CardActivity.start(getActivity());
+                PointActivity.start(getActivity());
                 break;
         }
     }

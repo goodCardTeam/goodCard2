@@ -59,7 +59,7 @@ public class UserNetWork extends BaseNetWork {
          * @return
          */
         @FormUrlEncoded
-        @POST("api/register")
+        @POST("api/sms")
         Observable<JsonResponse> userGetSms(@FieldMap HashMap<String,Object> modificationPassWordEntryMap);
 
         /**

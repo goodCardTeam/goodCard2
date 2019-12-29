@@ -3,18 +3,16 @@ package com.dytj.leekbox.ui.fragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.dytj.leekbox.R;
 import com.dytj.leekbox.base.LifecycleLazyFragment;
 import com.dytj.leekbox.model.MenuEntity;
 import com.dytj.leekbox.presenter.TestContact;
-import com.dytj.leekbox.ui.activity.CardActivity;
+import com.dytj.leekbox.ui.activity.MyTradeOrderActivity;
 import com.dytj.leekbox.ui.adapter.MenuItemLvAdapter;
 import com.dytj.leekbox.view.ListViewForScrollView;
 import com.lzj.gallery.library.views.BannerViewPager;
@@ -118,7 +116,7 @@ public class HomeFragment extends LifecycleLazyFragment implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.home_bt1:
-                CardActivity.start(getActivity());
+                MyTradeOrderActivity.start(getActivity());
                 break;
         }
     }

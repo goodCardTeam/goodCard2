@@ -13,15 +13,10 @@ import android.widget.TextView;
 
 import com.dytj.leekbox.R;
 import com.dytj.leekbox.base.LifecycleBaseFragment;
-import com.dytj.leekbox.base.LifecycleLazyFragment;
 import com.dytj.leekbox.model.JsonResponse;
 import com.dytj.leekbox.model.RainbowEntity;
-import com.dytj.leekbox.presenter.CardContact;
-import com.dytj.leekbox.presenter.CardPresenter;
 import com.dytj.leekbox.presenter.RainbowContact;
 import com.dytj.leekbox.presenter.RainbowPresenter;
-import com.dytj.leekbox.presenter.TestContact;
-import com.dytj.leekbox.ui.activity.CardActivity;
 import com.dytj.leekbox.ui.activity.PointActivity;
 import com.dytj.leekbox.view.galleryView.BlurBitmapUtils;
 import com.dytj.leekbox.view.galleryView.CardAdapter;

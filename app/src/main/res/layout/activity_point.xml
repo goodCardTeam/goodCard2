@@ -7,15 +7,35 @@
     android:orientation="vertical"
     tools:context=".ui.activity.PointActivity">
     <include layout="@layout/view_title_bar"/>
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/point_refresh"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/point_rv"
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/point_refresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:numColumns="3" />
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/point_rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:numColumns="3" />
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+        <TextView
+            android:id="@+id/point_buy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/circle"
+            android:elevation="5dp"
+            android:padding="5dp"
+            android:gravity="center"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="25dp"
+            android:layout_marginEnd="25dp"
+            android:text="我要买"
+            android:textSize="11sp"
+            android:textColor="@color/white"/>
+    </RelativeLayout>
+
 </LinearLayout>

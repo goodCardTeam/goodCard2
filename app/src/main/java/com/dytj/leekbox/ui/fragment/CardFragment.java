@@ -9,9 +9,12 @@ import android.widget.Toast;
 import com.dytj.leekbox.R;
 import com.dytj.leekbox.base.LifecycleBaseFragment;
 import com.dytj.leekbox.model.JsonResponse;
+import com.dytj.leekbox.model.MyTradeOrderEntity;
 import com.dytj.leekbox.model.TradeListEntity;
 import com.dytj.leekbox.presenter.CardContact;
 import com.dytj.leekbox.presenter.CardPresenter;
+import com.dytj.leekbox.presenter.MyTradeOrderContact;
+import com.dytj.leekbox.presenter.MyTradeOrderPresenter;
 import com.dytj.leekbox.ui.adapter.CommonAdapter;
 import com.dytj.leekbox.ui.adapter.ViewHolder;
 import com.dytj.leekbox.utils.MyToast;
@@ -36,30 +39,25 @@ import androidx.recyclerview.widget.RecyclerView;
  * Purpose:TODO
  * update：
  */
-public class CardFragment extends LifecycleBaseFragment<CardPresenter> implements CardContact.view {
+public class CardFragment extends LifecycleBaseFragment<MyTradeOrderPresenter> implements MyTradeOrderContact.view {
     private View view;
     public static final String TRADE_LIST = "tradeList";
     /**
-     * 1.积分转交 2.积分获取
+     * -10:已取消0:待打款10:待收款20:已完成
      */
-    private int type;
+    private String status;
     private RecyclerView cardRv;
     private SmartRefreshLayout cardRefresh;
 
     /**
-     * 判断是买入还是卖出标识
-     */
-    String tradeType = "";
-
-    /**
      * 数据源
      */
-    private  List<TradeListEntity.TradesBean> listData=new ArrayList<>();
+    private List<TradeListEntity.TradesBean> listData = new ArrayList<>();
 
     /**
      * 当前页 默认为1
      */
-    private int currentPage=1;
+    private int currentPage = 1;
     private RefreshLayout myRefreshlayout;
     private RefreshLayout myLoadMoreLayout;
     /**
@@ -67,23 +65,19 @@ public class CardFragment extends LifecycleBaseFragment<CardPresenter> implement
      */
     private int pages;
 
-    private static final String TRADE_BUY="2";
-
-    private static final String TRADE_SELL="1";
 
     @Override
-    public CardPresenter initPresenter() {
-        return new CardPresenter(this, getActivity());
+    public MyTradeOrderPresenter initPresenter() {
+        return new MyTradeOrderPresenter(this, getActivity());
     }
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        super.onCreateView(inflater,container,savedInstanceState);
         view = View.inflate(getActivity(), R.layout.fragment_card, null);
         setContentView(view);
-        super.onCreateView(inflater,container,savedInstanceState);
+        super.onCreateView(inflater, container, savedInstanceState);
         initView();
         initListener();
         initData();
@@ -110,40 +104,34 @@ public class CardFragment extends LifecycleBaseFragment<CardPresenter> implement
                     getTradeList();
                 } else {
                     myLoadMoreLayout.finishLoadMore(true);
-                    MyToast.showMyToast2(getActivity(), "没有更多数据了",Toast.LENGTH_SHORT);
+                    MyToast.showMyToast2(getActivity(), "没有更多数据了", Toast.LENGTH_SHORT);
                 }
             }
         });
     }
 
     private void initData() {
-//        type=getActivity().getIntent().getIntExtra("type",0);
         Bundle bundle = getArguments();
         if (bundle != null) {
-            type = bundle.getInt("type", 0);
+            status = bundle.getString("status");
         }
 
-        if (type == 1) {
-            tradeType = TRADE_BUY;
-        } else {
-            tradeType = TRADE_SELL;
-        }
         getTradeList();
     }
 
     private void initView() {
-        cardRefresh=view.findViewById(R.id.card_refresh);
+        cardRefresh = view.findViewById(R.id.card_refresh);
 
-        cardRv=view.findViewById(R.id.card_rv);
+        cardRv = view.findViewById(R.id.card_rv);
         //设置LayoutManager为LinearLayoutManager
         cardRv.setLayoutManager(new LinearLayoutManager(getActivity()));
 
     }
 
-    public static CardFragment newInstance(int type) {
+    public static CardFragment newInstance(String status) {
         CardFragment myFragment = new CardFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt("type", type);
+        bundle.putString("status", status);
         myFragment.setArguments(bundle);
         return myFragment;
     }
@@ -155,12 +143,12 @@ public class CardFragment extends LifecycleBaseFragment<CardPresenter> implement
         HashMap params = new HashMap();
         params.put("page", currentPage);
         params.put("per_page", "10");
-        params.put("trade_type", tradeType);
+        params.put("status", status);
         presenter.getData(params, TRADE_LIST);
     }
 
     @Override
-    public void setTradeListData(JsonResponse<TradeListEntity> tradeListEntity, String tag) {
+    public void setTradeListData(JsonResponse<MyTradeOrderEntity> tradeListEntity, String tag) {
         //刷新成功
         if (myRefreshlayout != null) {
             myRefreshlayout.finishRefresh(true);
@@ -168,30 +156,13 @@ public class CardFragment extends LifecycleBaseFragment<CardPresenter> implement
         if (myLoadMoreLayout != null) {
             myLoadMoreLayout.finishLoadMore(true);
         }
-        pages=tradeListEntity.getData().getPages();
-        currentPage=tradeListEntity.getData().getPage();
-        List<TradeListEntity.TradesBean> trades=tradeListEntity.getData().getTrades();
-        listData.addAll(trades);
-        cardRv.setAdapter(new CommonAdapter<TradeListEntity.TradesBean>(getActivity(), R.layout.card_item, listData)
-        {
+        pages = tradeListEntity.getData().getPages();
+        currentPage = tradeListEntity.getData().getPage();
+//        List<TradeListEntity.TradesBean> trades = tradeListEntity.getData().getTrades();
+//        listData.addAll(trades);
+        cardRv.setAdapter(new CommonAdapter<TradeListEntity.TradesBean>(getActivity(), R.layout.item_trade_order, listData) {
             @Override
-            public void convert(ViewHolder holder, TradeListEntity.TradesBean bean )
-            {
-                holder.setText(R.id.card_item_price,"￥"+bean.getPrice());
-                holder.setText(R.id.card_item_point,String.valueOf(bean.getPoint()));
-                if(TRADE_BUY.equals(tradeType)){
-                    holder.setText(R.id.card_item_trade,"买入积分");
-                }else {
-                    holder.setText(R.id.card_item_trade,"卖出积分");
-                }
-                holder.setOnClickListener(R.id.card_item_trade, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if(TRADE_BUY.equals(tradeType)){
-
-                        }
-                    }
-                });
+            public void convert(ViewHolder holder, TradeListEntity.TradesBean bean) {
             }
         });
     }

@@ -1,16 +1,8 @@
 package com.dytj.leekbox.ui.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Lifecycle;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.Activity;
-import android.app.usage.UsageEvents;
 import android.content.Intent;
 import android.os.Bundle;
-import android.service.autofill.FillEventHistory;
-import android.util.EventLog;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -19,7 +11,6 @@ import android.widget.Toast;
 import com.dytj.leekbox.AppManager;
 import com.dytj.leekbox.R;
 import com.dytj.leekbox.base.LifecycleBaseActivity;
-import com.dytj.leekbox.base.LifecycleBaseFragment;
 import com.dytj.leekbox.model.JsonResponse;
 import com.dytj.leekbox.model.TradeListEntity;
 import com.dytj.leekbox.presenter.CardContact;
@@ -40,6 +31,9 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 public class PointActivity extends LifecycleBaseActivity<CardPresenter> implements CardContact.view , View.OnClickListener {
@@ -66,6 +60,7 @@ public class PointActivity extends LifecycleBaseActivity<CardPresenter> implemen
     private TextView menu;
     private TextView title;
     private ImageButton myBack;
+    private TextView pointBuy;
 
 
     @Override
@@ -129,6 +124,8 @@ public class PointActivity extends LifecycleBaseActivity<CardPresenter> implemen
         menu.setVisibility(View.VISIBLE);
         menu.setTextColor(getResources().getColor(R.color.white));
         menu.setOnClickListener(this);
+        pointBuy=findViewById(R.id.point_buy);
+        pointBuy.setOnClickListener(this);
     }
 
     public static void start(Activity activity) {
@@ -188,6 +185,9 @@ public class PointActivity extends LifecycleBaseActivity<CardPresenter> implemen
                 AppManager.getAppManager().finishActivity();
                 break;
             case R.id.menu:
+                MyTradeOrderActivity.start(this);
+                break;
+            case R.id.point_buy:
                 BuyActivity.start(this);
                 break;
         }

@@ -15,8 +15,13 @@ import com.dytj.leekbox.MyApplication;
 import com.dytj.leekbox.api.UserNetWork;
 import com.dytj.leekbox.mvpBase.BasePresenter;
 import com.dytj.leekbox.mvpBase.BaseView;
+import com.dytj.leekbox.utils.Event;
+import com.dytj.leekbox.utils.EventBusUtil;
 import com.dytj.leekbox.utils.MyToast;
 import com.dytj.leekbox.utils.PreferenceHelper;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.reflect.Field;
 
@@ -75,12 +80,24 @@ public abstract class LifecycleBaseFragment<P extends BasePresenter> extends Fra
             userNetWork = new UserNetWork();
         }
         presenter = initPresenter();
+        if (isRegisterEventBus()) {
+            EventBusUtil.register(this);
+        }
         return contentView;
 
     }
 
     protected void onCreateView(Bundle savedInstanceState) {
 
+    }
+
+    /**
+     * 是否注册事件分发
+     *
+     * @return true绑定EventBus事件分发，默认不绑定，子类需要绑定的话复写此方法返回true.
+     */
+    protected boolean isRegisterEventBus() {
+        return false;
     }
 
     @Override
@@ -212,6 +229,38 @@ public abstract class LifecycleBaseFragment<P extends BasePresenter> extends Fra
 
     @Override
     public void dismissLoadingDialog() {
+
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventBusCome(Event event) {
+        if (event != null) {
+            receiveEvent(event);
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onStickyEventBusCome(Event event) {
+        if (event != null) {
+            receiveStickyEvent(event);
+        }
+    }
+
+    /**
+     * 接收到分发到事件
+     *
+     * @param event 事件
+     */
+    protected void receiveEvent(Event event) {
+
+    }
+
+    /**
+     * 接受到分发的粘性事件
+     *
+     * @param event 粘性事件
+     */
+    protected void receiveStickyEvent(Event event) {
 
     }
 }

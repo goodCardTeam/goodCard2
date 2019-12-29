@@ -1,12 +1,16 @@
 package com.dytj.leekbox.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Lifecycle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.app.usage.UsageEvents;
 import android.content.Intent;
 import android.os.Bundle;
+import android.service.autofill.FillEventHistory;
+import android.util.EventLog;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -22,15 +26,21 @@ import com.dytj.leekbox.presenter.CardContact;
 import com.dytj.leekbox.presenter.CardPresenter;
 import com.dytj.leekbox.ui.adapter.CommonAdapter;
 import com.dytj.leekbox.ui.adapter.ViewHolder;
+import com.dytj.leekbox.utils.Event;
+import com.dytj.leekbox.utils.EventBusCodeUtil;
 import com.dytj.leekbox.utils.MyToast;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 
 public class PointActivity extends LifecycleBaseActivity<CardPresenter> implements CardContact.view , View.OnClickListener {
 
@@ -178,7 +188,23 @@ public class PointActivity extends LifecycleBaseActivity<CardPresenter> implemen
                 AppManager.getAppManager().finishActivity();
                 break;
             case R.id.menu:
+                BuyActivity.start(this);
+                break;
+        }
+    }
 
+    @Override
+    protected boolean isRegisterEventBus() {
+        return true;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventReceived(Event event) {
+        switch (event.getCode()){
+            case EventBusCodeUtil.EventCode.A:
+                listData.clear();
+                currentPage=1;
+                getTradeList();
                 break;
         }
     }

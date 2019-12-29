@@ -1,6 +1,7 @@
 package com.dytj.leekbox.api;
 
 import com.dytj.leekbox.api.baseFile.BaseNetWork;
+import com.dytj.leekbox.model.BuyEntity;
 import com.dytj.leekbox.model.LoginEntity;
 import com.dytj.leekbox.model.LunBoTuEntity;
 import com.dytj.leekbox.model.MessageEntity;
@@ -75,6 +76,15 @@ public class UserNetWork extends BaseNetWork {
         @FormUrlEncoded
         @POST("api/cards")
         Observable<JsonResponse<RainbowEntity>> rainbowList(@FieldMap HashMap<String, Object> modificationPassWordEntryMap);
+
+        /**
+         * 买入积分
+         * @param modificationPassWordEntryMap
+         * @return
+         */
+        @FormUrlEncoded
+        @POST("api/trades/add")
+        Observable<JsonResponse<BuyEntity>> buyPointRequest(@FieldMap HashMap<String, Object> modificationPassWordEntryMap);
 
         //获取消息列表
         @GET("api/AppPrivate/get_messages")
@@ -164,6 +174,15 @@ public class UserNetWork extends BaseNetWork {
      */
     public void refreshToken(HashMap<String, Object> paramMap, Observer<JsonResponse<LoginEntity>> observer){
         setSubscribe(service.refreshToken(paramMap),observer);
+    }
+
+    /**
+     * 买入积分
+     * @param paramMap
+     * @param observer
+     */
+    public void buyPointRequest(HashMap<String, Object> paramMap, Observer<JsonResponse<BuyEntity>> observer){
+        setSubscribe(service.buyPointRequest(paramMap),observer);
     }
 
 

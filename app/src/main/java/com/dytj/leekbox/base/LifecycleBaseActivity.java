@@ -19,17 +19,23 @@ import com.dytj.leekbox.R;
 import com.dytj.leekbox.api.UserNetWork;
 import com.dytj.leekbox.mvpBase.BasePresenter;
 import com.dytj.leekbox.mvpBase.BaseView;
+import com.dytj.leekbox.utils.Event;
+import com.dytj.leekbox.utils.EventBusUtil;
 import com.dytj.leekbox.utils.MyToast;
 import com.dytj.leekbox.utils.PreferenceHelper;
 import com.dytj.leekbox.utils.StatusBarUtil;
 import com.dytj.leekbox.utils.SystemToolUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleRegistry;
 import androidx.lifecycle.LifecycleRegistryOwner;
 
@@ -81,6 +87,19 @@ public abstract class LifecycleBaseActivity<P extends BasePresenter> extends Fra
             userNetWork = new UserNetWork();
         }
         presenter = initPresenter();
+
+        if (isRegisterEventBus()) {
+            EventBusUtil.register(this);
+        }
+    }
+
+    /**
+     * 是否注册事件分发
+     *
+     * @return true绑定EventBus事件分发，默认不绑定，子类需要绑定的话复写此方法返回true.
+     */
+    protected boolean isRegisterEventBus() {
+        return false;
     }
 
     @Override
@@ -115,6 +134,10 @@ public abstract class LifecycleBaseActivity<P extends BasePresenter> extends Fra
         if (presenter != null) {
             presenter.detach();//在presenter中解绑释放view
             presenter = null;
+        }
+
+        if (isRegisterEventBus()) {
+            EventBusUtil.unregister(this);
         }
     }
 
@@ -384,6 +407,38 @@ public abstract class LifecycleBaseActivity<P extends BasePresenter> extends Fra
 
     @Override
     public void showLoadingDialog(String msg) {
+
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventBusCome(Event event) {
+        if (event != null) {
+            receiveEvent(event);
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onStickyEventBusCome(Event event) {
+        if (event != null) {
+            receiveStickyEvent(event);
+        }
+    }
+
+    /**
+     * 接收到分发到事件
+     *
+     * @param event 事件
+     */
+    protected void receiveEvent(Event event) {
+
+    }
+
+    /**
+     * 接受到分发的粘性事件
+     *
+     * @param event 粘性事件
+     */
+    protected void receiveStickyEvent(Event event) {
 
     }
 }

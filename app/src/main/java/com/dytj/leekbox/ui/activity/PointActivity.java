@@ -3,6 +3,7 @@ package com.dytj.leekbox.ui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -159,14 +160,17 @@ public class PointActivity extends LifecycleBaseActivity<CardPresenter> implemen
         pointRv.setAdapter(new CommonAdapter<TradeListEntity.TradesBean>(this, R.layout.card_item, listData)
         {
             @Override
-            public void convert(ViewHolder holder, TradeListEntity.TradesBean bean )
+            public void convert(ViewHolder holder, final TradeListEntity.TradesBean bean )
             {
                 holder.setText(R.id.card_item_price,"￥"+bean.getPrice());
                 holder.setText(R.id.card_item_point,String.valueOf(bean.getPoint()));
                 holder.setOnClickListener(R.id.card_item_trade, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        if(TextUtils.isEmpty(bean.getPrice())||bean.getId()<=0){
+                            return;
+                        }
+                        CreateTradeOrderActivity.start(PointActivity.this,bean.getId(),bean.getPrice());
                     }
                 });
             }

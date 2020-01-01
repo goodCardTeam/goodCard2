@@ -52,7 +52,7 @@ public class CardFragment extends LifecycleBaseFragment<MyTradeOrderPresenter> i
     /**
      * 数据源
      */
-    private List<TradeListEntity.TradesBean> listData = new ArrayList<>();
+    private List<MyTradeOrderEntity.OrdersBean> listData = new ArrayList<>();
 
     /**
      * 当前页 默认为1
@@ -144,11 +144,12 @@ public class CardFragment extends LifecycleBaseFragment<MyTradeOrderPresenter> i
         params.put("page", currentPage);
         params.put("per_page", "10");
         params.put("status", status);
+        params.put("trade_id", "14");
         presenter.getData(params, TRADE_LIST);
     }
 
     @Override
-    public void setTradeListData(JsonResponse<MyTradeOrderEntity> tradeListEntity, String tag) {
+    public void setTradeListData(JsonResponse<MyTradeOrderEntity> orderEntity, String tag) {
         //刷新成功
         if (myRefreshlayout != null) {
             myRefreshlayout.finishRefresh(true);
@@ -156,13 +157,15 @@ public class CardFragment extends LifecycleBaseFragment<MyTradeOrderPresenter> i
         if (myLoadMoreLayout != null) {
             myLoadMoreLayout.finishLoadMore(true);
         }
-        pages = tradeListEntity.getData().getPages();
-        currentPage = tradeListEntity.getData().getPage();
-//        List<TradeListEntity.TradesBean> trades = tradeListEntity.getData().getTrades();
-//        listData.addAll(trades);
-        cardRv.setAdapter(new CommonAdapter<TradeListEntity.TradesBean>(getActivity(), R.layout.item_trade_order, listData) {
+        pages = orderEntity.getData().getPages();
+        currentPage = orderEntity.getData().getPage();
+        List<MyTradeOrderEntity.OrdersBean> orders = orderEntity.getData().getOrders();
+        if (null != orders) {
+            listData.addAll(orders);
+        }
+        cardRv.setAdapter(new CommonAdapter<MyTradeOrderEntity.OrdersBean>(getActivity(), R.layout.item_trade_order, listData) {
             @Override
-            public void convert(ViewHolder holder, TradeListEntity.TradesBean bean) {
+            public void convert(ViewHolder holder, MyTradeOrderEntity.OrdersBean bean) {
             }
         });
     }

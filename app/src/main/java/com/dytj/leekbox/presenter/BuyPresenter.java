@@ -6,10 +6,8 @@ import com.dytj.leekbox.api.UserNetWork;
 import com.dytj.leekbox.api.baseFile.OkHttp3Utils;
 import com.dytj.leekbox.model.BuyEntity;
 import com.dytj.leekbox.model.JsonResponse;
-import com.dytj.leekbox.model.TradeListEntity;
 import com.dytj.leekbox.mvpBase.BasePresenterImpl;
 import com.dytj.leekbox.ui.activity.BuyActivity;
-import com.dytj.leekbox.ui.fragment.CardFragment;
 
 import java.util.HashMap;
 
@@ -53,7 +51,7 @@ public class BuyPresenter extends BasePresenterImpl<BuyContact.view> implements 
             @Override
             public void onNext(JsonResponse<BuyEntity> buyEntity) {
                 if (buyEntity.getCode()==0) {
-                    view.buyPointRequest(buyEntity, CardFragment.TRADE_LIST);
+                    view.buyPointRequest(buyEntity, BuyActivity.REQUEST_BUY);
 //                    view.showLoadingDialog("成功");
 //                    Toast.makeText(mActivity, "请求成功", Toast.LENGTH_SHORT).show();
                 } else {

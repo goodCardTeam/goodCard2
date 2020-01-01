@@ -163,7 +163,8 @@ public class PointActivity extends LifecycleBaseActivity<CardPresenter> implemen
             public void convert(ViewHolder holder, final TradeListEntity.TradesBean bean )
             {
                 holder.setText(R.id.card_item_price,"￥"+bean.getPrice());
-                holder.setText(R.id.card_item_point,String.valueOf(bean.getPoint()));
+                holder.setText(R.id.card_item_point,String.valueOf(bean.getLeft()));
+                holder.setText(R.id.card_item_tel,bean.getUser().getTel());
                 holder.setOnClickListener(R.id.card_item_trade, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

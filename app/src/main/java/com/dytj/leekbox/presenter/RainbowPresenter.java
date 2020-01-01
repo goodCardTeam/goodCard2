@@ -6,9 +6,7 @@ import com.dytj.leekbox.api.UserNetWork;
 import com.dytj.leekbox.api.baseFile.OkHttp3Utils;
 import com.dytj.leekbox.model.JsonResponse;
 import com.dytj.leekbox.model.RainbowEntity;
-import com.dytj.leekbox.model.TradeListEntity;
 import com.dytj.leekbox.mvpBase.BasePresenterImpl;
-import com.dytj.leekbox.ui.fragment.CardFragment;
 import com.dytj.leekbox.ui.fragment.RainbowFragment;
 
 import java.util.HashMap;

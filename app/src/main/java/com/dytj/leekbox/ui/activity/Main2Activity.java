@@ -1,5 +1,6 @@
 package com.dytj.leekbox.ui.activity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import com.dytj.leekbox.ui.fragment.HomeFragment;
 import com.dytj.leekbox.ui.fragment.MineFragment;
 import com.dytj.leekbox.ui.fragment.NewsFragment;
 import com.dytj.leekbox.ui.fragment.ActiveFragment;
+import com.dytj.leekbox.utils.UpdateManger;
 import com.dytj.leekbox.view.MyViewPager;
 
 import java.util.ArrayList;
@@ -41,6 +43,9 @@ public class Main2Activity extends LifecycleBaseActivity<TestContact.presenter>
     private MineFragment mineFragment;
     private ActiveFragment activeFragment;
     private MainVpAdapter adapter;
+    private String[] permissions = new String[]{
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE,};
 
     long[] mHits = new long[2];
     boolean showToast = true;
@@ -60,6 +65,7 @@ public class Main2Activity extends LifecycleBaseActivity<TestContact.presenter>
         initView();
         initData();
         initEvent();
+        setPermission(permissions);
     }
 
     public static void start(Activity activity){
@@ -97,6 +103,7 @@ public class Main2Activity extends LifecycleBaseActivity<TestContact.presenter>
         homeFragment = new HomeFragment();
         newsFragment = new NewsFragment();
         mineFragment = new MineFragment();
+        activeFragment=new ActiveFragment();
         listFragnet.add(homeFragment);
         listFragnet.add(newsFragment);
         listFragnet.add(activeFragment);
@@ -113,6 +120,9 @@ public class Main2Activity extends LifecycleBaseActivity<TestContact.presenter>
 
     private void initData() {
         presenter.getData(map, "first");
+
+        //版本更新
+//        new UpdateManger(this, 1).checkUpdateInfo();
     }
 
     private void initView() {

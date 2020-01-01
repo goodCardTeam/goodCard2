@@ -39,7 +39,7 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleRegistry;
 import androidx.lifecycle.LifecycleRegistryOwner;
 
-public abstract class LifecycleBaseActivity<P extends BasePresenter> extends FragmentActivity
+public abstract class LifecycleBaseActivity<P extends BasePresenter> extends CheckPermissionsActivity
         implements LifecycleRegistryOwner, BaseView {
     // 是否允许全屏
     //  private boolean mAllowFullScreen = true;

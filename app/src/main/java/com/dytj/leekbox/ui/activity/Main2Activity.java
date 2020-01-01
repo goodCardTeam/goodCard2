@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -16,13 +15,11 @@ import com.dytj.leekbox.base.LifecycleBaseActivity;
 import com.dytj.leekbox.model.LunBoTuEntity;
 import com.dytj.leekbox.presenter.TestContact;
 import com.dytj.leekbox.presenter.TestPresenter;
-import com.dytj.leekbox.ui.MainActivity;
 import com.dytj.leekbox.ui.adapter.MainVpAdapter;
 import com.dytj.leekbox.ui.fragment.HomeFragment;
 import com.dytj.leekbox.ui.fragment.MineFragment;
 import com.dytj.leekbox.ui.fragment.NewsFragment;
-import com.dytj.leekbox.ui.fragment.RainbowFragment;
-import com.dytj.leekbox.utils.MyToast;
+import com.dytj.leekbox.ui.fragment.ActiveFragment;
 import com.dytj.leekbox.view.MyViewPager;
 
 import java.util.ArrayList;
@@ -42,7 +39,7 @@ public class Main2Activity extends LifecycleBaseActivity<TestContact.presenter>
     private HomeFragment homeFragment;
     private NewsFragment newsFragment;
     private MineFragment mineFragment;
-    private RainbowFragment rainbowFragment;
+    private ActiveFragment activeFragment;
     private MainVpAdapter adapter;
 
     long[] mHits = new long[2];
@@ -102,7 +99,7 @@ public class Main2Activity extends LifecycleBaseActivity<TestContact.presenter>
         mineFragment = new MineFragment();
         listFragnet.add(homeFragment);
         listFragnet.add(newsFragment);
-        listFragnet.add(rainbowFragment);
+        listFragnet.add(activeFragment);
         listFragnet.add(mineFragment);
 
 

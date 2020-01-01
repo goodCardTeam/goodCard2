@@ -7,7 +7,7 @@ import com.dytj.leekbox.api.baseFile.OkHttp3Utils;
 import com.dytj.leekbox.model.JsonResponse;
 import com.dytj.leekbox.model.RainbowEntity;
 import com.dytj.leekbox.mvpBase.BasePresenterImpl;
-import com.dytj.leekbox.ui.fragment.RainbowFragment;
+import com.dytj.leekbox.ui.fragment.ActiveFragment;
 
 import java.util.HashMap;
 
@@ -31,7 +31,7 @@ public class RainbowPresenter extends BasePresenterImpl<RainbowContact.view> imp
     @Override
     public void getData(HashMap<Object, Object> map, String tag) {
         UserNetWork userNetWork = new UserNetWork();
-        if (RainbowFragment.RAINBOW.equals(tag)) {
+        if (ActiveFragment.RAINBOW.equals(tag)) {
             rainbowList(userNetWork,map);
         }
     }
@@ -51,7 +51,7 @@ public class RainbowPresenter extends BasePresenterImpl<RainbowContact.view> imp
             @Override
             public void onNext(JsonResponse<RainbowEntity> tradeListEntity) {
                 if (tradeListEntity.getCode()==0) {
-                    view.setRainbowListData(tradeListEntity, RainbowFragment.RAINBOW);
+                    view.setRainbowListData(tradeListEntity, ActiveFragment.RAINBOW);
                 } else {
                     OkHttp3Utils.toLogin(mActivity,tradeListEntity.getCode(),tradeListEntity.getMsg());
                 }

@@ -69,7 +69,7 @@
                 android:clickable="true"
                 android:drawableTop="@drawable/mian_selector_3"
                 android:gravity="center"
-                android:text="彩虹堂"
+                android:text="好玩"
                 android:textColor="@drawable/main_color_selector"
                 android:textSize="11sp" />
 

@@ -3,7 +3,7 @@ package com.dytj.leekbox.ui.adapter;
 import com.dytj.leekbox.ui.fragment.HomeFragment;
 import com.dytj.leekbox.ui.fragment.MineFragment;
 import com.dytj.leekbox.ui.fragment.NewsFragment;
-import com.dytj.leekbox.ui.fragment.RainbowFragment;
+import com.dytj.leekbox.ui.fragment.ActiveFragment;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -16,7 +16,7 @@ public class MainVpAdapter extends FragmentPagerAdapter {
     private HomeFragment home1Fragment = null;
     private NewsFragment home2Fragment = null;
     private MineFragment home3Fragment = null;
-    private RainbowFragment home4Fragment = null;
+    private ActiveFragment home4Fragment = null;
 
 
     public MainVpAdapter(FragmentManager fm) {
@@ -24,7 +24,7 @@ public class MainVpAdapter extends FragmentPagerAdapter {
         home1Fragment = new HomeFragment();
         home2Fragment = new NewsFragment();
         home3Fragment = new MineFragment();
-        home4Fragment = new RainbowFragment();
+        home4Fragment = new ActiveFragment();
 
     }
 

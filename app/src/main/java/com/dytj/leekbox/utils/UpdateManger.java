@@ -143,12 +143,13 @@ public class UpdateManger {
                         showDownloadDialog();
                     }
                 })
-                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                }).setCancelable(false)
+//                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        dialog.dismiss();
+//                    }
+//                })
+                .setCancelable(false)
                 .show();
     }
 
@@ -167,29 +168,19 @@ public class UpdateManger {
 //        }
         dialogsuccess.setVisibility(View.GONE);
         downloadDialog.show();
-        dialogesc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                downloadDialog.dismiss();
-                interceptFlag = true;
-            }
-        });
+//        dialogesc.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                downloadDialog.dismiss();
+//                interceptFlag = true;
+//            }
+//        });
         dialogsuccess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 installApk();
             }
         });
-/*        //先看看有没有下载好
-        if (new File(saveFileName).exists()) {
-            progressBar.setVisibility(View.GONE);
-            dialogsuccess.setVisibility(View.VISIBLE);
-            //安装吧
-            installApk();
-        } else {
-            //启动下载
-            downloadApk();
-        }*/
         downloadApk();
     }
 

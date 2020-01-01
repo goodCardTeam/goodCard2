@@ -122,7 +122,7 @@ public class Main2Activity extends LifecycleBaseActivity<TestContact.presenter>
         presenter.getData(map, "first");
 
         //版本更新
-//        new UpdateManger(this, 1).checkUpdateInfo();
+        new UpdateManger(this, 1).checkUpdateInfo();
     }
 
     private void initView() {

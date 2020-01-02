@@ -16,6 +16,7 @@ import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.tencent.bugly.Bugly;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +66,7 @@ public class MyApplication extends Application {
         super.onCreate();
         this.instance = (MyApplication) getApplicationContext();
         context = (MyApplication) getApplicationContext();
+        Bugly.init(getApplicationContext(), "f28b568432", true);
 
         registerActivityLifecycleCallbacks(new MyLifecycleHandler());
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {

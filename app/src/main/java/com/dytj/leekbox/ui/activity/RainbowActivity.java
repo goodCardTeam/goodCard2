@@ -1,9 +1,5 @@
 package com.dytj.leekbox.ui.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -23,7 +19,6 @@ import com.dytj.leekbox.model.JsonResponse;
 import com.dytj.leekbox.model.RainbowEntity;
 import com.dytj.leekbox.presenter.RainbowContact;
 import com.dytj.leekbox.presenter.RainbowPresenter;
-import com.dytj.leekbox.ui.adapter.ViewHolder;
 import com.dytj.leekbox.view.galleryView.BlurBitmapUtils;
 import com.dytj.leekbox.view.galleryView.CardAdapter;
 import com.dytj.leekbox.view.galleryView.CardScaleHelper;
@@ -32,6 +27,9 @@ import com.dytj.leekbox.view.galleryView.ViewSwitchUtils;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class RainbowActivity extends LifecycleBaseActivity<RainbowPresenter> implements RainbowContact.view, View.OnClickListener {
 

@@ -9,6 +9,7 @@ import com.dytj.leekbox.model.JsonResponse;
 import com.dytj.leekbox.model.TradeOrderInfoEntity;
 import com.dytj.leekbox.mvpBase.BasePresenterImpl;
 import com.dytj.leekbox.ui.activity.BuyActivity;
+import com.dytj.leekbox.ui.activity.TradeOrderInfoActivity;
 
 import java.util.HashMap;
 
@@ -32,7 +33,7 @@ public class TradeOrderInfoPresenter extends BasePresenterImpl<TradeOrderInfoCon
     @Override
     public void getData(HashMap<Object, Object> map, String tag) {
         UserNetWork userNetWork = new UserNetWork();
-        if (BuyActivity.REQUEST_BUY.equals(tag)) {
+        if (TradeOrderInfoActivity.TRADE_ORDER_INFO_REQUEST.equals(tag)) {
             tradeOrderInfoRequest(userNetWork,map);
         }
     }
@@ -52,7 +53,7 @@ public class TradeOrderInfoPresenter extends BasePresenterImpl<TradeOrderInfoCon
             @Override
             public void onNext(JsonResponse<TradeOrderInfoEntity> buyEntity) {
                 if (buyEntity.getCode()==0) {
-                    view.tradeOrderInfoRequest(buyEntity, BuyActivity.REQUEST_BUY);
+                    view.tradeOrderInfoRequest(buyEntity, TradeOrderInfoActivity.TRADE_ORDER_INFO_REQUEST);
 //                    view.showLoadingDialog("成功");
 //                    Toast.makeText(mActivity, "请求成功", Toast.LENGTH_SHORT).show();
                 } else {

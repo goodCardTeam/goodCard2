@@ -1,6 +1,7 @@
 package com.dytj.leekbox.presenter;
 
 import android.app.Activity;
+import android.util.Log;
 
 import com.dytj.leekbox.api.UserNetWork;
 import com.dytj.leekbox.api.baseFile.OkHttp3Utils;
@@ -51,6 +52,7 @@ public class MyTradeOrderPresenter extends BasePresenterImpl<MyTradeOrderContact
 
             @Override
             public void onNext(JsonResponse<MyTradeOrderEntity> tradeListEntity) {
+                Log.e("aaa","请求数据："+tradeListEntity.toString());
                 if (tradeListEntity.getCode()==0) {
                     view.setTradeListData(tradeListEntity, CardFragment.TRADE_LIST);
 //                    view.showLoadingDialog("成功");

@@ -95,7 +95,7 @@ public class UserNetWork extends BaseNetWork {
          * @return
          */
         @FormUrlEncoded
-        @POST("api/trade-orders")
+        @POST("api/trade-orders/my")
         Observable<JsonResponse<MyTradeOrderEntity>> myTradeOrderRequest(@FieldMap HashMap<String, Object> modificationPassWordEntryMap);
 
         /**

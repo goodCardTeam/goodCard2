@@ -12,14 +12,16 @@ public class TradeOrderInfoEntity {
 
 
     /**
-     * order : {"id":18,"order_no":"15775067520009","user":{"tel":"152****5510","avatar_url":"http://112.74.127.99:5016/images/default.png"},"trade_user":{"tel":"152****5511","avatar_url":"http://112.74.127.99:5016/images/default.png"},"point":100,"sum":"0.200","pay_sum":"0.20","status":-10,"status_text":"已取消","created_at":"2019-12-27 18:39:01"}
+     * order : {"id":2,"order_no":"15782330051795","user_type":1,"user":{"tel":"132****0912","avatar_url":"http://112.74.127.99:5016/images/default.png"},"trade_user":{"tel":"152****5510","avatar_url":"http://112.74.127.99:5016/images/default.png"},"point":1000,"price":"0.002","sum":"2.000","pay_sum":"2.00","payment_type":0,"wechat":null,"alipay":{"account":"user_3@qq.com","name":"张三","qrcode":""},"status":-10,"status_text":"已取消","created_at":"2020-01-05 22:03:25","send_time":"","receive_time":""}
      * left_seconds : 0
-     * trade_user_alipay : {"account":"123@qq.com","name":"张三"}
+     * user_tel : 13213580912
+     * trade_user_tel : 15251815510
      */
 
     private OrderBean order;
     private int left_seconds;
-    private TradeUserAlipayBean trade_user_alipay;
+    private String user_tel;
+    private String trade_user_tel;
 
     public OrderBean getOrder() {
         return order;
@@ -37,38 +39,60 @@ public class TradeOrderInfoEntity {
         this.left_seconds = left_seconds;
     }
 
-    public TradeUserAlipayBean getTrade_user_alipay() {
-        return trade_user_alipay;
+    public String getUser_tel() {
+        return user_tel;
     }
 
-    public void setTrade_user_alipay(TradeUserAlipayBean trade_user_alipay) {
-        this.trade_user_alipay = trade_user_alipay;
+    public void setUser_tel(String user_tel) {
+        this.user_tel = user_tel;
+    }
+
+    public String getTrade_user_tel() {
+        return trade_user_tel;
+    }
+
+    public void setTrade_user_tel(String trade_user_tel) {
+        this.trade_user_tel = trade_user_tel;
     }
 
     public static class OrderBean {
         /**
-         * id : 18
-         * order_no : 15775067520009
-         * user : {"tel":"152****5510","avatar_url":"http://112.74.127.99:5016/images/default.png"}
-         * trade_user : {"tel":"152****5511","avatar_url":"http://112.74.127.99:5016/images/default.png"}
-         * point : 100
-         * sum : 0.200
-         * pay_sum : 0.20
+         * id : 2
+         * order_no : 15782330051795
+         * user_type : 1
+         * user : {"tel":"132****0912","avatar_url":"http://112.74.127.99:5016/images/default.png"}
+         * trade_user : {"tel":"152****5510","avatar_url":"http://112.74.127.99:5016/images/default.png"}
+         * point : 1000
+         * price : 0.002
+         * sum : 2.000
+         * pay_sum : 2.00
+         * payment_type : 0
+         * wechat : null
+         * alipay : {"account":"user_3@qq.com","name":"张三","qrcode":""}
          * status : -10
          * status_text : 已取消
-         * created_at : 2019-12-27 18:39:01
+         * created_at : 2020-01-05 22:03:25
+         * send_time :
+         * receive_time :
          */
 
         private int id;
         private String order_no;
+        private int user_type;
         private UserBean user;
         private TradeUserBean trade_user;
         private int point;
+        private String price;
         private String sum;
         private String pay_sum;
+        private int payment_type;
+        private Object wechat;
+        private AlipayBean alipay;
         private int status;
         private String status_text;
         private String created_at;
+        private String send_time;
+        private String receive_time;
 
         public int getId() {
             return id;
@@ -84,6 +108,14 @@ public class TradeOrderInfoEntity {
 
         public void setOrder_no(String order_no) {
             this.order_no = order_no;
+        }
+
+        public int getUser_type() {
+            return user_type;
+        }
+
+        public void setUser_type(int user_type) {
+            this.user_type = user_type;
         }
 
         public UserBean getUser() {
@@ -110,6 +142,14 @@ public class TradeOrderInfoEntity {
             this.point = point;
         }
 
+        public String getPrice() {
+            return price;
+        }
+
+        public void setPrice(String price) {
+            this.price = price;
+        }
+
         public String getSum() {
             return sum;
         }
@@ -124,6 +164,30 @@ public class TradeOrderInfoEntity {
 
         public void setPay_sum(String pay_sum) {
             this.pay_sum = pay_sum;
+        }
+
+        public int getPayment_type() {
+            return payment_type;
+        }
+
+        public void setPayment_type(int payment_type) {
+            this.payment_type = payment_type;
+        }
+
+        public Object getWechat() {
+            return wechat;
+        }
+
+        public void setWechat(Object wechat) {
+            this.wechat = wechat;
+        }
+
+        public AlipayBean getAlipay() {
+            return alipay;
+        }
+
+        public void setAlipay(AlipayBean alipay) {
+            this.alipay = alipay;
         }
 
         public int getStatus() {
@@ -150,9 +214,25 @@ public class TradeOrderInfoEntity {
             this.created_at = created_at;
         }
 
+        public String getSend_time() {
+            return send_time;
+        }
+
+        public void setSend_time(String send_time) {
+            this.send_time = send_time;
+        }
+
+        public String getReceive_time() {
+            return receive_time;
+        }
+
+        public void setReceive_time(String receive_time) {
+            this.receive_time = receive_time;
+        }
+
         public static class UserBean {
             /**
-             * tel : 152****5510
+             * tel : 132****0912
              * avatar_url : http://112.74.127.99:5016/images/default.png
              */
 
@@ -178,7 +258,7 @@ public class TradeOrderInfoEntity {
 
         public static class TradeUserBean {
             /**
-             * tel : 152****5511
+             * tel : 152****5510
              * avatar_url : http://112.74.127.99:5016/images/default.png
              */
 
@@ -201,31 +281,41 @@ public class TradeOrderInfoEntity {
                 this.avatar_url = avatar_url;
             }
         }
-    }
 
-    public static class TradeUserAlipayBean {
-        /**
-         * account : 123@qq.com
-         * name : 张三
-         */
+        public static class AlipayBean {
+            /**
+             * account : user_3@qq.com
+             * name : 张三
+             * qrcode :
+             */
 
-        private String account;
-        private String name;
+            private String account;
+            private String name;
+            private String qrcode;
 
-        public String getAccount() {
-            return account;
-        }
+            public String getAccount() {
+                return account;
+            }
 
-        public void setAccount(String account) {
-            this.account = account;
-        }
+            public void setAccount(String account) {
+                this.account = account;
+            }
 
-        public String getName() {
-            return name;
-        }
+            public String getName() {
+                return name;
+            }
 
-        public void setName(String name) {
-            this.name = name;
+            public void setName(String name) {
+                this.name = name;
+            }
+
+            public String getQrcode() {
+                return qrcode;
+            }
+
+            public void setQrcode(String qrcode) {
+                this.qrcode = qrcode;
+            }
         }
     }
 }

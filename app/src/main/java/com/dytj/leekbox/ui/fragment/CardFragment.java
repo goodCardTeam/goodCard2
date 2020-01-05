@@ -10,11 +10,9 @@ import com.dytj.leekbox.R;
 import com.dytj.leekbox.base.LifecycleBaseFragment;
 import com.dytj.leekbox.model.JsonResponse;
 import com.dytj.leekbox.model.MyTradeOrderEntity;
-import com.dytj.leekbox.model.TradeListEntity;
-import com.dytj.leekbox.presenter.CardContact;
-import com.dytj.leekbox.presenter.CardPresenter;
 import com.dytj.leekbox.presenter.MyTradeOrderContact;
 import com.dytj.leekbox.presenter.MyTradeOrderPresenter;
+import com.dytj.leekbox.ui.activity.TradeOrderInfoActivity;
 import com.dytj.leekbox.ui.adapter.CommonAdapter;
 import com.dytj.leekbox.ui.adapter.ViewHolder;
 import com.dytj.leekbox.utils.MyToast;
@@ -28,6 +26,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -115,7 +115,8 @@ public class CardFragment extends LifecycleBaseFragment<MyTradeOrderPresenter> i
         if (bundle != null) {
             status = bundle.getString("status");
         }
-
+        currentPage=1;
+        listData.clear();
         getTradeList();
     }
 
@@ -125,6 +126,10 @@ public class CardFragment extends LifecycleBaseFragment<MyTradeOrderPresenter> i
         cardRv = view.findViewById(R.id.card_rv);
         //设置LayoutManager为LinearLayoutManager
         cardRv.setLayoutManager(new LinearLayoutManager(getActivity()));
+        //添加自定义分割线
+        DividerItemDecoration divider = new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL);
+        divider.setDrawable(ContextCompat.getDrawable(getActivity(),R.drawable.custom_divider));
+        cardRv.addItemDecoration(divider);
 
     }
 
@@ -144,7 +149,6 @@ public class CardFragment extends LifecycleBaseFragment<MyTradeOrderPresenter> i
         params.put("page", currentPage);
         params.put("per_page", "10");
         params.put("status", status);
-        params.put("trade_id", "14");
         presenter.getData(params, TRADE_LIST);
     }
 
@@ -165,7 +169,19 @@ public class CardFragment extends LifecycleBaseFragment<MyTradeOrderPresenter> i
         }
         cardRv.setAdapter(new CommonAdapter<MyTradeOrderEntity.OrdersBean>(getActivity(), R.layout.item_trade_order, listData) {
             @Override
-            public void convert(ViewHolder holder, MyTradeOrderEntity.OrdersBean bean) {
+            public void convert(ViewHolder holder, final MyTradeOrderEntity.OrdersBean bean) {
+                holder.setText(R.id.item_trade_order_no,bean.getOrder_no());
+                holder.setText(R.id.item_trade_order_time,bean.getCreated_at());
+                holder.setText(R.id.item_trade_order_price,bean.getPrice());
+                holder.setText(R.id.item_trade_order_number,String.valueOf(bean.getPoint()));
+                holder.setText(R.id.item_trade_order_total,bean.getPay_sum());
+                holder.setText(R.id.item_trade_order_status,bean.getStatus_text());
+                holder.setOnClickListener(R.id.item_trade_order_layout, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        TradeOrderInfoActivity.start(getActivity(),String.valueOf(bean.getId()));
+                    }
+                });
             }
         });
     }

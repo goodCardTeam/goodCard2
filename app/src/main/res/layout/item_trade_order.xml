@@ -3,6 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="10dp"
+    android:id="@+id/item_trade_order_layout"
+    android:background="@color/white"
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,6 +17,7 @@
             android:textColor="@color/gray_6"
             android:textSize="14sp"/>
         <TextView
+            android:id="@+id/item_trade_order_no"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -22,6 +25,7 @@
             android:textSize="14sp"
             android:textColor="@color/gray_4a"/>
         <TextView
+            android:id="@+id/item_trade_order_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2019-09-12"
@@ -44,13 +48,15 @@
             android:text="单价"
             android:textColor="@color/gray_4a"
             android:textSize="12sp"/>
+
         <TextView
+            android:id="@+id/item_trade_order_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:text="￥22.00"
             android:textColor="@color/hint_yellow"
-            android:textSize="12sp"/>
+            android:textSize="12sp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -59,6 +65,7 @@
             android:textColor="@color/gray_4a"
             android:textSize="12sp"/>
         <TextView
+            android:id="@+id/item_trade_order_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -78,6 +85,7 @@
             android:textColor="@color/gray_4a"
             android:textSize="12sp"/>
         <TextView
+            android:id="@+id/item_trade_order_total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -95,6 +103,7 @@
             android:layout_height="15dp"
             android:src="@mipmap/ic_launcher_round"/>
         <TextView
+            android:id="@+id/item_trade_order_status"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"

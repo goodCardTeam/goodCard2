@@ -13,6 +13,15 @@ public class JsonResponse<T> implements Serializable{
   String msg;
   T data;
 
+  @Override
+  public String toString() {
+    return "JsonResponse{" +
+            "code=" + code +
+            ", msg='" + msg + '\'' +
+            ", data=" + data +
+            '}';
+  }
+
   public T getData() {
     return data;
   }

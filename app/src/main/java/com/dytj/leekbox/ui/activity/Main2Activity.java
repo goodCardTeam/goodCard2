@@ -59,7 +59,7 @@ public class Main2Activity extends LifecycleBaseActivity<TestContact.presenter>
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setStatusYesBar();
+//        setStatusYesBar();
         setContentView(R.layout.activity_main2);
         map = new HashMap<>();
         initView();

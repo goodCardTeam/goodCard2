@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.text.ClipboardManager;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 
 import com.dytj.leekbox.MyApplication;
@@ -420,6 +422,7 @@ public class ToolUtils {
 
     /**
      * 高德地图坐标转百度地图坐标
+     *
      * @param gd_lon
      * @param gd_lat
      * @return
@@ -437,6 +440,7 @@ public class ToolUtils {
 
     /**
      * 百度地图坐标转高德地图坐标
+     *
      * @param bd_lat
      * @param bd_lon
      * @return
@@ -450,6 +454,20 @@ public class ToolUtils {
         gd_lat_lon[0] = z * Math.cos(theta);
         gd_lat_lon[1] = z * Math.sin(theta);
         return gd_lat_lon;
+    }
+
+    /**
+     * 复制文本
+     * @param context
+     * @param str
+     */
+    public static void copyText(Context context, String str) {
+        // 从API11开始android推荐使用android.content.ClipboardManager
+        // 为了兼容低版本我们这里使用旧版的android.text.ClipboardManager，虽然提示deprecated，但不影响使用。
+        ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        // 将文本内容放到系统剪贴板里。
+        cm.setText(str);
+        MyToast.showMyToast2(context, "复制成功", Toast.LENGTH_SHORT);
     }
 
 

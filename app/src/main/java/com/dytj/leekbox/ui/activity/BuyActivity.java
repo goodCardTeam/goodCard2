@@ -52,7 +52,6 @@ public class BuyActivity extends LifecycleBaseActivity<BuyPresenter> implements 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setStatusYesBar();
         setContentView(R.layout.activity_buy);
         initView();
         initListener();

@@ -67,7 +67,7 @@ public class PointActivity extends LifecycleBaseActivity<CardPresenter> implemen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setStatusYesBar();
+//        setStatusYesBar();
         setContentView(R.layout.activity_point);
         initView();
         initListener();

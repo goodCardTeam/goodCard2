@@ -66,7 +66,7 @@ public class MyApplication extends Application {
         super.onCreate();
         this.instance = (MyApplication) getApplicationContext();
         context = (MyApplication) getApplicationContext();
-        Bugly.init(getApplicationContext(), "f28b568432", true);
+        Bugly.init(getApplicationContext(), "f28b568432", false);
 
         registerActivityLifecycleCallbacks(new MyLifecycleHandler());
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {

@@ -11,6 +11,7 @@ import com.dytj.leekbox.model.RainbowEntity;
 import com.dytj.leekbox.model.RegisterEntity;
 import com.dytj.leekbox.model.TradeListEntity;
 import com.dytj.leekbox.model.JsonResponse;
+import com.dytj.leekbox.model.TradeOrderInfoEntity;
 import com.dytj.leekbox.model.UserRechargeWay;
 
 import java.util.HashMap;
@@ -105,6 +106,15 @@ public class UserNetWork extends BaseNetWork {
         @FormUrlEncoded
         @POST("api/trade-orders/add")
         Observable<JsonResponse<CreateTradeOrderEntity>> createTradeOrderRequest(@FieldMap HashMap<String, Object> modificationPassWordEntryMap);
+
+        /**
+         * 积分交易订单详情
+         * @param modificationPassWordEntryMap
+         * @return
+         */
+        @FormUrlEncoded
+        @POST("api/trade-orders/add")
+        Observable<JsonResponse<TradeOrderInfoEntity>> tradeOrderInfoRequest(@FieldMap HashMap<String, Object> modificationPassWordEntryMap);
 
         //获取消息列表
         @GET("api/AppPrivate/get_messages")
@@ -221,5 +231,14 @@ public class UserNetWork extends BaseNetWork {
      */
     public void createTradeOrderRequest(HashMap<String, Object> paramMap, Observer<JsonResponse<CreateTradeOrderEntity>> observer){
         setSubscribe(service.createTradeOrderRequest(paramMap),observer);
+    }
+
+    /**
+     * 交易订单详情
+     * @param paramMap
+     * @param observer
+     */
+    public void tradeOrderInfoRequest(HashMap<String, Object> paramMap, Observer<JsonResponse<TradeOrderInfoEntity>> observer){
+        setSubscribe(service.tradeOrderInfoRequest(paramMap),observer);
     }
 }

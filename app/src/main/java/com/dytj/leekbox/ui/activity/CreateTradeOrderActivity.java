@@ -33,7 +33,6 @@ public class CreateTradeOrderActivity extends LifecycleBaseActivity<CreatTradeOr
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setStatusYesBar();
         setContentView(R.layout.activity_create_trade_order);
         initView();
         initData();

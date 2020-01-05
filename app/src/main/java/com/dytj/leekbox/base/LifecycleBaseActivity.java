@@ -5,10 +5,14 @@ import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
@@ -64,7 +68,7 @@ public abstract class LifecycleBaseActivity<P extends BasePresenter> extends Che
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setStatusBar();
-        switch (0){
+        switch (0) {
             case 0:
                 sTheme = R.style.AppThemeLightBlue;
                 break;
@@ -83,7 +87,7 @@ public abstract class LifecycleBaseActivity<P extends BasePresenter> extends Che
         }
         setTheme(sTheme);
         AppManager.getAppManager(this).addActivity(this);
-        if (userNetWork==null) {
+        if (userNetWork == null) {
             userNetWork = new UserNetWork();
         }
         presenter = initPresenter();
@@ -165,11 +169,10 @@ public abstract class LifecycleBaseActivity<P extends BasePresenter> extends Che
         StatusBarUtil.setColor(this, getResources().getColor(R.color.red_6729), 45);
     }
 
-    public void setStatusYesBar(){
-        StatusBarUtil.setTranslucent(this,40);
-        StatusBarUtil.setDarkStatusIcon(this,true);
+    public void setStatusYesBar() {
+        StatusBarUtil.setTranslucent(this, 40);
+        StatusBarUtil.setDarkStatusIcon(this, true);
     }
-
 
 
     //判断当前的应用程序是不是在运行
@@ -441,4 +444,22 @@ public abstract class LifecycleBaseActivity<P extends BasePresenter> extends Che
     protected void receiveStickyEvent(Event event) {
 
     }
+
+//    protected void initSystemBarTint() {
+//
+//        Window window = getWindow();
+//        if (translucentStatusBar()) {
+//            // 沉浸式状态栏
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//                window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+//                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+//                window.setStatusBarColor(Color.BLACK);
+//            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//                getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//                getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+//            }
+//            return;
+//        }
+//    }
 }

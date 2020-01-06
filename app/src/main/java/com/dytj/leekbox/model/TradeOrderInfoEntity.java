@@ -20,8 +20,8 @@ public class TradeOrderInfoEntity {
 
     private OrderBean order;
     private int left_seconds;
-    private String user_tel;
-    private String trade_user_tel;
+    private String user_tel="";
+    private String trade_user_tel="";
 
     public OrderBean getOrder() {
         return order;
@@ -77,22 +77,22 @@ public class TradeOrderInfoEntity {
          */
 
         private int id;
-        private String order_no;
+        private String order_no="";
         private int user_type;
         private UserBean user;
         private TradeUserBean trade_user;
         private int point;
-        private String price;
-        private String sum;
-        private String pay_sum;
+        private String price="";
+        private String sum="";
+        private String pay_sum="";
         private int payment_type;
         private Object wechat;
         private AlipayBean alipay;
         private int status;
-        private String status_text;
-        private String created_at;
-        private String send_time;
-        private String receive_time;
+        private String status_text="";
+        private String created_at="";
+        private String send_time="";
+        private String receive_time="";
 
         public int getId() {
             return id;
@@ -236,8 +236,8 @@ public class TradeOrderInfoEntity {
              * avatar_url : http://112.74.127.99:5016/images/default.png
              */
 
-            private String tel;
-            private String avatar_url;
+            private String tel="";
+            private String avatar_url="";
 
             public String getTel() {
                 return tel;
@@ -262,8 +262,8 @@ public class TradeOrderInfoEntity {
              * avatar_url : http://112.74.127.99:5016/images/default.png
              */
 
-            private String tel;
-            private String avatar_url;
+            private String tel="";
+            private String avatar_url="";
 
             public String getTel() {
                 return tel;
@@ -289,9 +289,9 @@ public class TradeOrderInfoEntity {
              * qrcode :
              */
 
-            private String account;
-            private String name;
-            private String qrcode;
+            private String account="";
+            private String name="";
+            private String qrcode="";
 
             public String getAccount() {
                 return account;
@@ -318,4 +318,6 @@ public class TradeOrderInfoEntity {
             }
         }
     }
+
+
 }

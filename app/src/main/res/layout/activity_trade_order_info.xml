@@ -34,6 +34,7 @@
                         android:textColor="@color/gray_6"
                         android:textSize="13sp"/>
                     <TextView
+                        android:id="@+id/trade_order_info_no"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0908045245252435"
@@ -41,11 +42,13 @@
                         android:textColor="@color/gray_6"
                         android:textSize="13sp"/>
                     <ImageView
+                        android:id="@+id/trade_order_info_copy"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="6dp"
                         android:src="@drawable/vector_drawable_copy"/>
                     <TextView
+                        android:id="@+id/trade_order_info_status"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
@@ -75,6 +78,7 @@
                             android:textColor="@color/gray_6"
                             android:textSize="13sp"/>
                         <TextView
+                            android:id="@+id/trade_order_info_buyer_name"
                             android:layout_width="0dp"
                             android:layout_weight="2.5"
                             android:layout_height="wrap_content"
@@ -95,6 +99,7 @@
                             android:textColor="@color/gray_6"
                             android:textSize="13sp"/>
                         <TextView
+                            android:id="@+id/trade_order_info_buyer_tel"
                             android:layout_width="0dp"
                             android:layout_weight="2.5"
                             android:layout_height="wrap_content"
@@ -116,6 +121,7 @@
                             android:textColor="@color/gray_6"
                             android:textSize="13sp"/>
                         <TextView
+                            android:id="@+id/trade_order_info_buyer_number"
                             android:layout_width="0dp"
                             android:layout_weight="2.5"
                             android:layout_height="wrap_content"
@@ -136,6 +142,7 @@
                             android:textColor="@color/gray_6"
                             android:textSize="13sp"/>
                         <TextView
+                            android:id="@+id/trade_order_info_buyer_price"
                             android:layout_width="0dp"
                             android:layout_weight="2.5"
                             android:layout_height="wrap_content"
@@ -156,6 +163,7 @@
                             android:textColor="@color/gray_6"
                             android:textSize="13sp"/>
                         <TextView
+                            android:id="@+id/trade_order_info_buyer_total"
                             android:layout_width="0dp"
                             android:layout_weight="2.5"
                             android:layout_height="wrap_content"
@@ -176,6 +184,7 @@
                             android:textColor="@color/gray_6"
                             android:textSize="13sp"/>
                         <TextView
+                            android:id="@+id/trade_order_info_buyer_time"
                             android:layout_width="0dp"
                             android:layout_weight="2.5"
                             android:layout_height="wrap_content"
@@ -215,6 +224,7 @@
                             android:textColor="@color/gray_6"
                             android:textSize="13sp"/>
                         <TextView
+                            android:id="@+id/trade_order_info_sell_pay"
                             android:layout_width="0dp"
                             android:layout_weight="2.5"
                             android:layout_height="wrap_content"
@@ -235,6 +245,7 @@
                             android:textColor="@color/gray_6"
                             android:textSize="13sp"/>
                         <TextView
+                            android:id="@+id/trade_order_info_sell_name"
                             android:layout_width="0dp"
                             android:layout_weight="2.5"
                             android:layout_height="wrap_content"
@@ -255,6 +266,7 @@
                             android:textColor="@color/gray_6"
                             android:textSize="13sp"/>
                         <TextView
+                            android:id="@+id/trade_order_info_sell_real_name"
                             android:layout_width="0dp"
                             android:layout_weight="2.5"
                             android:layout_height="wrap_content"
@@ -275,6 +287,7 @@
                             android:textColor="@color/gray_6"
                             android:textSize="13sp"/>
                         <TextView
+                            android:id="@+id/trade_order_info_sell_total"
                             android:layout_width="0dp"
                             android:layout_weight="2.5"
                             android:layout_height="wrap_content"
@@ -295,6 +308,7 @@
                             android:textColor="@color/gray_6"
                             android:textSize="13sp"/>
                         <TextView
+                            android:id="@+id/trade_order_info_sell_pay_time"
                             android:layout_width="0dp"
                             android:layout_weight="2.5"
                             android:layout_height="wrap_content"
@@ -315,6 +329,7 @@
                             android:textColor="@color/gray_6"
                             android:textSize="13sp"/>
                         <TextView
+                            android:id="@+id/trade_order_info_sell_f_time"
                             android:layout_width="0dp"
                             android:layout_weight="2.5"
                             android:layout_height="wrap_content"

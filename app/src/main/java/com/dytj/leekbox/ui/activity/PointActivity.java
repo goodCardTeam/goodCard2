@@ -69,13 +69,16 @@ public class PointActivity extends LifecycleBaseActivity<CardPresenter> implemen
         super.onCreate(savedInstanceState);
 //        setStatusYesBar();
         setContentView(R.layout.activity_point);
+        ToolBarStyle(0);
+        setBack(true);
+        setTitle("积分市场");
+        setMenu("我的交易",R.color.gray_3);
         initView();
         initListener();
         initData();
     }
 
     private void initData() {
-        title.setText("积分市场");
         getTradeList();
     }
 
@@ -115,16 +118,6 @@ public class PointActivity extends LifecycleBaseActivity<CardPresenter> implemen
         pointRv = findViewById(R.id.point_rv);
         //设置LayoutManager为LinearLayoutManager
         pointRv.setLayoutManager(new LinearLayoutManager(this));
-        title = findViewById(R.id.title);
-        myBack=findViewById(R.id.myBack);
-        myBack.setImageResource(R.mipmap.arrow_left_w);
-        myBack.setVisibility(View.VISIBLE);
-        myBack.setOnClickListener(this);
-        menu=findViewById(R.id.menu);
-        menu.setText("我的交易");
-        menu.setVisibility(View.VISIBLE);
-        menu.setTextColor(getResources().getColor(R.color.white));
-        menu.setOnClickListener(this);
         pointBuy=findViewById(R.id.point_buy);
         pointBuy.setOnClickListener(this);
     }

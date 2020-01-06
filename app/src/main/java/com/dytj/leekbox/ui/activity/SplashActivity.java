@@ -42,6 +42,7 @@ public class SplashActivity extends LifecycleBaseActivity<LoginPresenter>
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        setDarkStatusIcon(true);
         initData();
     }
 

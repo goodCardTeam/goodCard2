@@ -38,8 +38,6 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ActiveFragment extends LifecycleBaseFragment<RainbowPresenter> implements RainbowContact.view, View.OnClickListener {
 
     private View view;
-
-    private TextView title;
     private RecyclerView mRecyclerView;
     private CardScaleHelper mCardScaleHelper;
     private List<Integer> mList = new ArrayList<>();
@@ -70,8 +68,6 @@ public class ActiveFragment extends LifecycleBaseFragment<RainbowPresenter> impl
     }
 
     private void initData() {
-        title.setText("好玩中心");
-        title.setTextColor(getActivity().getResources().getColor(R.color.white));
         List<String> list = new ArrayList<>();
         list.add("彩虹堂");
         activeRv.setAdapter(new CommonAdapter<String>(getActivity(), R.layout.item_active, list) {
@@ -89,7 +85,6 @@ public class ActiveFragment extends LifecycleBaseFragment<RainbowPresenter> impl
     }
 
     private void initView() {
-        title = view.findViewById(R.id.title);
         activeRv = view.findViewById(R.id.active_rv);
         //设置LayoutManager为LinearLayoutManager
         activeRv.setLayoutManager(new LinearLayoutManager(getActivity()));

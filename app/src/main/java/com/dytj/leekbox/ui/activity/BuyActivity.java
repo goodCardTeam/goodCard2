@@ -44,8 +44,6 @@ public class BuyActivity extends LifecycleBaseActivity<BuyPresenter> implements 
     private EditText buyNum;
     private TextView buyFinalPrice;
     private Button buyCommit;
-    private ImageButton myBack;
-    private TextView title;
     public static final String REQUEST_BUY = "request_buy";
     private double buyPrice;
 
@@ -53,6 +51,9 @@ public class BuyActivity extends LifecycleBaseActivity<BuyPresenter> implements 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buy);
+        ToolBarStyle(0);
+        setBack(true);
+        setTitle("我要买");
         initView();
         initListener();
         initData();
@@ -112,15 +113,9 @@ public class BuyActivity extends LifecycleBaseActivity<BuyPresenter> implements 
     }
 
     private void initData() {
-        title.setText("我要买");
     }
 
     private void initView() {
-        myBack = findViewById(R.id.myBack);
-        myBack.setVisibility(View.VISIBLE);
-        myBack.setImageResource(R.mipmap.arrow_left_w);
-        myBack.setOnClickListener(this);
-        title = findViewById(R.id.title);
         buyYesterdayPrice = findViewById(R.id.buy_yesterday_price);
         buyReduce = findViewById(R.id.buy_reduce);
         buyReduce.setOnClickListener(this);

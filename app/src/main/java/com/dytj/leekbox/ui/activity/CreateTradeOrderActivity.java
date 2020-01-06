@@ -23,8 +23,6 @@ import java.util.HashMap;
 public class CreateTradeOrderActivity extends LifecycleBaseActivity<CreatTradeOrderPresenter> implements CreatTradeOrderContact.view , View.OnClickListener  {
 
     public static final String REQUEST_SELL = "request_sell";
-    private ImageButton myBack;
-    private TextView title;
     private TextView sellCommit;
     private int tradeId;
     private String price;
@@ -34,6 +32,9 @@ public class CreateTradeOrderActivity extends LifecycleBaseActivity<CreatTradeOr
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_trade_order);
+        ToolBarStyle(0);
+        setBack(true);
+        setTitle("卖给TA");
         initView();
         initData();
     }
@@ -46,18 +47,12 @@ public class CreateTradeOrderActivity extends LifecycleBaseActivity<CreatTradeOr
     }
 
     private void initData() {
-        title.setText("卖给TA");
         tradeId=getIntent().getIntExtra("trade_id",0);
         price=getIntent().getStringExtra("price");
         sellSinglePrice.setText(price);
     }
 
     private void initView() {
-        myBack = findViewById(R.id.myBack);
-        myBack.setVisibility(View.VISIBLE);
-        myBack.setImageResource(R.mipmap.arrow_left_w);
-        myBack.setOnClickListener(this);
-        title = findViewById(R.id.title);
         sellCommit=findViewById(R.id.sell_commit);
         sellCommit.setOnClickListener(this);
         sellSinglePrice=findViewById(R.id.sell_single_price);

@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/background"
-    android:fitsSystemWindows="true"
     tools:context=".ui.activity.TradeOrderInfoActivity">
     <include layout="@layout/view_title_bar"/>
 

@@ -30,6 +30,9 @@ public class TradeOrderInfoActivity extends LifecycleBaseActivity<TradeOrderInfo
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trade_order_info);
+        ToolBarStyle(0);
+        setBack(true);
+        setTitle("订单详情");
         initView();
         initData();
     }

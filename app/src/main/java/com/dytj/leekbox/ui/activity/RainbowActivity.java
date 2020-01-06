@@ -48,6 +48,10 @@ public class RainbowActivity extends LifecycleBaseActivity<RainbowPresenter> imp
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rainbow);
+        ToolBarStyle(0);
+        setBack(true);
+        setTitle("我要买");
+        setMenu("积分市场",R.color.gray_3);
         initView();
         initData();
     }
@@ -64,9 +68,6 @@ public class RainbowActivity extends LifecycleBaseActivity<RainbowPresenter> imp
 
 
     private void initData() {
-        title.setText("彩虹堂");
-        title.setTextColor(getResources().getColor(R.color.white));
-//        getDataList();
         for (int i = 0; i < 10; i++) {
             mList.add(R.drawable.pic4);
             mList.add(R.drawable.pic5);
@@ -87,18 +88,8 @@ public class RainbowActivity extends LifecycleBaseActivity<RainbowPresenter> imp
     }
 
     private void initView() {
-        myBack = findViewById(R.id.myBack);
-        myBack.setVisibility(View.VISIBLE);
-        myBack.setImageResource(R.mipmap.arrow_left_w);
-        myBack.setOnClickListener(this);
         mBlurView = findViewById(R.id.blurView);
-        menu = findViewById(R.id.menu);
-        menu.setOnClickListener(this);
-        menu.setVisibility(View.VISIBLE);
-        menu.setTextColor(getResources().getColor(R.color.white));
-        menu.setText("积分市场");
         mRecyclerView = findViewById(R.id.recyclerView);
-        title = findViewById(R.id.title);
     }
 
     private void initBlurBackground() {

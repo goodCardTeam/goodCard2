@@ -177,6 +177,7 @@ public class LoginActivity extends LifecycleBaseActivity<LoginPresenter>
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        setDarkStatusIcon(true);
         initView();
         initData();
         initEvent();

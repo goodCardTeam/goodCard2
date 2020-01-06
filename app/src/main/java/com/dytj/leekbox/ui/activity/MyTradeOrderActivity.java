@@ -26,14 +26,15 @@ public class MyTradeOrderActivity extends LifecycleBaseActivity<MyTradeOrderPres
     private TabLayout cardTab;
     private ViewPager cardFragment;
     private List<Fragment> fragmentList = new ArrayList<>();
-    private ImageButton myBack;
-    private TextView title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setStatusYesBar();
         setContentView(R.layout.activity_my_trade_order);
+        ToolBarStyle(0);
+        setBack(true);
+        setTitle("我的订单");
         initView();
         initData();
 
@@ -45,7 +46,6 @@ public class MyTradeOrderActivity extends LifecycleBaseActivity<MyTradeOrderPres
     }
 
     private void initData() {
-        title.setText("我的订单");
         List<String> listTitle = new ArrayList<>();
         listTitle.add("已完成");
         listTitle.add("待付款");
@@ -80,11 +80,6 @@ public class MyTradeOrderActivity extends LifecycleBaseActivity<MyTradeOrderPres
     private void initView() {
         cardTab = findViewById(R.id.my_trade_order_tab);
         cardFragment = findViewById(R.id.my_trade_order_fragment);
-        myBack = findViewById(R.id.myBack);
-        myBack.setOnClickListener(this);
-        myBack.setVisibility(View.VISIBLE);
-        myBack.setImageResource(R.mipmap.arrow_left_w);
-        title=findViewById(R.id.title);
     }
 
     public static void start(Activity activity) {

@@ -8,7 +8,11 @@ import android.os.Handler;
 import android.os.Looper;
 import android.widget.Toast;
 
+import com.bytedance.sdk.openadsdk.TTAdConfig;
+import com.bytedance.sdk.openadsdk.TTAdConstant;
+import com.bytedance.sdk.openadsdk.TTAdSdk;
 import com.dytj.leekbox.base.MyLifecycleHandler;
+import com.dytj.leekbox.utils.TTAdManagerHolder;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
@@ -34,6 +38,8 @@ public class MyApplication extends Application {
     private static List<Activity> activities;
     private int activityCount = 0;//activity的count数
     private boolean isForeground = true;//是否在前台
+
+    public static String PROCESS_NAME_XXXX = "process_name_xxxx";
 
     static {
         //设置全局的Header构建器
@@ -67,7 +73,7 @@ public class MyApplication extends Application {
         this.instance = (MyApplication) getApplicationContext();
         context = (MyApplication) getApplicationContext();
         Bugly.init(getApplicationContext(), "f28b568432", false);
-
+        initAdConfig();
         registerActivityLifecycleCallbacks(new MyLifecycleHandler());
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             @Override
@@ -111,6 +117,10 @@ public class MyApplication extends Application {
 
             }
         });
+    }
+
+    private void initAdConfig(){
+        TTAdManagerHolder.init(this);
     }
 
     private void showToast(final String text) {

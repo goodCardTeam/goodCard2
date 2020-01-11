@@ -100,6 +100,9 @@ public class MyTradeOrderEntity {
 
         private int id;
         private String order_no;
+        /**
+         * 卖单1，买单2
+         */
         private int user_type;
         private UserBean user;
         private TradeUserBean trade_user;

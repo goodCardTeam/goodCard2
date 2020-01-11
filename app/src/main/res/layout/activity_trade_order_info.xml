@@ -340,17 +340,45 @@
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
-        <Button
-            android:id="@+id/trade_order_info_commit"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@drawable/edit_shape2"
-            android:text="确定"
-            android:textColor="@color/white"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="5dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"/>
+            android:layout_marginBottom="5dp">
+            <Button
+                android:id="@+id/trade_order_info_tel"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="45dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/edit_shape2"
+                android:text="联系TA"
+                android:textColor="@color/white"/>
+            <Button
+                android:id="@+id/trade_order_info_commit"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="45dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:visibility="gone"
+                android:background="@drawable/edit_shape2"
+                android:text="确定"
+                android:textColor="@color/white"/>
+            <Button
+                android:id="@+id/trade_order_info_cancel"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="45dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:visibility="gone"
+                android:background="@drawable/edit_shape2"
+                android:text="确定"
+                android:textColor="@color/white"/>
+        </LinearLayout>
+
     </RelativeLayout>
 
 

@@ -123,4 +123,36 @@ public class ViewHolder extends RecyclerView.ViewHolder {
         return this;
     }
 
+    /**
+     * 设置textview背景颜色
+     * @param viewId
+     * @param color
+     * @return
+     */
+    public ViewHolder setTextBackgroundColor(int viewId, int color) {
+        TextView tv = (TextView) mViews.get(viewId);
+        if (null == tv) {
+            tv = mConvertView.findViewById(viewId);
+            mViews.put(viewId, tv);
+        }
+        tv.setBackgroundColor(color);
+        return this;
+    }
+
+    /**
+     * 设置TextView字体颜色
+     * @param viewId
+     * @param color
+     * @return
+     */
+    public ViewHolder setTextColor(int viewId, int color) {
+        TextView tv = (TextView) mViews.get(viewId);
+        if (null == tv) {
+            tv = mConvertView.findViewById(viewId);
+            mViews.put(viewId, tv);
+        }
+        tv.setTextColor(color);
+        return this;
+    }
+
 }

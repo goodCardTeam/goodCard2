@@ -1,6 +1,7 @@
 package com.dytj.goodcard.ui.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,9 @@ import com.dytj.goodcard.presenter.MyTradeOrderPresenter;
 import com.dytj.goodcard.ui.activity.TradeOrderInfoActivity;
 import com.dytj.goodcard.ui.adapter.CommonAdapter;
 import com.dytj.goodcard.ui.adapter.ViewHolder;
+import com.dytj.goodcard.utils.Constants;
 import com.dytj.goodcard.utils.MyToast;
+import com.google.gson.Gson;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -115,7 +118,7 @@ public class CardFragment extends LifecycleBaseFragment<MyTradeOrderPresenter> i
         if (bundle != null) {
             status = bundle.getString("status");
         }
-        currentPage=1;
+        currentPage = 1;
         listData.clear();
         getTradeList();
     }
@@ -127,8 +130,8 @@ public class CardFragment extends LifecycleBaseFragment<MyTradeOrderPresenter> i
         //设置LayoutManager为LinearLayoutManager
         cardRv.setLayoutManager(new LinearLayoutManager(getActivity()));
         //添加自定义分割线
-        DividerItemDecoration divider = new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL);
-        divider.setDrawable(ContextCompat.getDrawable(getActivity(),R.drawable.custom_divider));
+        DividerItemDecoration divider = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
+        divider.setDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.custom_divider));
         cardRv.addItemDecoration(divider);
 
     }
@@ -161,6 +164,10 @@ public class CardFragment extends LifecycleBaseFragment<MyTradeOrderPresenter> i
         if (myLoadMoreLayout != null) {
             myLoadMoreLayout.finishLoadMore(true);
         }
+        Gson gson = new Gson();
+        String json = gson.toJson(orderEntity);
+        Log.e("aaa", "json:" + json);
+
         pages = orderEntity.getData().getPages();
         currentPage = orderEntity.getData().getPage();
         List<MyTradeOrderEntity.OrdersBean> orders = orderEntity.getData().getOrders();
@@ -170,16 +177,27 @@ public class CardFragment extends LifecycleBaseFragment<MyTradeOrderPresenter> i
         cardRv.setAdapter(new CommonAdapter<MyTradeOrderEntity.OrdersBean>(getActivity(), R.layout.item_trade_order, listData) {
             @Override
             public void convert(ViewHolder holder, final MyTradeOrderEntity.OrdersBean bean) {
-                holder.setText(R.id.item_trade_order_no,bean.getOrder_no());
-                holder.setText(R.id.item_trade_order_time,bean.getCreated_at());
-                holder.setText(R.id.item_trade_order_price,bean.getPrice());
-                holder.setText(R.id.item_trade_order_number,String.valueOf(bean.getPoint()));
-                holder.setText(R.id.item_trade_order_total,bean.getPay_sum());
-                holder.setText(R.id.item_trade_order_status,bean.getStatus_text());
+                holder.setText(R.id.item_trade_order_no, bean.getOrder_no());
+                holder.setText(R.id.item_trade_order_time, bean.getCreated_at());
+                holder.setText(R.id.item_trade_order_price, bean.getPrice());
+                holder.setText(R.id.item_trade_order_number, String.valueOf(bean.getPoint()));
+                holder.setText(R.id.item_trade_order_total, bean.getPay_sum());
+                holder.setText(R.id.item_trade_order_status, bean.getStatus_text());
+                if (bean.getUser_type() == 2) {
+                    holder.setTextBackgroundColor(R.id.item_trade_order_color, getActivity().getResources().getColor(R.color.green_25));
+                }else if(bean.getUser_type()==1){
+                    holder.setTextBackgroundColor(R.id.item_trade_order_color, getActivity().getResources().getColor(R.color.red_6729));
+                }
+                if(bean.getStatus()== Constants.ORDER_TYPE_PAY||
+                bean.getStatus()==Constants.ORDER_TYPE_GET){
+                    holder.setTextColor(R.id.item_trade_order_status,getActivity().getResources().getColor(R.color.red_6729));
+                }else if(bean.getStatus()==Constants.ORDER_TYPE_FINNISH){
+                    holder.setTextColor(R.id.item_trade_order_status,getActivity().getResources().getColor(R.color.green_25));
+                }
                 holder.setOnClickListener(R.id.item_trade_order_layout, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        TradeOrderInfoActivity.start(getActivity(),String.valueOf(bean.getId()));
+                        TradeOrderInfoActivity.start(getActivity(), String.valueOf(bean.getId()));
                     }
                 });
             }

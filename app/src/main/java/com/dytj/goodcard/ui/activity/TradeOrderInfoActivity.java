@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +17,7 @@ import com.dytj.goodcard.model.JsonResponse;
 import com.dytj.goodcard.model.TradeOrderInfoEntity;
 import com.dytj.goodcard.presenter.TradeOrderInfoContact;
 import com.dytj.goodcard.presenter.TradeOrderInfoPresenter;
+import com.dytj.goodcard.utils.Constants;
 import com.dytj.goodcard.utils.MyToast;
 import com.dytj.goodcard.utils.ToolUtils;
 import com.google.gson.Gson;
@@ -48,6 +50,21 @@ public class TradeOrderInfoActivity extends LifecycleBaseActivity<TradeOrderInfo
      * 订单号
      */
     private String orderNo;
+    /**
+     * 订单状态
+     */
+    private int status = -1;
+    /**
+     * 1.买家 2.卖家
+     */
+    private int user_type = -1;
+    private Button tradeOrderTel;
+    private Button tradeOrderCommit;
+    private Button tradeOrderCancel;
+    private static final int REQUEST_COMPLAIN = -10;
+    private static final int REQUEST_CANCEL = 0;
+    private static final int REQUEST_GET_SURE = 1;
+    private static final int REQUEST_PAY_SURE = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +100,12 @@ public class TradeOrderInfoActivity extends LifecycleBaseActivity<TradeOrderInfo
         infoPayMoney = findViewById(R.id.trade_order_info_sell_total);
         infoPayTime = findViewById(R.id.trade_order_info_sell_pay_time);
         infoFinishTime = findViewById(R.id.trade_order_info_sell_f_time);
+        tradeOrderTel = findViewById(R.id.trade_order_info_tel);
+        tradeOrderTel.setOnClickListener(this);
+        tradeOrderCommit = findViewById(R.id.trade_order_info_commit);
+        tradeOrderCommit.setOnClickListener(this);
+        tradeOrderCancel = findViewById(R.id.trade_order_info_cancel);
+        tradeOrderCancel.setOnClickListener(this);
     }
 
     private void initData() {
@@ -105,22 +128,41 @@ public class TradeOrderInfoActivity extends LifecycleBaseActivity<TradeOrderInfo
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.trade_order_info_copy:
-                if(TextUtils.isEmpty(orderNo)){
-                    MyToast.showMyToast2(TradeOrderInfoActivity.this,"订单号不存在", Toast.LENGTH_SHORT);
+                if (TextUtils.isEmpty(orderNo)) {
+                    MyToast.showMyToast2(TradeOrderInfoActivity.this, "订单号不存在", Toast.LENGTH_SHORT);
                     return;
                 }
-                ToolUtils.copyText(getApplicationContext(),orderNo);
+                ToolUtils.copyText(getApplicationContext(), orderNo);
+                break;
+            case R.id.trade_order_info_cancel:
+                break;
+            case R.id.trade_order_info_tel:
+                break;
+            case R.id.trade_order_info_commit:
+                break;
+            default:
                 break;
         }
     }
 
     @Override
     public void tradeOrderInfoRequest(JsonResponse<TradeOrderInfoEntity> tradeListEntity, String tag) {
-        Gson gson=new Gson();
-        Log.e("aaa","订单详情："+gson.toJson(tradeListEntity));
+        Gson gson = new Gson();
+        Log.e("aaa", "订单详情：" + gson.toJson(tradeListEntity));
         try {
             TradeOrderInfoEntity bean = tradeListEntity.getData();
-            orderNo=bean.getOrder().getOrder_no();
+            if (null == bean.getOrder()) {
+                return;
+            }
+            status = bean.getOrder().getStatus();
+            if (status == Constants.ORDER_TYPE_PAY ||
+                    status == Constants.ORDER_TYPE_GET) {
+                infoStatus.setTextColor(getResources().getColor(R.color.red_6729));
+            } else if (status == Constants.ORDER_TYPE_FINNISH) {
+                infoStatus.setTextColor(getResources().getColor(R.color.green_25));
+            }
+            user_type = bean.getOrder().getUser_type();
+            orderNo = bean.getOrder().getOrder_no();
             infoNo.setText(bean.getOrder().getOrder_no());
             infoStatus.setText(bean.getOrder().getStatus_text());
             infoBuyerName.setText(bean.getOrder().getUser().getTel());
@@ -128,19 +170,55 @@ public class TradeOrderInfoActivity extends LifecycleBaseActivity<TradeOrderInfo
             infoNumber.setText(String.valueOf(bean.getOrder().getPoint()));
             infoPrice.setText(bean.getOrder().getPrice());
             infoBuyerTime.setText(bean.getOrder().getCreated_at());
-            if(null==bean.getOrder().getWechat()&&null!=bean.getOrder().getAlipay()){
+            if (null == bean.getOrder().getWechat() && null != bean.getOrder().getAlipay()) {
                 infoPay.setText("支付宝");
                 infoSellName.setText(bean.getOrder().getAlipay().getAccount());
                 infoRealName.setText(bean.getOrder().getAlipay().getName());
-            }else if(null!=bean.getOrder().getWechat()&&null==bean.getOrder().getAlipay()){
+            } else if (null != bean.getOrder().getWechat() && null == bean.getOrder().getAlipay()) {
                 infoPay.setText("微信");
             }
             infoPayTime.setText(bean.getOrder().getReceive_time());
             infoFinishTime.setText(bean.getOrder().getSend_time());
+            setButtonShow();
         } catch (Exception e) {
 
         }
 
+    }
+
+    /**
+     * 设置按钮展示情况
+     */
+    private void setButtonShow() {
+        if (user_type == Constants.USER_TYPE_BUYER) {//买家
+            if (status == Constants.ORDER_TYPE_CANCEL ||
+                    status == Constants.ORDER_TYPE_FINNISH) {//取消
+                tradeOrderCommit.setText("投诉");
+                tradeOrderCommit.setTag(REQUEST_COMPLAIN);
+                tradeOrderCommit.setVisibility(View.VISIBLE);
+            } else if (status == Constants.ORDER_TYPE_GET) {//待收款
+                tradeOrderCommit.setText("确认收款");
+                tradeOrderCommit.setTag(REQUEST_GET_SURE);
+                tradeOrderCommit.setVisibility(View.VISIBLE);
+                tradeOrderCancel.setText("取消");
+                tradeOrderCancel.setTag(REQUEST_GET_SURE);
+                tradeOrderCancel.setVisibility(View.VISIBLE);
+            }
+        } else if (user_type == Constants.USER_TYPE_SELLER) {//卖家
+            if (status == Constants.ORDER_TYPE_CANCEL ||
+                    status == Constants.ORDER_TYPE_FINNISH) {//取消
+                tradeOrderCommit.setText("投诉");
+                tradeOrderCommit.setTag(REQUEST_COMPLAIN);
+                tradeOrderCommit.setVisibility(View.VISIBLE);
+            } else if (status == Constants.ORDER_TYPE_PAY) {//待支付
+                tradeOrderCommit.setText("确认打款");
+                tradeOrderCommit.setTag(REQUEST_PAY_SURE);
+                tradeOrderCommit.setVisibility(View.VISIBLE);
+                tradeOrderCancel.setText("取消");
+                tradeOrderCancel.setTag(REQUEST_CANCEL);
+                tradeOrderCancel.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     @Override

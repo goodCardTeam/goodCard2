@@ -10,7 +10,6 @@ package com.dytj.goodcard.model;
  */
 public class TradeOrderInfoEntity {
 
-
     /**
      * order : {"id":2,"order_no":"15782330051795","user_type":1,"user":{"tel":"132****0912","avatar_url":"http://112.74.127.99:5016/images/default.png"},"trade_user":{"tel":"152****5510","avatar_url":"http://112.74.127.99:5016/images/default.png"},"point":1000,"price":"0.002","sum":"2.000","pay_sum":"2.00","payment_type":0,"wechat":null,"alipay":{"account":"user_3@qq.com","name":"张三","qrcode":""},"status":-10,"status_text":"已取消","created_at":"2020-01-05 22:03:25","send_time":"","receive_time":""}
      * left_seconds : 0

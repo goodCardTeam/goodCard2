@@ -93,7 +93,7 @@
 
     </RelativeLayout>
 
-    <com.dytj.leekbox.view.MyViewPager
+    <com.dytj.goodcard.view.MyViewPager
         android:id="@+id/vp_show"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

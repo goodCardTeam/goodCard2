@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.dytj.leekbox">
+    package="com.dytj.goodcard">
 
     <application
-        android:name=".MyApplication"
+        android:name="com.dytj.goodcard.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/logo"
         android:label="@string/app_name"
@@ -12,25 +12,25 @@
         android:supportsRtl="true"
         android:networkSecurityConfig="@xml/network_config"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".ui.activity.TradeOrderInfoActivity"></activity>
+        <activity android:name="com.dytj.goodcard.ui.activity.TradeOrderInfoActivity"></activity>
 
-        <activity android:name=".ui.activity.RainbowActivity" />
-        <activity android:name=".ui.activity.CreateTradeOrderActivity" />
+        <activity android:name="com.dytj.goodcard.ui.activity.RainbowActivity" />
+        <activity android:name="com.dytj.goodcard.ui.activity.CreateTradeOrderActivity" />
 
-        <activity android:name=".ui.activity.PointActivity" />
-        <activity android:name=".ui.activity.BuyActivity" />
-        <activity android:name=".ui.activity.SplashActivity">
+        <activity android:name="com.dytj.goodcard.ui.activity.PointActivity" />
+        <activity android:name="com.dytj.goodcard.ui.activity.BuyActivity" />
+        <activity android:name="com.dytj.goodcard.ui.activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.MyTradeOrderActivity" />
-        <activity android:name=".ui.ForgetPwdActivity" />
-        <activity android:name=".ui.activity.Main2Activity" />
-        <activity android:name=".ui.MainActivity" />
-        <activity android:name=".ui.activity.LoginActivity" />
+        <activity android:name="com.dytj.goodcard.ui.activity.MyTradeOrderActivity" />
+        <activity android:name="com.dytj.goodcard.ui.ForgetPwdActivity" />
+        <activity android:name="com.dytj.goodcard.ui.activity.Main2Activity" />
+        <activity android:name="com.dytj.goodcard.ui.MainActivity" />
+        <activity android:name="com.dytj.goodcard.ui.activity.LoginActivity" />
         <activity
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale"

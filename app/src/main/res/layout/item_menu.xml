@@ -12,7 +12,7 @@
         android:layout_marginTop="10dp"
         android:textSize="16sp"
         android:textColor="@color/gray_3"/>
-    <com.dytj.leekbox.view.GridViewForScrollView
+    <com.dytj.goodcard.view.GridViewForScrollView
         android:id="@+id/menu_lv"
         android:layout_marginTop="5dp"
         android:layout_width="match_parent"

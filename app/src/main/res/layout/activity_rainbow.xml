@@ -22,7 +22,7 @@
             android:background="#3f000000"
             android:scaleType="centerCrop"/>
 
-        <com.dytj.leekbox.view.galleryView.SpeedRecyclerView
+        <com.dytj.goodcard.view.galleryView.SpeedRecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

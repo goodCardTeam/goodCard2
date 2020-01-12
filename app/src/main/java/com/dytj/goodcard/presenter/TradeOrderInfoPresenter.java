@@ -7,6 +7,7 @@ import com.dytj.goodcard.api.baseFile.OkHttp3Utils;
 import com.dytj.goodcard.model.JsonResponse;
 import com.dytj.goodcard.model.TradeOrderInfoEntity;
 import com.dytj.goodcard.mvpBase.BasePresenterImpl;
+import com.dytj.goodcard.ui.activity.ComplainActivity;
 import com.dytj.goodcard.ui.activity.TradeOrderInfoActivity;
 
 import java.util.HashMap;
@@ -37,6 +38,8 @@ public class TradeOrderInfoPresenter extends BasePresenterImpl<TradeOrderInfoCon
             tradeOrderGetMoneyRequest(userNetWork,map);
         }else if(TradeOrderInfoActivity.TRADE_ORDER_PAY_REQUEST.equals(tag)){
             tradeOrderPayRequest(userNetWork,map);
+        }else if(ComplainActivity.TRADE_ORDER_COMPLAIN_REQUEST.equals(tag)){
+            tradeOrderComplainRequest(userNetWork,map);
         }
     }
 
@@ -128,6 +131,42 @@ public class TradeOrderInfoPresenter extends BasePresenterImpl<TradeOrderInfoCon
             public void onNext(JsonResponse buyEntity) {
                 if (buyEntity.getCode()==0) {
                     view.tradeOrderGetMoneyRequest(buyEntity, TradeOrderInfoActivity.TRADE_ORDER_GET_MONEY_REQUEST);
+//                    view.showLoadingDialog("成功");
+//                    Toast.makeText(mActivity, "请求成功", Toast.LENGTH_SHORT).show();
+                } else {
+                    OkHttp3Utils.toLogin(mActivity,buyEntity.getCode(),buyEntity.getMsg());
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                view.ErrorData(e);
+                view.dismissLoadingDialog();
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
+
+    /**
+     * 投诉
+     * @param userNetWork
+     * @param params
+     */
+    private void tradeOrderComplainRequest(UserNetWork userNetWork, HashMap params) {
+        userNetWork.tradeOrderComplainRequest(params, new Observer<JsonResponse>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(JsonResponse buyEntity) {
+                if (buyEntity.getCode()==0) {
+                    view.tradeOrderComplainRequest(buyEntity, TradeOrderInfoActivity.TRADE_ORDER_GET_MONEY_REQUEST);
 //                    view.showLoadingDialog("成功");
 //                    Toast.makeText(mActivity, "请求成功", Toast.LENGTH_SHORT).show();
                 } else {

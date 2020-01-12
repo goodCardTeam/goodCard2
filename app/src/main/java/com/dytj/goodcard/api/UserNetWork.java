@@ -136,6 +136,15 @@ public class UserNetWork extends BaseNetWork {
         @POST("api/trade-orders/send")
         Observable<JsonResponse> tradeOrderPayRequest(@FieldMap HashMap<String, Object> modificationPassWordEntryMap);
 
+        /**
+         * 投诉
+         * @param modificationPassWordEntryMap
+         * @return
+         */
+        @FormUrlEncoded
+        @POST("api/trade-orders/complain")
+        Observable<JsonResponse> tradeOrderComplainRequest(@FieldMap HashMap<String, Object> modificationPassWordEntryMap);
+
         //获取消息列表
         @GET("api/AppPrivate/get_messages")
         Observable<MessageEntity> toGetMessageEntity(@QueryMap HashMap<String, Object> modificationPassWordEntryMap);
@@ -278,5 +287,14 @@ public class UserNetWork extends BaseNetWork {
      */
     public void tradeOrderPayRequest(HashMap<String, Object> paramMap, Observer<JsonResponse> observer){
         setSubscribe(service.tradeOrderPayRequest(paramMap),observer);
+    }
+
+    /**
+     * 投诉
+     * @param paramMap
+     * @param observer
+     */
+    public void tradeOrderComplainRequest(HashMap<String, Object> paramMap, Observer<JsonResponse> observer){
+        setSubscribe(service.tradeOrderComplainRequest(paramMap),observer);
     }
 }

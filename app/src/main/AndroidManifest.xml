@@ -4,37 +4,37 @@
     package="com.dytj.goodcard">
 
     <application
-        android:name="com.dytj.goodcard.MyApplication"
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/logo"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:networkSecurityConfig="@xml/network_config"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name="com.dytj.goodcard.ui.activity.TradeOrderInfoActivity"></activity>
-
-        <activity android:name="com.dytj.goodcard.ui.activity.RainbowActivity" />
-        <activity android:name="com.dytj.goodcard.ui.activity.CreateTradeOrderActivity" />
-
-        <activity android:name="com.dytj.goodcard.ui.activity.PointActivity" />
-        <activity android:name="com.dytj.goodcard.ui.activity.BuyActivity" />
-        <activity android:name="com.dytj.goodcard.ui.activity.SplashActivity">
+        <activity android:name=".ui.activity.ComplainActivity"></activity>
+        <activity android:name=".ui.activity.TradeOrderInfoActivity" />
+        <activity android:name=".ui.activity.RainbowActivity" />
+        <activity android:name=".ui.activity.CreateTradeOrderActivity" />
+        <activity android:name=".ui.activity.PointActivity" />
+        <activity android:name=".ui.activity.BuyActivity" />
+        <activity android:name=".ui.activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.dytj.goodcard.ui.activity.MyTradeOrderActivity" />
-        <activity android:name="com.dytj.goodcard.ui.ForgetPwdActivity" />
-        <activity android:name="com.dytj.goodcard.ui.activity.Main2Activity" />
-        <activity android:name="com.dytj.goodcard.ui.MainActivity" />
-        <activity android:name="com.dytj.goodcard.ui.activity.LoginActivity" />
+        <activity android:name=".ui.activity.MyTradeOrderActivity" />
+        <activity android:name=".ui.ForgetPwdActivity" />
+        <activity android:name=".ui.activity.Main2Activity" />
+        <activity android:name=".ui.MainActivity" />
+        <activity android:name=".ui.activity.LoginActivity" />
         <activity
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale"
             android:theme="@android:style/Theme.Translucent" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
@@ -43,9 +43,7 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
-        </provider>
-
-        <!--        腾讯Bugly-->
+        </provider> <!-- 腾讯Bugly -->
         <provider
             android:name="com.tencent.bugly.beta.utils.BuglyFileProvider"
             android:authorities="${applicationId}.fileProvider"
@@ -56,9 +54,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths"
                 tools:replace="name,resource" />
-        </provider>
-
-        <!--        穿山甲-->
+        </provider> <!-- 穿山甲 -->
         <provider
             android:name="com.bytedance.sdk.openadsdk.TTFileProvider"
             android:authorities="${applicationId}.TTFileProvider"

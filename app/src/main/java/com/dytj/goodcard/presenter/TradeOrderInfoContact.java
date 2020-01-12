@@ -36,6 +36,13 @@ public interface TradeOrderInfoContact {
          */
         void tradeOrderGetMoneyRequest(JsonResponse tradeOrderGetMoneyEntity, String tag);
 
+        /**
+         * 投诉
+         * @param jsonResponse
+         * @param tag
+         */
+        void tradeOrderComplainRequest(JsonResponse jsonResponse,String tag);
+
 
         void ErrorData(Throwable e);
     }

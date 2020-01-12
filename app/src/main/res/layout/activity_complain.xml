@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical"
+    tools:context=".ui.activity.ComplainActivity">
+    <include layout="@layout/view_title_bar"/>
+    <EditText
+        android:id="@+id/et_complain_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_shape"
+        android:layout_marginTop="20dp"
+        android:minLines="5"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:hint="请输入投诉理由(最多200字)"
+        android:gravity="start"
+        android:padding="10dp"
+        android:textSize="13sp"
+        android:maxLength="200"
+        android:textColor="@color/gray_4a"/>
+    <Button
+        android:id="@+id/btn_complain_commit"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/edit_shape2"
+        android:text="提交"
+        android:textColor="@color/white"
+        android:layout_marginTop="80dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"/>
+</LinearLayout>

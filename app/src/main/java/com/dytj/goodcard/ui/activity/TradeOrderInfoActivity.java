@@ -185,6 +185,9 @@ public class TradeOrderInfoActivity extends LifecycleBaseActivity<TradeOrderInfo
                 map.put("payment_type", 1);
                 presenter.getData(map, TRADE_ORDER_PAY_REQUEST);
                 break;
+            case REQUEST_COMPLAIN:
+                ComplainActivity.start(TradeOrderInfoActivity.this,tradeOrderId);
+                break;
         }
     }
 
@@ -245,6 +248,11 @@ public class TradeOrderInfoActivity extends LifecycleBaseActivity<TradeOrderInfo
             MyToast.showMyToast2(getApplicationContext(), "确认收款成功", Toast.LENGTH_SHORT);
             AppManager.getAppManager().finishActivity();
         }
+    }
+
+    @Override
+    public void tradeOrderComplainRequest(JsonResponse jsonResponse, String tag) {
+
     }
 
     /**

@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.dytj.goodcard.AppManager;
 import com.dytj.goodcard.R;
 import com.dytj.goodcard.base.LifecycleBaseActivity;
 import com.dytj.goodcard.model.JsonResponse;
@@ -96,6 +97,13 @@ public class ComplainActivity extends LifecycleBaseActivity<TradeOrderInfoPresen
 
     @Override
     public void tradeOrderComplainRequest(JsonResponse jsonResponse, String tag) {
+        if(jsonResponse.getCode()==0){
+            AppManager.getAppManager().finishActivity();
+        }
+    }
+
+    @Override
+    public void tradeOrderCancelRequest(JsonResponse jsonResponse, String tag) {
 
     }
 

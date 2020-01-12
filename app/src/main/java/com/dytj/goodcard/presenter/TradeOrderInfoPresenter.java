@@ -40,6 +40,8 @@ public class TradeOrderInfoPresenter extends BasePresenterImpl<TradeOrderInfoCon
             tradeOrderPayRequest(userNetWork,map);
         }else if(ComplainActivity.TRADE_ORDER_COMPLAIN_REQUEST.equals(tag)){
             tradeOrderComplainRequest(userNetWork,map);
+        }else if(TradeOrderInfoActivity.TRADE_ORDER_CANCEL_REQUEST.equals(tag)){
+            tradeOrderCancelRequest(userNetWork,map);
         }
     }
 
@@ -167,8 +169,40 @@ public class TradeOrderInfoPresenter extends BasePresenterImpl<TradeOrderInfoCon
             public void onNext(JsonResponse buyEntity) {
                 if (buyEntity.getCode()==0) {
                     view.tradeOrderComplainRequest(buyEntity, TradeOrderInfoActivity.TRADE_ORDER_GET_MONEY_REQUEST);
-//                    view.showLoadingDialog("成功");
-//                    Toast.makeText(mActivity, "请求成功", Toast.LENGTH_SHORT).show();
+                } else {
+                    OkHttp3Utils.toLogin(mActivity,buyEntity.getCode(),buyEntity.getMsg());
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                view.ErrorData(e);
+                view.dismissLoadingDialog();
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
+
+    /**
+     * 取消订单
+     * @param userNetWork
+     * @param params
+     */
+    private void tradeOrderCancelRequest(UserNetWork userNetWork, HashMap params) {
+        userNetWork.tradeOrderCancelRequest(params, new Observer<JsonResponse>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(JsonResponse buyEntity) {
+                if (buyEntity.getCode()==0) {
+                    view.tradeOrderCancelRequest(buyEntity, TradeOrderInfoActivity.TRADE_ORDER_CANCEL_REQUEST);
                 } else {
                     OkHttp3Utils.toLogin(mActivity,buyEntity.getCode(),buyEntity.getMsg());
                 }

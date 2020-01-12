@@ -142,6 +142,8 @@ public class CreateTradeOrderActivity extends LifecycleBaseActivity<CreatTradeOr
         HashMap map = new HashMap<>();
         map.put("trade_id", tradeId);
         map.put("point", str);
+        //1.支付宝 2.微信
+        map.put("payment_type","1");
         presenter.getData(map, REQUEST_SELL);
     }
 

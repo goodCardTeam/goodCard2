@@ -48,7 +48,7 @@ public class RainbowActivity extends LifecycleBaseActivity<RainbowPresenter> imp
         setContentView(R.layout.activity_rainbow);
         ToolBarStyle(0);
         setBack(true);
-        setTitle("我要买");
+        setTitle("彩虹堂");
         setMenu("积分市场",R.color.gray_3);
         initView();
         initData();

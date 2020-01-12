@@ -35,6 +35,7 @@ public class TradeOrderInfoActivity extends LifecycleBaseActivity<TradeOrderInfo
     public static final String TRADE_ORDER_INFO_REQUEST = "tradeOrderInfoRequest";
     public static final String TRADE_ORDER_PAY_REQUEST = "tradeOrderPayRequest";
     public static final String TRADE_ORDER_GET_MONEY_REQUEST = "tradeOrderGetMoneyRequest";
+    public static final String TRADE_ORDER_CANCEL_REQUEST = "tradeOrderCancelRequest";
     /**
      * 需要进行检测的权限数组
      */
@@ -159,6 +160,9 @@ public class TradeOrderInfoActivity extends LifecycleBaseActivity<TradeOrderInfo
                 ToolUtils.copyText(getApplicationContext(), orderNo);
                 break;
             case R.id.trade_order_info_cancel:
+                HashMap params = new HashMap();
+                params.put("trade_order_id", tradeOrderId);
+                presenter.getData(params, TRADE_ORDER_CANCEL_REQUEST);
                 break;
             case R.id.trade_order_info_tel:
                 setPermission(permissions);
@@ -252,6 +256,11 @@ public class TradeOrderInfoActivity extends LifecycleBaseActivity<TradeOrderInfo
 
     @Override
     public void tradeOrderComplainRequest(JsonResponse jsonResponse, String tag) {
+
+    }
+
+    @Override
+    public void tradeOrderCancelRequest(JsonResponse jsonResponse, String tag) {
 
     }
 

@@ -43,6 +43,13 @@ public interface TradeOrderInfoContact {
          */
         void tradeOrderComplainRequest(JsonResponse jsonResponse,String tag);
 
+        /**
+         * 取消订单
+         * @param jsonResponse
+         * @param tag
+         */
+        void tradeOrderCancelRequest(JsonResponse jsonResponse,String tag);
+
 
         void ErrorData(Throwable e);
     }

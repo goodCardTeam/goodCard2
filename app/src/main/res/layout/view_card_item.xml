@@ -13,7 +13,16 @@
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone"
         android:scaleType="centerCrop"
         android:src="@drawable/pic4"/>
+    <LinearLayout
+        android:id="@+id/rainbow_bac"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/edit_shape">
+
+    </LinearLayout>
 
 </androidx.cardview.widget.CardView>

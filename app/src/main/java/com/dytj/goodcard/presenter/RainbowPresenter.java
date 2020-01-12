@@ -1,6 +1,7 @@
 package com.dytj.goodcard.presenter;
 
 import android.app.Activity;
+import android.util.Log;
 
 import com.dytj.goodcard.api.UserNetWork;
 import com.dytj.goodcard.api.baseFile.OkHttp3Utils;
@@ -8,6 +9,7 @@ import com.dytj.goodcard.model.JsonResponse;
 import com.dytj.goodcard.model.RainbowEntity;
 import com.dytj.goodcard.mvpBase.BasePresenterImpl;
 import com.dytj.goodcard.ui.fragment.ActiveFragment;
+import com.google.gson.Gson;
 
 import java.util.HashMap;
 
@@ -32,12 +34,13 @@ public class RainbowPresenter extends BasePresenterImpl<RainbowContact.view> imp
     public void getData(HashMap<Object, Object> map, String tag) {
         UserNetWork userNetWork = new UserNetWork();
         if (ActiveFragment.RAINBOW.equals(tag)) {
-            rainbowList(userNetWork,map);
+            rainbowList(userNetWork, map);
         }
     }
 
     /**
      * 获取交易列表
+     *
      * @param userNetWork
      * @param params
      */
@@ -49,11 +52,13 @@ public class RainbowPresenter extends BasePresenterImpl<RainbowContact.view> imp
             }
 
             @Override
-            public void onNext(JsonResponse<RainbowEntity> tradeListEntity) {
-                if (tradeListEntity.getCode()==0) {
-                    view.setRainbowListData(tradeListEntity, ActiveFragment.RAINBOW);
+            public void onNext(JsonResponse<RainbowEntity> entity) {
+                Gson gson = new Gson();
+                Log.e("aaa","json:"+gson.toJson(entity));
+                if (entity.getCode() == 0) {
+                    view.setRainbowListData(entity, ActiveFragment.RAINBOW);
                 } else {
-                    OkHttp3Utils.toLogin(mActivity,tradeListEntity.getCode(),tradeListEntity.getMsg());
+                    OkHttp3Utils.toLogin(mActivity, entity.getCode(), entity.getMsg());
                 }
             }
 

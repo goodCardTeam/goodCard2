@@ -66,7 +66,7 @@ public class RainbowActivity extends LifecycleBaseActivity<RainbowPresenter> imp
 
 
     private void initData() {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 6; i++) {
             mList.add(R.drawable.pic4);
             mList.add(R.drawable.pic5);
             mList.add(R.drawable.pic6);
@@ -75,7 +75,7 @@ public class RainbowActivity extends LifecycleBaseActivity<RainbowPresenter> imp
 
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         mRecyclerView.setLayoutManager(linearLayoutManager);
-        mRecyclerView.setAdapter(new CardAdapter(mList));
+        mRecyclerView.setAdapter(new CardAdapter(RainbowActivity.this,mList));
         // mRecyclerView绑定scale效果
         mCardScaleHelper = new CardScaleHelper();
         mCardScaleHelper.setCurrentItemPos(0);

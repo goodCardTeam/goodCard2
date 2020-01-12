@@ -1,9 +1,11 @@
 package com.dytj.goodcard.view.galleryView;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.dytj.goodcard.R;
@@ -19,8 +21,10 @@ import androidx.recyclerview.widget.RecyclerView;
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     private List<Integer> mList = new ArrayList<>();
     private CardAdapterHelper mCardAdapterHelper = new CardAdapterHelper();
+    private Context context;
 
-    public CardAdapter(List<Integer> mList) {
+    public CardAdapter(Context context,List<Integer> mList) {
+        this.context=context;
         this.mList = mList;
     }
 
@@ -41,6 +45,25 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
                 Toast.makeText(holder.mImageView.getContext(),""+position,Toast.LENGTH_LONG).show();
             }
         });
+        if(position==0){
+            holder.rainbow_bac.setBackground(context.getResources().getDrawable(R.drawable.card_white));
+        }
+        else if(position==1){
+            holder.rainbow_bac.setBackground(context.getResources().getDrawable(R.drawable.card_blue));
+        }
+        else if(position==2){
+            holder.rainbow_bac.setBackground(context.getResources().getDrawable(R.drawable.card_yellow));
+        }
+        else if(position==3){
+            holder.rainbow_bac.setBackground(context.getResources().getDrawable(R.drawable.card_purple));
+        }
+        else if(position==4){
+            holder.rainbow_bac.setBackground(context.getResources().getDrawable(R.drawable.card_red));
+        }
+        else if(position==5){
+            holder.rainbow_bac.setBackground(context.getResources().getDrawable(R.drawable.card_black));
+        }
+
     }
 
     @Override
@@ -50,10 +73,12 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final ImageView mImageView;
+        public final LinearLayout rainbow_bac;
 
         public ViewHolder(final View itemView) {
             super(itemView);
             mImageView = (ImageView) itemView.findViewById(R.id.imageView);
+            rainbow_bac=itemView.findViewById(R.id.rainbow_bac);
         }
 
     }

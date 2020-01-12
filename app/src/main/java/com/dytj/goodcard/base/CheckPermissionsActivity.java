@@ -35,11 +35,6 @@ public class CheckPermissionsActivity extends FragmentActivity {
 
     public static final int PERMISSON_REQUESTCODE = 0X13;
 
-    /**
-     * 判断是否需要检测，防止不停的弹框
-     */
-    public boolean isNeedCheck = true;
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -52,14 +47,8 @@ public class CheckPermissionsActivity extends FragmentActivity {
             needPermissions[i] = strings[i];
             Log.e(TAG, "Permissions:" + needPermissions[i]);
         }
+        checkPermissions(needPermissions);
 
-        Log.e(TAG, "进入----setPermission方法");
-        if (Build.VERSION.SDK_INT >= 23
-                && getApplicationInfo().targetSdkVersion >= 23) {
-            if (isNeedCheck) {
-                checkPermissions(needPermissions);
-            }
-        }
     }
 
 
@@ -68,7 +57,6 @@ public class CheckPermissionsActivity extends FragmentActivity {
      * @since 2.5.0
      */
     private void checkPermissions(String[] permissions) {
-        Log.e(TAG, "进入------checkPermissions方法");
         try {
             if (Build.VERSION.SDK_INT >= 23
                     && getApplicationInfo().targetSdkVersion >= 23) {
@@ -82,7 +70,6 @@ public class CheckPermissionsActivity extends FragmentActivity {
                     ActivityCompat.requestPermissions(this,
                             needRequestPermissonList.toArray(new String[needRequestPermissonList.size()]),
                             PERMISSON_REQUESTCODE);
-                    Log.e(TAG, "requestPermissions方法执行-------");
                 } else {
                     //如果没有申请的权限就进行需要的操作
                     onAccreditSucceed();

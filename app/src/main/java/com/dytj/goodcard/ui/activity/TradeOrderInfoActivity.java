@@ -260,8 +260,7 @@ public class TradeOrderInfoActivity extends LifecycleBaseActivity<TradeOrderInfo
      */
     private void setButtonShow() {
         if (user_type == Constants.USER_TYPE_BUYER) {//买家
-            if (status == Constants.ORDER_TYPE_CANCEL ||
-                    status == Constants.ORDER_TYPE_FINNISH) {//取消
+            if (status == Constants.ORDER_TYPE_CANCEL) {//取消
                 tradeOrderCommit.setText("投诉");
                 tradeOrderCommit.setTag(REQUEST_COMPLAIN);
                 tradeOrderCommit.setVisibility(View.VISIBLE);
@@ -269,13 +268,9 @@ public class TradeOrderInfoActivity extends LifecycleBaseActivity<TradeOrderInfo
                 tradeOrderCommit.setText("确认收款");
                 tradeOrderCommit.setTag(REQUEST_GET_SURE);
                 tradeOrderCommit.setVisibility(View.VISIBLE);
-                tradeOrderCancel.setText("取消");
-                tradeOrderCancel.setTag(REQUEST_CANCEL);
-                tradeOrderCancel.setVisibility(View.VISIBLE);
             }
         } else if (user_type == Constants.USER_TYPE_SELLER) {//卖家
-            if (status == Constants.ORDER_TYPE_CANCEL ||
-                    status == Constants.ORDER_TYPE_FINNISH) {//取消
+            if (status == Constants.ORDER_TYPE_CANCEL) {//取消
                 tradeOrderCommit.setText("投诉");
                 tradeOrderCommit.setTag(REQUEST_COMPLAIN);
                 tradeOrderCommit.setVisibility(View.VISIBLE);

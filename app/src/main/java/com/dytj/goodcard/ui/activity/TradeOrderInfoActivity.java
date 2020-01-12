@@ -1,7 +1,10 @@
 package com.dytj.goodcard.ui.activity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -25,11 +28,18 @@ import com.google.gson.Gson;
 
 import java.util.HashMap;
 
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+
 public class TradeOrderInfoActivity extends LifecycleBaseActivity<TradeOrderInfoPresenter> implements TradeOrderInfoContact.view, View.OnClickListener {
     public static final String TRADE_ORDER_INFO_REQUEST = "tradeOrderInfoRequest";
     public static final String TRADE_ORDER_PAY_REQUEST = "tradeOrderPayRequest";
     public static final String TRADE_ORDER_GET_MONEY_REQUEST = "tradeOrderGetMoneyRequest";
-
+    /**
+     * 需要进行检测的权限数组
+     */
+    private String[] permissions = new String[]{
+            Manifest.permission.READ_PHONE_STATE};
 
     /**
      * 订单id
@@ -69,6 +79,16 @@ public class TradeOrderInfoActivity extends LifecycleBaseActivity<TradeOrderInfo
     private static final int REQUEST_CANCEL = 0;
     private static final int REQUEST_GET_SURE = 1;
     private static final int REQUEST_PAY_SURE = 2;
+
+    /**
+     * 卖家手机号
+     */
+    private String tradeUserTel;
+
+    /**
+     * 买家手机号
+     */
+    private String userTel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,6 +161,7 @@ public class TradeOrderInfoActivity extends LifecycleBaseActivity<TradeOrderInfo
             case R.id.trade_order_info_cancel:
                 break;
             case R.id.trade_order_info_tel:
+                setPermission(permissions);
                 break;
             case R.id.trade_order_info_commit:
                 commit();
@@ -150,9 +171,9 @@ public class TradeOrderInfoActivity extends LifecycleBaseActivity<TradeOrderInfo
         }
     }
 
-    private void commit(){
+    private void commit() {
         int tag = (int) tradeOrderCommit.getTag();
-        switch (tag){
+        switch (tag) {
             case REQUEST_GET_SURE:
                 HashMap params = new HashMap();
                 params.put("trade_order_id", tradeOrderId);
@@ -161,7 +182,7 @@ public class TradeOrderInfoActivity extends LifecycleBaseActivity<TradeOrderInfo
             case REQUEST_PAY_SURE:
                 HashMap map = new HashMap();
                 map.put("trade_order_id", tradeOrderId);
-                map.put("payment_type",1);
+                map.put("payment_type", 1);
                 presenter.getData(map, TRADE_ORDER_PAY_REQUEST);
                 break;
         }
@@ -185,6 +206,8 @@ public class TradeOrderInfoActivity extends LifecycleBaseActivity<TradeOrderInfo
             }
             user_type = bean.getOrder().getUser_type();
             orderNo = bean.getOrder().getOrder_no();
+            tradeUserTel = bean.getTrade_user_tel();
+            userTel = bean.getUser_tel();
             infoNo.setText(bean.getOrder().getOrder_no());
             infoStatus.setText(bean.getOrder().getStatus_text());
             infoBuyerName.setText(bean.getOrder().getUser().getTel());
@@ -210,16 +233,16 @@ public class TradeOrderInfoActivity extends LifecycleBaseActivity<TradeOrderInfo
 
     @Override
     public void tradeOrderPayRequest(JsonResponse tradeOrderPayEntity, String tag) {
-        if(tradeOrderPayEntity.getCode()==0){
-            MyToast.showMyToast2(getApplicationContext(),"支付成功",Toast.LENGTH_SHORT);
+        if (tradeOrderPayEntity.getCode() == 0) {
+            MyToast.showMyToast2(getApplicationContext(), "支付成功", Toast.LENGTH_SHORT);
             AppManager.getAppManager().finishActivity();
         }
     }
 
     @Override
     public void tradeOrderGetMoneyRequest(JsonResponse tradeOrderGetMoneyEntity, String tag) {
-        if(tradeOrderGetMoneyEntity.getCode()==0){
-            MyToast.showMyToast2(getApplicationContext(),"确认收款成功",Toast.LENGTH_SHORT);
+        if (tradeOrderGetMoneyEntity.getCode() == 0) {
+            MyToast.showMyToast2(getApplicationContext(), "确认收款成功", Toast.LENGTH_SHORT);
             AppManager.getAppManager().finishActivity();
         }
     }
@@ -262,5 +285,40 @@ public class TradeOrderInfoActivity extends LifecycleBaseActivity<TradeOrderInfo
     @Override
     public void ErrorData(Throwable e) {
 
+    }
+
+    /**
+     * 拨打手机号
+     */
+    private void callPhone() {
+        String phoneNum = "";
+        if (user_type == Constants.USER_TYPE_BUYER) {
+            phoneNum = tradeUserTel;
+        } else {
+            phoneNum = userTel;
+        }
+        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNum));
+        if (ActivityCompat.checkSelfPermission(TradeOrderInfoActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        startActivity(intent);
+    }
+
+    /**
+     * 授权成功
+     */
+    @Override
+    public void onAccreditSucceed() {
+        super.onAccreditSucceed();
+        callPhone();
+    }
+
+    /**
+     * 授权失败
+     */
+    @Override
+    public void onAccreditFailure() {
+        super.onAccreditFailure();
+        MyToast.showMyToast2(getApplicationContext(),"请先授权后再进行操作",Toast.LENGTH_SHORT);
     }
 }

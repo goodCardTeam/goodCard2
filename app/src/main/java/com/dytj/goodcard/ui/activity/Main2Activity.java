@@ -64,7 +64,7 @@ public class Main2Activity extends LifecycleBaseActivity<TestContact.presenter>
         initView();
         initData();
         initEvent();
-        setPermission(permissions);
+//        setPermission(permissions);
     }
 
     public static void start(Activity activity){

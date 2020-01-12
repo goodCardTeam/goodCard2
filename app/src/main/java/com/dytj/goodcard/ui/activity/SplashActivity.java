@@ -77,27 +77,11 @@ public class SplashActivity extends LifecycleBaseActivity<LoginPresenter>
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         setDarkStatusIcon(true);
-        setPermission(permissions);
+//        setPermission(permissions);
         initData();
     }
 
     private void initData() {
-//        new Thread(){
-//            @Override
-//            public void run() {
-//                super.run();
-//                try {
-//                    sleep(3000);
-////                    Message message=Message.obtain();
-////                    message.what=0;
-//                    handler.sendEmptyMessage(0);
-//
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }.start();
-
         mSplashContainer = (FrameLayout) findViewById(R.id.splash_container);
         //step2:创建TTAdNative对象
         mTTAdNative = TTAdManagerHolder.get().createAdNative(this);

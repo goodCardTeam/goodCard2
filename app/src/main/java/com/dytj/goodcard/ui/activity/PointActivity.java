@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ import com.dytj.goodcard.ui.adapter.ViewHolder;
 import com.dytj.goodcard.utils.Event;
 import com.dytj.goodcard.utils.EventBusCodeUtil;
 import com.dytj.goodcard.utils.MyToast;
+import com.google.gson.Gson;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -146,6 +148,8 @@ public class PointActivity extends LifecycleBaseActivity<CardPresenter> implemen
         if (myLoadMoreLayout != null) {
             myLoadMoreLayout.finishLoadMore(true);
         }
+        Gson gson=new Gson();
+        Log.e("aaa","json:"+gson.toJson(tradeListEntity));
         pages=tradeListEntity.getData().getPages();
         currentPage=tradeListEntity.getData().getPage();
         List<TradeListEntity.TradesBean> trades=tradeListEntity.getData().getTrades();

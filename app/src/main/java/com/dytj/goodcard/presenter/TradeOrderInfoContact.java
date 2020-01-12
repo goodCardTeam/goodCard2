@@ -21,6 +21,21 @@ public interface TradeOrderInfoContact {
          */
         void tradeOrderInfoRequest(JsonResponse<TradeOrderInfoEntity> tradeListEntity, String tag);
 
+        /**
+         * 确认打款
+         * @param tradeOrderPayEntity
+         * @param tag
+         */
+        void tradeOrderPayRequest(JsonResponse tradeOrderPayEntity, String tag);
+
+        /**
+         *
+         * 确认收款
+         * @param tradeOrderGetMoneyEntity
+         * @param tag
+         */
+        void tradeOrderGetMoneyRequest(JsonResponse tradeOrderGetMoneyEntity, String tag);
+
 
         void ErrorData(Throwable e);
     }

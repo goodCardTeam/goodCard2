@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dytj.goodcard.AppManager;
 import com.dytj.goodcard.R;
 import com.dytj.goodcard.base.LifecycleBaseActivity;
 import com.dytj.goodcard.model.JsonResponse;
@@ -26,6 +27,9 @@ import java.util.HashMap;
 
 public class TradeOrderInfoActivity extends LifecycleBaseActivity<TradeOrderInfoPresenter> implements TradeOrderInfoContact.view, View.OnClickListener {
     public static final String TRADE_ORDER_INFO_REQUEST = "tradeOrderInfoRequest";
+    public static final String TRADE_ORDER_PAY_REQUEST = "tradeOrderPayRequest";
+    public static final String TRADE_ORDER_GET_MONEY_REQUEST = "tradeOrderGetMoneyRequest";
+
 
     /**
      * 订单id
@@ -139,8 +143,26 @@ public class TradeOrderInfoActivity extends LifecycleBaseActivity<TradeOrderInfo
             case R.id.trade_order_info_tel:
                 break;
             case R.id.trade_order_info_commit:
+                commit();
                 break;
             default:
+                break;
+        }
+    }
+
+    private void commit(){
+        int tag = (int) tradeOrderCommit.getTag();
+        switch (tag){
+            case REQUEST_GET_SURE:
+                HashMap params = new HashMap();
+                params.put("trade_order_id", tradeOrderId);
+                presenter.getData(params, TRADE_ORDER_GET_MONEY_REQUEST);
+                break;
+            case REQUEST_PAY_SURE:
+                HashMap map = new HashMap();
+                map.put("trade_order_id", tradeOrderId);
+                map.put("payment_type",1);
+                presenter.getData(map, TRADE_ORDER_PAY_REQUEST);
                 break;
         }
     }
@@ -186,6 +208,22 @@ public class TradeOrderInfoActivity extends LifecycleBaseActivity<TradeOrderInfo
 
     }
 
+    @Override
+    public void tradeOrderPayRequest(JsonResponse tradeOrderPayEntity, String tag) {
+        if(tradeOrderPayEntity.getCode()==0){
+            MyToast.showMyToast2(getApplicationContext(),"支付成功",Toast.LENGTH_SHORT);
+            AppManager.getAppManager().finishActivity();
+        }
+    }
+
+    @Override
+    public void tradeOrderGetMoneyRequest(JsonResponse tradeOrderGetMoneyEntity, String tag) {
+        if(tradeOrderGetMoneyEntity.getCode()==0){
+            MyToast.showMyToast2(getApplicationContext(),"确认收款成功",Toast.LENGTH_SHORT);
+            AppManager.getAppManager().finishActivity();
+        }
+    }
+
     /**
      * 设置按钮展示情况
      */
@@ -201,7 +239,7 @@ public class TradeOrderInfoActivity extends LifecycleBaseActivity<TradeOrderInfo
                 tradeOrderCommit.setTag(REQUEST_GET_SURE);
                 tradeOrderCommit.setVisibility(View.VISIBLE);
                 tradeOrderCancel.setText("取消");
-                tradeOrderCancel.setTag(REQUEST_GET_SURE);
+                tradeOrderCancel.setTag(REQUEST_CANCEL);
                 tradeOrderCancel.setVisibility(View.VISIBLE);
             }
         } else if (user_type == Constants.USER_TYPE_SELLER) {//卖家

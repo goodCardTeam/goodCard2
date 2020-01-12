@@ -116,6 +116,26 @@ public class UserNetWork extends BaseNetWork {
         @POST("api/trade-orders/detail")
         Observable<JsonResponse<TradeOrderInfoEntity>> tradeOrderInfoRequest(@FieldMap HashMap<String, Object> modificationPassWordEntryMap);
 
+
+        /**
+         * 确认收款
+         * @param modificationPassWordEntryMap
+         * @return
+         */
+        @FormUrlEncoded
+        @POST("api/trade-orders/receive")
+        Observable<JsonResponse> tradeOrderGetMoneyRequest(@FieldMap HashMap<String, Object> modificationPassWordEntryMap);
+
+
+        /**
+         * 确认打款
+         * @param modificationPassWordEntryMap
+         * @return
+         */
+        @FormUrlEncoded
+        @POST("api/trade-orders/send")
+        Observable<JsonResponse> tradeOrderPayRequest(@FieldMap HashMap<String, Object> modificationPassWordEntryMap);
+
         //获取消息列表
         @GET("api/AppPrivate/get_messages")
         Observable<MessageEntity> toGetMessageEntity(@QueryMap HashMap<String, Object> modificationPassWordEntryMap);
@@ -240,5 +260,23 @@ public class UserNetWork extends BaseNetWork {
      */
     public void tradeOrderInfoRequest(HashMap<String, Object> paramMap, Observer<JsonResponse<TradeOrderInfoEntity>> observer){
         setSubscribe(service.tradeOrderInfoRequest(paramMap),observer);
+    }
+
+    /**
+     * 确认收款
+     * @param paramMap
+     * @param observer
+     */
+    public void tradeOrderGetMoneyRequest(HashMap<String, Object> paramMap, Observer<JsonResponse> observer){
+        setSubscribe(service.tradeOrderGetMoneyRequest(paramMap),observer);
+    }
+
+    /**
+     * 确认打款
+     * @param paramMap
+     * @param observer
+     */
+    public void tradeOrderPayRequest(HashMap<String, Object> paramMap, Observer<JsonResponse> observer){
+        setSubscribe(service.tradeOrderPayRequest(paramMap),observer);
     }
 }

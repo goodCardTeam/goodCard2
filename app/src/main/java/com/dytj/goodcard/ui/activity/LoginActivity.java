@@ -1,5 +1,6 @@
 package com.dytj.goodcard.ui.activity;
 
+import android.Manifest;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dytj.goodcard.AppConfig;
+import com.dytj.goodcard.MyApplication;
 import com.dytj.goodcard.R;
 import com.dytj.goodcard.base.LifecycleBaseActivity;
 import com.dytj.goodcard.model.LoginEntity;
@@ -28,6 +30,7 @@ import com.dytj.goodcard.model.RegisterEntity;
 import com.dytj.goodcard.model.JsonResponse;
 import com.dytj.goodcard.presenter.LoginContact;
 import com.dytj.goodcard.presenter.LoginPresenter;
+import com.dytj.goodcard.utils.MyToast;
 import com.dytj.goodcard.utils.PreferenceHelper;
 import com.dytj.goodcard.utils.ToolUtils;
 
@@ -46,6 +49,13 @@ import androidx.cardview.widget.CardView;
 public class LoginActivity extends LifecycleBaseActivity<LoginPresenter>
         implements LoginContact.view, View.OnClickListener {
 
+    /**
+     * 需要进行检测的权限数组
+     */
+    private String[] permissions = new String[]{
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.VIBRATE,
+    Manifest.permission.CAMERA};
 
     /**
      * 抬高view1
@@ -108,9 +118,9 @@ public class LoginActivity extends LifecycleBaseActivity<LoginPresenter>
     private Button loginOtpForget;
     private TextView btnSend;
 
-    public static final String REQUEST_LOGIN="login";
-    public static final String REQUEST_REGISTER="register";
-    public static final String REQUEST_SMS="sms";
+    public static final String REQUEST_LOGIN = "login";
+    public static final String REQUEST_REGISTER = "register";
+    public static final String REQUEST_SMS = "sms";
     private EditText editCode;
     private RelativeLayout rlInvite;
     private EditText editInvite;
@@ -132,12 +142,12 @@ public class LoginActivity extends LifecycleBaseActivity<LoginPresenter>
 
     @Override
     public void setData(JsonResponse<LoginEntity> loginEntity, String tag) {
-        if(REQUEST_LOGIN.equals(tag)){
-            String authorization=loginEntity.getData().getToken_type()+" "+loginEntity.getData().getAccess_token();
+        if (REQUEST_LOGIN.equals(tag)) {
+            String authorization = loginEntity.getData().getToken_type() + " " + loginEntity.getData().getAccess_token();
             try {
-                PreferenceHelper.write(PreferenceHelper.DEFAULT_FILE_NAME, AppConfig.AUTHORIZATION,authorization);
-                PreferenceHelper.readString(PreferenceHelper.DEFAULT_FILE_NAME,AppConfig.AUTHORIZATION,"");
-                Log.e("aaa","author:"+authorization);
+                PreferenceHelper.write(PreferenceHelper.DEFAULT_FILE_NAME, AppConfig.AUTHORIZATION, authorization);
+                PreferenceHelper.readString(PreferenceHelper.DEFAULT_FILE_NAME, AppConfig.AUTHORIZATION, "");
+                Log.e("aaa", "author:" + authorization);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -148,16 +158,16 @@ public class LoginActivity extends LifecycleBaseActivity<LoginPresenter>
     @Override
     public void setRegisterData(RegisterEntity registerData, String tag) {
 
-        if(REQUEST_REGISTER.equals(tag)){
-            tel=editPhone.getText().toString().trim();
-            password=editPassword.getText().toString().trim();
+        if (REQUEST_REGISTER.equals(tag)) {
+            tel = editPhone.getText().toString().trim();
+            password = editPassword.getText().toString().trim();
             login();
         }
     }
 
     @Override
     public void setSmsData(JsonResponse jsonResponse, String tag) {
-        if(REQUEST_SMS.equals(tag)){
+        if (REQUEST_SMS.equals(tag)) {
             timer.start();
         }
     }
@@ -197,9 +207,9 @@ public class LoginActivity extends LifecycleBaseActivity<LoginPresenter>
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(s.length()>0){
+                if (s.length() > 0) {
                     ivPhoneClose.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     ivPhoneClose.setVisibility(View.GONE);
                 }
             }
@@ -217,9 +227,9 @@ public class LoginActivity extends LifecycleBaseActivity<LoginPresenter>
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(s.length()>0){
+                if (s.length() > 0) {
                     ivPasswordClose.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     ivPasswordClose.setVisibility(View.GONE);
                 }
             }
@@ -238,9 +248,9 @@ public class LoginActivity extends LifecycleBaseActivity<LoginPresenter>
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(s.length()>0){
+                if (s.length() > 0) {
                     otpPhoneClearView.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     otpPhoneClearView.setVisibility(View.GONE);
                 }
             }
@@ -259,9 +269,9 @@ public class LoginActivity extends LifecycleBaseActivity<LoginPresenter>
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(s.length()>0){
+                if (s.length() > 0) {
                     otpPwdClearView.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     otpPwdClearView.setVisibility(View.GONE);
                 }
             }
@@ -280,9 +290,9 @@ public class LoginActivity extends LifecycleBaseActivity<LoginPresenter>
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(s.length()>0){
+                if (s.length() > 0) {
                     ivInviteClose.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     ivInviteClose.setVisibility(View.GONE);
                 }
             }
@@ -294,6 +304,7 @@ public class LoginActivity extends LifecycleBaseActivity<LoginPresenter>
                 btnSend.setEnabled(false);
                 btnSend.setText("已发送(" + millisUntilFinished / 1000 + ")");
             }
+
             @Override
             public void onFinish() {
                 btnSend.setEnabled(true);
@@ -308,8 +319,8 @@ public class LoginActivity extends LifecycleBaseActivity<LoginPresenter>
 
     }
 
-    public static void start(Activity activity){
-        Intent intent=new Intent(activity,LoginActivity.class);
+    public static void start(Activity activity) {
+        Intent intent = new Intent(activity, LoginActivity.class);
         activity.startActivity(intent);
         activity.finish();
     }
@@ -324,30 +335,30 @@ public class LoginActivity extends LifecycleBaseActivity<LoginPresenter>
         otpPhoneClearView.setOnClickListener(this);
         otpPwdClearView = findViewById(R.id.login_otp_otp_clean);
         otpPwdClearView.setOnClickListener(this);
-        btnRegister=findViewById(R.id.btn_register);
+        btnRegister = findViewById(R.id.btn_register);
         btnRegister.setOnClickListener(this);
-        llRegisterIns=findViewById(R.id.ll_register_ins);
-        llRegisterSend=findViewById(R.id.ll_register_send);
-        ivPasswordClose=findViewById(R.id.iv_password_close);
+        llRegisterIns = findViewById(R.id.ll_register_ins);
+        llRegisterSend = findViewById(R.id.ll_register_send);
+        ivPasswordClose = findViewById(R.id.iv_password_close);
         ivPasswordClose.setOnClickListener(this);
-        ivPhoneClose=findViewById(R.id.iv_phone_close);
+        ivPhoneClose = findViewById(R.id.iv_phone_close);
         ivPhoneClose.setOnClickListener(this);
-        etLoginOtpAccount=findViewById(R.id.et_login_otp_account);
-        etLoginOtpOtp=findViewById(R.id.et_login_otp_otp);
-        editPhone=findViewById(R.id.edit_phone);
-        editPassword=findViewById(R.id.edit_password);
+        etLoginOtpAccount = findViewById(R.id.et_login_otp_account);
+        etLoginOtpOtp = findViewById(R.id.et_login_otp_otp);
+        editPhone = findViewById(R.id.edit_phone);
+        editPassword = findViewById(R.id.edit_password);
 
-        loginOtpLogin=findViewById(R.id.login_otp_login);
+        loginOtpLogin = findViewById(R.id.login_otp_login);
         loginOtpLogin.setOnClickListener(this);
-        loginOtpForget=findViewById(R.id.login_otp_forget);
+        loginOtpForget = findViewById(R.id.login_otp_forget);
         loginOtpForget.setOnClickListener(this);
-        btnSend=findViewById(R.id.btn_send);
+        btnSend = findViewById(R.id.btn_send);
         btnSend.setOnClickListener(this);
-        editCode=findViewById(R.id.edit_code);
+        editCode = findViewById(R.id.edit_code);
 
-        rlInvite=findViewById(R.id.rl_invite);
-        editInvite=findViewById(R.id.edit_invite);
-        ivInviteClose=findViewById(R.id.iv_invite_close);
+        rlInvite = findViewById(R.id.rl_invite);
+        editInvite = findViewById(R.id.edit_invite);
+        ivInviteClose = findViewById(R.id.iv_invite_close);
         ivInviteClose.setOnClickListener(this);
 
         /**
@@ -442,6 +453,7 @@ public class LoginActivity extends LifecycleBaseActivity<LoginPresenter>
                 editInvite.setText("");
                 break;
             case R.id.login_otp_login://登录
+//                setPermission(permissions);
                 checkLoginParams();
                 break;
             case R.id.login_otp_forget://忘记密码
@@ -461,13 +473,13 @@ public class LoginActivity extends LifecycleBaseActivity<LoginPresenter>
     /**
      * 登录检查参数配置
      */
-    private void checkLoginParams(){
-        if(TextUtils.isEmpty(etLoginOtpAccount.getText().toString())){
-            Toast.makeText(this,"请先输入手机号",Toast.LENGTH_SHORT).show();
+    private void checkLoginParams() {
+        if (TextUtils.isEmpty(etLoginOtpAccount.getText().toString())) {
+            Toast.makeText(this, "请先输入手机号", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(TextUtils.isEmpty(etLoginOtpOtp.getText().toString())){
-            Toast.makeText(this,"请先输入密码",Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(etLoginOtpOtp.getText().toString())) {
+            Toast.makeText(this, "请先输入密码", Toast.LENGTH_SHORT).show();
             return;
         }
         login();
@@ -476,17 +488,17 @@ public class LoginActivity extends LifecycleBaseActivity<LoginPresenter>
     /**
      * 注册检查参数配置
      */
-    private void checkRegisterParams(){
-        if(TextUtils.isEmpty(editPhone.getText().toString())){
-            Toast.makeText(this,"请先输入手机号",Toast.LENGTH_SHORT).show();
+    private void checkRegisterParams() {
+        if (TextUtils.isEmpty(editPhone.getText().toString())) {
+            Toast.makeText(this, "请先输入手机号", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(TextUtils.isEmpty(editCode.getText().toString())){
-            Toast.makeText(this,"请先输入验证码",Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(editCode.getText().toString())) {
+            Toast.makeText(this, "请先输入验证码", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(TextUtils.isEmpty(editPassword.getText().toString())){
-            Toast.makeText(this,"请先输入密码",Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(editPassword.getText().toString())) {
+            Toast.makeText(this, "请先输入密码", Toast.LENGTH_SHORT).show();
             return;
         }
         register();
@@ -495,42 +507,61 @@ public class LoginActivity extends LifecycleBaseActivity<LoginPresenter>
     /**
      * 登录
      */
-    private void login(){
-        HashMap params=new HashMap();
-        tel=etLoginOtpAccount.getText().toString().trim();
-        password=etLoginOtpOtp.getText().toString().trim();
-        params.put("tel",tel);
-        params.put("password",password);
+    private void login() {
+        HashMap params = new HashMap();
+        tel = etLoginOtpAccount.getText().toString().trim();
+        password = etLoginOtpOtp.getText().toString().trim();
+        params.put("tel", tel);
+        params.put("password", password);
         presenter.getData(params, REQUEST_LOGIN);
     }
 
     /**
      * 注册
      */
-    private void register(){
-        HashMap params=new HashMap();
-        params.put("tel",editPhone.getText().toString().trim());
-        params.put("vercode",editCode.getText().toString().trim());
-        params.put("password",editPassword.getText().toString().trim());
-        String inventCode=editInvite.getText().toString().trim();
-        if(TextUtils.isEmpty(inventCode)){
-            inventCode="";
+    private void register() {
+        HashMap params = new HashMap();
+        params.put("tel", editPhone.getText().toString().trim());
+        params.put("vercode", editCode.getText().toString().trim());
+        params.put("password", editPassword.getText().toString().trim());
+        String inventCode = editInvite.getText().toString().trim();
+        if (TextUtils.isEmpty(inventCode)) {
+            inventCode = "";
         }
-        params.put("invite_code",inventCode);
-        presenter.getData(params,REQUEST_REGISTER);
+        params.put("invite_code", inventCode);
+        presenter.getData(params, REQUEST_REGISTER);
     }
 
     /**
      * 发送验证码
      */
-    private void sendSms(){
-        if(TextUtils.isEmpty(editPhone.getText().toString())){
-            Toast.makeText(this,"请先输入手机号",Toast.LENGTH_SHORT).show();
+    private void sendSms() {
+        if (TextUtils.isEmpty(editPhone.getText().toString())) {
+            Toast.makeText(this, "请先输入手机号", Toast.LENGTH_SHORT).show();
             return;
         }
-        HashMap params=new HashMap();
-        params.put("tel",editPhone.getText().toString().trim());
-        params.put("type","1");
-        presenter.getData(params,REQUEST_SMS);
+        HashMap params = new HashMap();
+        params.put("tel", editPhone.getText().toString().trim());
+        params.put("type", "1");
+        presenter.getData(params, REQUEST_SMS);
+    }
+
+    /**
+     * 授权成功
+     */
+    @Override
+    public void onAccreditSucceed() {
+        super.onAccreditSucceed();
+        Log.e("aaa", "授权成功");
+        MyApplication.getInstance().initOcr();
+    }
+
+    /**
+     * 授权失败
+     */
+    @Override
+    public void onAccreditFailure() {
+        super.onAccreditFailure();
+        MyToast.showMyToast2(getApplicationContext(), "请先授权后再进行操作", Toast.LENGTH_SHORT);
     }
 }

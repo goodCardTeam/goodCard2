@@ -45,18 +45,6 @@ public class SplashActivity extends LifecycleBaseActivity<LoginPresenter>
             Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
     public static final String REQUEST_REFRESH="refresh";
-    private Handler handler=new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            String token=PreferenceHelper.readString(PreferenceHelper.DEFAULT_FILE_NAME, AppConfig.AUTHORIZATION, "");
-            if(TextUtils.isEmpty(token)){
-                LoginActivity.start(SplashActivity.this);
-                return;
-            }
-            refreshToken();
-        }
-    };
 
     private static final String TAG = "SplashActivity";
     private TTAdNative mTTAdNative;
@@ -180,6 +168,11 @@ public class SplashActivity extends LifecycleBaseActivity<LoginPresenter>
             @MainThread
             public void onError(int code, String message) {
                 Log.d(TAG, message);
+                try {
+                    PreferenceHelper.write(PreferenceHelper.DEFAULT_FILE_NAME, AppConfig.AUTHORIZATION, "");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 mHasLoaded = true;
                 showToast(message);
                 goToMainActivity();
@@ -190,6 +183,11 @@ public class SplashActivity extends LifecycleBaseActivity<LoginPresenter>
             public void onTimeout() {
                 mHasLoaded = true;
                 showToast("开屏广告加载超时");
+                try {
+                    PreferenceHelper.write(PreferenceHelper.DEFAULT_FILE_NAME, AppConfig.AUTHORIZATION, "");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 goToMainActivity();
             }
 
@@ -219,28 +217,24 @@ public class SplashActivity extends LifecycleBaseActivity<LoginPresenter>
                 ad.setSplashInteractionListener(new TTSplashAd.AdInteractionListener() {
                     @Override
                     public void onAdClicked(View view, int type) {
-                        Log.d(TAG, "onAdClicked");
-                        showToast("开屏广告点击");
+                        Log.d(TAG, "onAdClicked--开屏广告点击");
                     }
 
                     @Override
                     public void onAdShow(View view, int type) {
-                        Log.d(TAG, "onAdShow");
-                        showToast("开屏广告展示");
+                        Log.d(TAG, "onAdShow--开屏广告展示");
                     }
 
                     @Override
                     public void onAdSkip() {
-                        Log.d(TAG, "onAdSkip");
-                        showToast("开屏广告跳过");
+                        Log.d(TAG, "onAdSkip--开屏广告跳过");
                         goToMainActivity();
 
                     }
 
                     @Override
                     public void onAdTimeOver() {
-                        Log.d(TAG, "onAdTimeOver");
-                        showToast("开屏广告倒计时结束");
+                        Log.d(TAG, "onAdTimeOver--开屏广告倒计时结束");
                         goToMainActivity();
                     }
                 });

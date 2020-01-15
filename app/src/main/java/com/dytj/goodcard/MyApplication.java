@@ -6,8 +6,11 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.widget.Toast;
 
+import com.chuanglan.cllc.CLLCSDKManager;
+import com.chuanglan.cllc.listener.InitStateListener;
 import com.dytj.goodcard.base.MyLifecycleHandler;
 import com.dytj.goodcard.utils.TTAdManagerHolder;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -68,8 +71,12 @@ public class MyApplication extends Application {
         super.onCreate();
         this.instance = (MyApplication) getApplicationContext();
         context = (MyApplication) getApplicationContext();
-        Bugly.init(getApplicationContext(), "f28b568432", false);
+        //初始化Bugly
+        Bugly.init(getApplicationContext(), AppConfig.BUGLY_APP_ID, false);
+        //初始化穿山甲
         initAdConfig();
+        //初始化人脸识别
+//        initOcr();
         registerActivityLifecycleCallbacks(new MyLifecycleHandler());
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             @Override
@@ -117,6 +124,17 @@ public class MyApplication extends Application {
 
     private void initAdConfig(){
         TTAdManagerHolder.init(this);
+    }
+
+    public void initOcr(){
+        Log.e("aaa","开始授权");
+        CLLCSDKManager.getInstance().init(getApplicationContext(), AppConfig.OCR_JSON,
+                AppConfig.OCR_APP_ID,AppConfig.OCR_APP_KEY,
+                new InitStateListener() {
+                    @Override
+                    public void getInitStatus(int code, String msg) {
+                        Log.e("aaa","code:"+code+" --msg:"+msg);
+                    } });
     }
 
     private void showToast(final String text) {

@@ -74,6 +74,28 @@ public class AppConfig {
     //每个接口都需要穿的令牌
     public static final String AUTHORIZATION = "Authorization";
 
+//    ---start---
+    /**
+     * 人脸识别实名认证
+     */
+    public static final String OCR_JSON="https://cloud-license.linkface.cn/json/2020011320571312a155533ecd42ba981b537d13b5b025.json";
+
+    /**
+     * 人脸识别key
+     */
+    public static final String OCR_APP_KEY=BuildConfig.APPKEY;
+
+    /**
+     * 人脸识别id
+     */
+    public static final String OCR_APP_ID=BuildConfig.APPID;
+
+//    ---end---
+    /**
+     * bugly Appid
+     */
+    public static final String BUGLY_APP_ID="f28b568432";
+
 
 
 

@@ -41,6 +41,8 @@ public class RainbowActivity extends LifecycleBaseActivity<RainbowPresenter> imp
     private TextView menu;
     public static final String RAINBOW = "rainbow";
     private ImageButton myBack;
+    int [] bacArrays=new int[]{R.drawable.card_white,R.drawable.card_blue,R.drawable.card_yellow,
+            R.drawable.card_purple,R.drawable.card_red,R.drawable.card_black};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +68,7 @@ public class RainbowActivity extends LifecycleBaseActivity<RainbowPresenter> imp
 
 
     private void initData() {
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 2; i++) {
             mList.add(R.drawable.pic4);
             mList.add(R.drawable.pic5);
             mList.add(R.drawable.pic6);
@@ -107,6 +109,8 @@ public class RainbowActivity extends LifecycleBaseActivity<RainbowPresenter> imp
     private void notifyBackgroundChange() {
         if (mLastPos == mCardScaleHelper.getCurrentItemPos()) return;
         mLastPos = mCardScaleHelper.getCurrentItemPos();
+
+
         final int resId = mList.get(mCardScaleHelper.getCurrentItemPos());
         mBlurView.removeCallbacks(mBlurRunnable);
         mBlurRunnable = new Runnable() {

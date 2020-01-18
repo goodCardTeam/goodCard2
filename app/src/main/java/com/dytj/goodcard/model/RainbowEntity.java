@@ -22,6 +22,7 @@ public class RainbowEntity {
         this.cards = cards;
     }
 
+
     public static class CardsBean {
         /**
          * id : 1

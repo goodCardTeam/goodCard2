@@ -5,4 +5,14 @@
     <string name="agreement_privacy">agreement_privacy</string>
     <string name="phone_login">登录</string>
     <string name="phone_register">注册</string>
+
+    <string name="input_name">请输入姓名</string>
+    <string name="input_card_no">请输入身份证</string>
+    <string name="input_empty">姓名与身份证不能为空</string>
+
+    <string name="note_blink">请眨眨眼</string>
+    <string name="note_nod">请点点头</string>
+    <string name="note_mouth">请张张嘴</string>
+    <string name="note_yaw">请摇摇头</string>
+    <string name="time_out">动作超时</string>
 </resources>

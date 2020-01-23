@@ -90,6 +90,8 @@ public class AppConfig {
      */
     public static final String OCR_APP_ID=BuildConfig.APPID;
 
+
+
 //    ---end---
     /**
      * bugly Appid

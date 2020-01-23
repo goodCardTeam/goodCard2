@@ -20,6 +20,8 @@ import com.dytj.goodcard.MyApplication;
 public class PreferenceHelper {
     public static String DEFAULT_FILE_NAME = "goodCard";
 
+
+
     /*public static void write(String k, int v) {
         SharedPreferences preference = MyApplication.getContext().getSharedPreferences(fileName,
                 Context.MODE_PRIVATE);
@@ -53,13 +55,14 @@ public class PreferenceHelper {
         editor.putInt(k, v);
         editor.commit();
     }
-  public static void write(String fileName, String k, long v) {
-    SharedPreferences preference = MyApplication.getInstance().getSharedPreferences(fileName,
-      Context.MODE_PRIVATE);
-    SharedPreferences.Editor editor = preference.edit();
-    editor.putLong(k, v);
-    editor.commit();
-  }
+
+    public static void write(String fileName, String k, long v) {
+        SharedPreferences preference = MyApplication.getInstance().getSharedPreferences(fileName,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preference.edit();
+        editor.putLong(k, v);
+        editor.commit();
+    }
 
     public static void write(String fileName, String k,
                              boolean v) {
@@ -77,7 +80,7 @@ public class PreferenceHelper {
                 Context.MODE_PRIVATE);
 //        v = CipherUtils.encrypt(v==null?"":v);
         SharedPreferences.Editor editor = preference.edit();
-        editor.putString(k, v==null?"":v);
+        editor.putString(k, v == null ? "" : v);
         editor.commit();
     }
 
@@ -93,12 +96,12 @@ public class PreferenceHelper {
         return preference.getInt(k, defv);
     }
 
-  public static long readLong(String fileName, String k,
-                            long defv) {
-    SharedPreferences preference = MyApplication.getInstance().getSharedPreferences(fileName,
-      Context.MODE_PRIVATE);
-    return preference.getLong(k, defv);
-  }
+    public static long readLong(String fileName, String k,
+                                long defv) {
+        SharedPreferences preference = MyApplication.getInstance().getSharedPreferences(fileName,
+                Context.MODE_PRIVATE);
+        return preference.getLong(k, defv);
+    }
 
     public static boolean readBoolean(String fileName, String k, boolean defBool) {
         SharedPreferences preference = MyApplication.getInstance().getSharedPreferences(fileName,
@@ -121,8 +124,8 @@ public class PreferenceHelper {
 //                return "";
 //            }
 //        }
-        String str=preference.getString(k,"");
-        Log.e("aaa","str:"+str);
+        String str = preference.getString(k, "");
+        Log.e("aaa", "str:" + str);
         return str;
     }
 
@@ -207,5 +210,57 @@ public class PreferenceHelper {
         editor.clear();
         editor.commit();
     }*/
+
+    /**
+     * 存储输出类型
+     *
+     * @param outputType
+     */
+    public static void saveOutputType(String fileName, String outputType) {
+        try {
+            write(fileName, Constants.OUTPUT_TYPE, outputType);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static String getOutputType(String fileName, String defaultType) {
+        return readString(fileName, Constants.OUTPUT_TYPE, defaultType);
+    }
+
+    /**
+     * 存储动作序列
+     *
+     * @param actionSequence
+     */
+    public static void saveActionSequence(String fileName, String actionSequence) {
+        try {
+            write(fileName, Constants.ACTION_SEQUENCE, actionSequence);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static String getActionSequence(String fileName) {
+        return readString(fileName, Constants.ACTION_SEQUENCE, "");
+    }
+
+    /**
+     * 存储难易程度
+     *
+     * @param complexity
+     */
+    public static void saveComplexity(String fileName, String complexity) {
+        try {
+            write(fileName, Constants.DETECT_COMPLEXITY, complexity);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static String getComplexity(String fileName, String defaultComplexity) {
+        return readString(fileName, Constants.DETECT_COMPLEXITY, defaultComplexity);
+    }
+
 
 }

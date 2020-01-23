@@ -3,6 +3,7 @@ package com.dytj.goodcard;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -12,6 +13,10 @@ import android.widget.Toast;
 import com.chuanglan.cllc.CLLCSDKManager;
 import com.chuanglan.cllc.listener.InitStateListener;
 import com.dytj.goodcard.base.MyLifecycleHandler;
+import com.dytj.goodcard.ui.activity.LivenessActivity;
+import com.dytj.goodcard.ui.activity.LoginActivity;
+import com.dytj.goodcard.utils.Constants;
+import com.dytj.goodcard.utils.PreferenceHelper;
 import com.dytj.goodcard.utils.TTAdManagerHolder;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
@@ -126,16 +131,9 @@ public class MyApplication extends Application {
         TTAdManagerHolder.init(this);
     }
 
-    public void initOcr(){
-        Log.e("aaa","开始授权");
-        CLLCSDKManager.getInstance().init(getApplicationContext(), AppConfig.OCR_JSON,
-                AppConfig.OCR_APP_ID,AppConfig.OCR_APP_KEY,
-                new InitStateListener() {
-                    @Override
-                    public void getInitStatus(int code, String msg) {
-                        Log.e("aaa","code:"+code+" --msg:"+msg);
-                    } });
-    }
+
+
+
 
     private void showToast(final String text) {
 

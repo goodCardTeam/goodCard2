@@ -4,6 +4,7 @@ import android.Manifest;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -21,6 +22,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.chuanglan.cllc.CLLCSDKManager;
+import com.chuanglan.cllc.listener.InitStateListener;
 import com.dytj.goodcard.AppConfig;
 import com.dytj.goodcard.MyApplication;
 import com.dytj.goodcard.R;
@@ -30,6 +33,7 @@ import com.dytj.goodcard.model.RegisterEntity;
 import com.dytj.goodcard.model.JsonResponse;
 import com.dytj.goodcard.presenter.LoginContact;
 import com.dytj.goodcard.presenter.LoginPresenter;
+import com.dytj.goodcard.utils.Constants;
 import com.dytj.goodcard.utils.MyToast;
 import com.dytj.goodcard.utils.PreferenceHelper;
 import com.dytj.goodcard.utils.ToolUtils;
@@ -55,7 +59,7 @@ public class LoginActivity extends LifecycleBaseActivity<LoginPresenter>
     private String[] permissions = new String[]{
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.VIBRATE,
-    Manifest.permission.CAMERA};
+            Manifest.permission.CAMERA};
 
     /**
      * 抬高view1
@@ -553,7 +557,7 @@ public class LoginActivity extends LifecycleBaseActivity<LoginPresenter>
     public void onAccreditSucceed() {
         super.onAccreditSucceed();
         Log.e("aaa", "授权成功");
-        MyApplication.getInstance().initOcr();
+        initOcr();
     }
 
     /**
@@ -563,5 +567,70 @@ public class LoginActivity extends LifecycleBaseActivity<LoginPresenter>
     public void onAccreditFailure() {
         super.onAccreditFailure();
         MyToast.showMyToast2(getApplicationContext(), "请先授权后再进行操作", Toast.LENGTH_SHORT);
+    }
+
+    public void initOcr() {
+        Log.e("aaa", "开始授权");
+        CLLCSDKManager.getInstance().init(getApplicationContext(), AppConfig.OCR_JSON,
+                AppConfig.OCR_APP_ID, AppConfig.OCR_APP_KEY,
+                new InitStateListener() {
+                    @Override
+                    public void getInitStatus(int code, String msg) {
+                        Log.e("aaa", "code:" + code + " --msg:" + msg);
+                        if (code == 1000) {
+                            startLiveness(LoginActivity.this);
+                        }
+                    }
+                });
+    }
+
+    public void startLiveness(Context context) {
+
+        try {
+            String name = "";
+            String cardNo = "410326199309125010";
+
+//                if(!name.matches(NAME)){
+//                    Toast.makeText(getApplicationContext(), "身份证姓名不正确",Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//
+//                if(!cardNo.matches(CARD_ID)){
+//                    Toast.makeText(getApplicationContext(), "身份证号码格式不正确",Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+
+            Bundle bundle = new Bundle();
+
+            /**
+             * OUTPUT_TYPE 配置, 传入的outputType类型为singleImg （单图），multiImg （多图），video（低质量视频），fullvideo（高质量视频）
+             */
+            bundle.putString(LivenessActivity.OUTTYPE, "video");
+
+            /**
+             * EXTRA_MOTION_SEQUENCE 动作检测序列配置，支持四种检测动作， BLINK(眨眼), MOUTH（张嘴）, NOD（点头）, YAW（摇头）, 各个动作以空格隔开。 推荐第一个动作为BLINK。
+             * 默认配置为"BLINK MOUTH NOD YAW"
+             */
+            bundle.putString(LivenessActivity.EXTRA_MOTION_SEQUENCE, "BLINK MOUTH NOD YAW");
+
+            /**
+             * SOUND_NOTICE 配置, 传入的soundNotice为boolean值，true为打开, false为关闭。
+             */
+            bundle.putBoolean(LivenessActivity.SOUND_NOTICE, false);
+
+            /**
+             * COMPLEXITY 配置, 传入的complexity类型为normal,支持四种难度，easy, normal, hard, hell.
+             */
+            bundle.putString(LivenessActivity.COMPLEXITY, "hard");
+
+            Intent intent = new Intent(context, LivenessActivity.class)
+                    .putExtras(bundle)
+                    .putExtra(LivenessActivity.NAME, name)
+                    .putExtra(LivenessActivity.CAR_NO, cardNo);
+            startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }

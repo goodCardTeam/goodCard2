@@ -125,4 +125,15 @@
     <color name="gray_f0">#F0F2F5</color>
     <color name="white_da">#DAE1FB</color>
     <color name="colorPopWindow">#660000aa</color>
+
+    <color name="color_white">#FFFFFF</color>
+    <color name="light_blue">#303F9F</color>
+    <color name="text_color_i">#434759</color>
+    <color name="text_color_ii">#606581</color>
+    <color name="btn_bg">#3F75FC</color>
+
+    <color name="color_btn_setting_item_bg">#F9F9F9</color>
+    <color name="color_btn_setting_item_bg_press">#bfbcbc</color>
+    <color name="default_dot_bg"> #D3E1F9</color>
+    <color name="checked_dot_bg"> #75B3FD</color>
 </resources>

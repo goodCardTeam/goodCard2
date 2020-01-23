@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.activity.ResultActivity">
+    <include layout="@layout/view_title_bar"/>
+
+    <ImageView
+        android:id="@+id/iv_r"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@mipmap/icon_succeed" />
+    <TextView
+        android:id="@+id/tv_msg"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bt_close"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="20dp"
+        android:visibility="gone"
+        android:textIsSelectable="true"
+        android:text=""/>
+
+    <TextView
+        android:id="@+id/tv_r"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxWidth="190dp"
+        android:text="认证成功"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/text_color_ii"
+        android:textSize="23dp"/>
+
+    <Button
+        android:id="@+id/bt_close"
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:layout_marginStart="30dp"
+        android:visibility="gone"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/edit_shape2"
+        android:layout_marginTop="80dp"
+        android:text="再次体验"
+        android:textColor="@color/white"
+        android:textSize="16dp"/>
+
+
+
+
+
+</LinearLayout>

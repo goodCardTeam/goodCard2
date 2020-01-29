@@ -43,6 +43,7 @@ public class RainbowActivity extends LifecycleBaseActivity<RainbowPresenter> imp
     private ImageButton myBack;
     int [] bacArrays=new int[]{R.drawable.card_white,R.drawable.card_blue,R.drawable.card_yellow,
             R.drawable.card_purple,R.drawable.card_red,R.drawable.card_black};
+    private CardAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,22 +69,18 @@ public class RainbowActivity extends LifecycleBaseActivity<RainbowPresenter> imp
 
 
     private void initData() {
-        for (int i = 0; i < 2; i++) {
-            mList.add(R.drawable.pic4);
-            mList.add(R.drawable.pic5);
-            mList.add(R.drawable.pic6);
-        }
 
 
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         mRecyclerView.setLayoutManager(linearLayoutManager);
-        mRecyclerView.setAdapter(new CardAdapter(RainbowActivity.this,mList));
+        adapter=new CardAdapter(RainbowActivity.this);
+        mRecyclerView.setAdapter(adapter);
         // mRecyclerView绑定scale效果
         mCardScaleHelper = new CardScaleHelper();
         mCardScaleHelper.setCurrentItemPos(0);
         mCardScaleHelper.attachToRecyclerView(mRecyclerView);
 
-        initBlurBackground();
+
         getRainbowList();
     }
 
@@ -142,7 +139,17 @@ public class RainbowActivity extends LifecycleBaseActivity<RainbowPresenter> imp
 
     @Override
     public void setRainbowListData(JsonResponse<RainbowEntity> response, String tag) {
-
+        List<RainbowEntity.CardsBean> cardList = response.getData().getCards();
+        if (null==cardList){
+            return;
+        }
+        for (int i = 0; i < cardList.size(); i++) {
+            mList.add(R.drawable.pic4);
+        }
+        adapter.setCardList(cardList);
+        adapter.setmList(mList);
+        initBlurBackground();
+        adapter.notifyDataSetChanged();
     }
 
     @Override

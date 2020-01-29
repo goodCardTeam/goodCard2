@@ -14,6 +14,7 @@ import com.dytj.goodcard.model.RainbowEntity;
 import com.dytj.goodcard.presenter.RainbowContact;
 import com.dytj.goodcard.presenter.RainbowPresenter;
 import com.dytj.goodcard.ui.activity.RainbowActivity;
+import com.dytj.goodcard.ui.activity.SignActivity;
 import com.dytj.goodcard.ui.adapter.CommonAdapter;
 import com.dytj.goodcard.ui.adapter.ViewHolder;
 import com.dytj.goodcard.view.galleryView.CardScaleHelper;
@@ -66,8 +67,9 @@ public class ActiveFragment extends LifecycleBaseFragment<RainbowPresenter> impl
     }
 
     private void initData() {
-        List<String> list = new ArrayList<>();
+        final List<String> list = new ArrayList<>();
         list.add("彩虹堂");
+        list.add("每日签到");
         activeRv.setAdapter(new CommonAdapter<String>(getActivity(), R.layout.item_active, list) {
             @Override
             public void convert(ViewHolder holder, String s) {
@@ -75,8 +77,11 @@ public class ActiveFragment extends LifecycleBaseFragment<RainbowPresenter> impl
                 holder.setOnClickListener(R.id.item_active_layout, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        RainbowActivity.start(getActivity());
+//                            RainbowActivity.start(getActivity());
+
+                        SignActivity.start(getActivity());
                     }
+
                 });
             }
         });

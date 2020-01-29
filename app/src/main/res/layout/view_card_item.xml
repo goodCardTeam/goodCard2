@@ -21,8 +21,60 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:paddingTop="50dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
         android:background="@drawable/edit_shape">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25sp"
+            android:textColor="@color/gray_4a"
+            android:layout_gravity="center_horizontal"
+            android:text="体验卡"/>
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@mipmap/ic_launcher_round"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="所需积分：1000"
+            android:textColor="@color/gray_4a"
+            android:textSize="18sp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="周期：30天"
+                android:textColor="@color/gray_4a"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="回报率：1000"
+                android:textColor="@color/gray_4a"
+                android:textSize="16sp"/>
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="简介：巴拉达；的咖啡机非建安的；联发科骄傲啊；了的看法；了法拉第就；法兰克福加快就"
+            android:textColor="@color/gray_4a"
+            android:textSize="15sp"/>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

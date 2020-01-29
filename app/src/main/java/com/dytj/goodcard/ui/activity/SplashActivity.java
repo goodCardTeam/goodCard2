@@ -158,7 +158,7 @@ public class SplashActivity extends LifecycleBaseActivity<LoginPresenter>
     private void loadSplashAd() {
         //step3:创建开屏广告请求参数AdSlot,具体参数含义参考文档
         AdSlot adSlot = new AdSlot.Builder()
-                .setCodeId("887291923")
+                .setCodeId(AppConfig.AD_SCREEN_ID)
                 .setSupportDeepLink(true)
                 .setImageAcceptedSize(1080, 1920)
                 .build();

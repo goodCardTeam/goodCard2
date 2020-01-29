@@ -98,6 +98,16 @@ public class AppConfig {
      */
     public static final String BUGLY_APP_ID="f28b568432";
 
+    /**
+     * 开屏广告ID
+     */
+    public static final String AD_SCREEN_ID="887291923";
+
+    /**
+     * 激励视频广告ID
+     */
+    public static final String AD_VEDIO_ID="945010500";
+
 
 
 

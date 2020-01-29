@@ -15,6 +15,7 @@ import com.bytedance.sdk.openadsdk.TTAdManager;
 import com.bytedance.sdk.openadsdk.TTAdNative;
 import com.bytedance.sdk.openadsdk.TTAppDownloadListener;
 import com.bytedance.sdk.openadsdk.TTRewardVideoAd;
+import com.dytj.goodcard.AppConfig;
 import com.dytj.goodcard.R;
 import com.dytj.goodcard.utils.MyToast;
 import com.dytj.goodcard.utils.TTAdManagerHolder;
@@ -72,7 +73,7 @@ public class SignActivity extends AppCompatActivity implements View.OnClickListe
         mTTAdNative = ttAdManager.createAdNative(getApplicationContext());
 
         AdSlot adSlot = new AdSlot.Builder()
-                .setCodeId("945010500")
+                .setCodeId(AppConfig.AD_VEDIO_ID)
                 .setSupportDeepLink(true)
                 .setAdCount(2)
                 .setImageAcceptedSize(1080, 1920)

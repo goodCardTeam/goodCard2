@@ -13,6 +13,7 @@ import com.dytj.goodcard.R;
 import com.dytj.goodcard.base.LifecycleLazyFragment;
 import com.dytj.goodcard.presenter.TestContact;
 import com.dytj.goodcard.ui.activity.AboutActivity;
+import com.dytj.goodcard.ui.activity.CertificationActivity;
 import com.dytj.goodcard.ui.activity.LoginActivity;
 import com.dytj.goodcard.utils.PreferenceHelper;
 
@@ -30,6 +31,7 @@ public class MineFragment extends LifecycleLazyFragment implements View.OnClickL
     private View view;
     private Button mineLoginOut;
     private LinearLayout mineAbout;
+    private LinearLayout mineAuth;
 
     @Override
     public TestContact.presenter initPresenter() {
@@ -49,6 +51,8 @@ public class MineFragment extends LifecycleLazyFragment implements View.OnClickL
         mineLoginOut.setOnClickListener(this);
         mineAbout=view.findViewById(R.id.mine_about);
         mineAbout.setOnClickListener(this);
+        mineAuth=view.findViewById(R.id.mine_auth);
+        mineAuth.setOnClickListener(this);
     }
 
     @Override
@@ -66,6 +70,9 @@ public class MineFragment extends LifecycleLazyFragment implements View.OnClickL
                 break;
             case R.id.mine_about:
                 AboutActivity.start(getActivity());
+                break;
+            case R.id.mine_auth:
+                CertificationActivity.start(getActivity());
                 break;
         }
     }

@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".ui.activity.SignActivity"></activity>
+        <activity android:name=".ui.activity.AboutActivity"></activity>
+        <activity android:name=".ui.activity.SignActivity" />
         <activity android:name=".ui.activity.ComplainActivity" />
         <activity android:name=".ui.activity.TradeOrderInfoActivity" />
         <activity android:name=".ui.activity.RainbowActivity" />
@@ -75,6 +76,7 @@
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
+
     <uses-feature
         android:name="android.hardware.camera.autofocus"
         android:required="false" />
@@ -96,7 +98,6 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.GET_TASKS" />
-
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.READ_LOGS" />
 

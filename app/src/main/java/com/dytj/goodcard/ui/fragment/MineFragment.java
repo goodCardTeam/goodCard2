@@ -5,12 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.dytj.goodcard.AppConfig;
 import com.dytj.goodcard.AppManager;
 import com.dytj.goodcard.R;
 import com.dytj.goodcard.base.LifecycleLazyFragment;
 import com.dytj.goodcard.presenter.TestContact;
+import com.dytj.goodcard.ui.activity.AboutActivity;
 import com.dytj.goodcard.ui.activity.LoginActivity;
 import com.dytj.goodcard.utils.PreferenceHelper;
 
@@ -27,6 +29,7 @@ import androidx.annotation.Nullable;
 public class MineFragment extends LifecycleLazyFragment implements View.OnClickListener {
     private View view;
     private Button mineLoginOut;
+    private LinearLayout mineAbout;
 
     @Override
     public TestContact.presenter initPresenter() {
@@ -44,6 +47,8 @@ public class MineFragment extends LifecycleLazyFragment implements View.OnClickL
     private void initView() {
         mineLoginOut=view.findViewById(R.id.mine_login_out);
         mineLoginOut.setOnClickListener(this);
+        mineAbout=view.findViewById(R.id.mine_about);
+        mineAbout.setOnClickListener(this);
     }
 
     @Override
@@ -58,6 +63,9 @@ public class MineFragment extends LifecycleLazyFragment implements View.OnClickL
                     e.printStackTrace();
                 }
 
+                break;
+            case R.id.mine_about:
+                AboutActivity.start(getActivity());
                 break;
         }
     }

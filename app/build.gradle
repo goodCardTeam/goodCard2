@@ -90,4 +90,8 @@ dependencies {
     //人脸识别
     compile(name: 'cllc_sdk', ext: 'aar')
 
+    implementation 'com.github.bumptech.glide:glide:4.6.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
+    implementation 'jp.wasabeef:glide-transformations:2.0.2'//图形变换依赖库
+
 }

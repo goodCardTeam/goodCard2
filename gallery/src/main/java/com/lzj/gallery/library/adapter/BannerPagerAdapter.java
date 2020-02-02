@@ -1,16 +1,15 @@
 package com.lzj.gallery.library.adapter;
 
 import android.content.Context;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.lzj.gallery.library.R;
-import com.lzj.gallery.library.transformer.CornerTransform;
 
 import java.util.List;
 
@@ -97,22 +96,26 @@ public class BannerPagerAdapter  extends PagerAdapter {
      * 加载图片
      */
     public  void LoadImage(String url, ImageView imageview) {
+
+        //设置图片圆角角度
+        RoundedCorners roundedCorners= new RoundedCorners(6);
+        //通过RequestOptions扩展功能,override:采样率,因为ImageView就这么大,可以压缩图片,降低内存消耗
+        RequestOptions options=RequestOptions.bitmapTransform(roundedCorners).override(300, 300).error(defaultImg).dontAnimate();
         if(mRoundCorners==-1){
             Glide.with(mContext)
                     .load(url)
-                    .centerCrop()
-                    .dontAnimate()//防止设置placeholder导致第一次不显示网络图片,只显示默认图片的问题
-                    .placeholder(defaultImg)
-                    .diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageview);
+                    .apply(options)
+                    .into(imageview);
+//                    .centerCrop()
+//                    .dontAnimate()//防止设置placeholder导致第一次不显示网络图片,只显示默认图片的问题
+//                    .placeholder(defaultImg)
+//                    .diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageview);
         }
         else {
             Glide.with(mContext)
                     .load(url)
-                    .centerCrop()
-                    .dontAnimate()//防止设置placeholder导致第一次不显示网络图片,只显示默认图片的问题
-                    .placeholder(defaultImg)
-                    .transform(new CornerTransform(mContext, mRoundCorners))
-                    .diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageview);
+                    .apply(options)
+                    .into(imageview);
         }
     }
 

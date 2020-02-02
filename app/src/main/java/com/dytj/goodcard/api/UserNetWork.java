@@ -3,6 +3,8 @@ package com.dytj.goodcard.api;
 import com.dytj.goodcard.api.baseFile.BaseNetWork;
 import com.dytj.goodcard.model.BuyEntity;
 import com.dytj.goodcard.model.CreateTradeOrderEntity;
+import com.dytj.goodcard.model.GoodsListEntity;
+import com.dytj.goodcard.model.GoodsTypeEntity;
 import com.dytj.goodcard.model.LoginEntity;
 import com.dytj.goodcard.model.LunBoTuEntity;
 import com.dytj.goodcard.model.MessageEntity;
@@ -15,6 +17,7 @@ import com.dytj.goodcard.model.TradeOrderInfoEntity;
 import com.dytj.goodcard.model.UserRechargeWay;
 
 import java.util.HashMap;
+import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -153,6 +156,25 @@ public class UserNetWork extends BaseNetWork {
         @FormUrlEncoded
         @POST("api/trade-orders/cancel")
         Observable<JsonResponse> tradeOrderCancelRequest(@FieldMap HashMap<String, Object> modificationPassWordEntryMap);
+
+        /**
+         * 获取淘宝商品分类
+         * @param modificationPassWordEntryMap
+         * @return
+         */
+        @FormUrlEncoded
+        @POST("api/tbk/category")
+        Observable<JsonResponse<List<GoodsTypeEntity>>> tbGoodsTypeRequest(@FieldMap HashMap<String, Object> modificationPassWordEntryMap);
+
+        /**
+         * 获取淘宝商品列表
+         * @param modificationPassWordEntryMap
+         * @return
+         */
+        @FormUrlEncoded
+        @POST("api/tbk/products")
+        Observable<JsonResponse<GoodsListEntity>> tbGoodsListRequest(@FieldMap HashMap<String, Object> modificationPassWordEntryMap);
+
 
         //获取消息列表
         @GET("api/AppPrivate/get_messages")
@@ -314,5 +336,23 @@ public class UserNetWork extends BaseNetWork {
      */
     public void tradeOrderCancelRequest(HashMap<String, Object> paramMap, Observer<JsonResponse> observer){
         setSubscribe(service.tradeOrderCancelRequest(paramMap),observer);
+    }
+
+    /**
+     * 获取淘宝客商品分类
+     * @param paramMap
+     * @param observer
+     */
+    public void tbGoodsTypeRequest(HashMap<String, Object> paramMap, Observer<JsonResponse<List<GoodsTypeEntity>>> observer){
+        setSubscribe(service.tbGoodsTypeRequest(paramMap),observer);
+    }
+
+    /**
+     * 获取淘宝客商品列表
+     * @param paramMap
+     * @param observer
+     */
+    public void tbGoodsListRequest(HashMap<String, Object> paramMap, Observer<JsonResponse<GoodsListEntity>> observer){
+        setSubscribe(service.tbGoodsListRequest(paramMap),observer);
     }
 }

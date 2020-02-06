@@ -51,6 +51,15 @@ public class TbGoodDetailActivity extends LifecycleBaseActivity<TbGoodDetailPres
 
     private BannerViewPager homeBanner;
 
+    TextView tv_price;
+    TextView tv_tip_price;
+    TextView tv_taobao_price;
+    TextView tv_sale_num;
+    TextView tv_good_title;
+    TextView tv_coump_price;
+    TextView tv_shop_name;
+
+
     private int scrollHeight;
     private int scrollAlpha = 0;
     private float scrollScale = 0;
@@ -126,6 +135,7 @@ public class TbGoodDetailActivity extends LifecycleBaseActivity<TbGoodDetailPres
     }
 
     private void initView() {
+        myBack = findViewById(R.id.myBack);
         scrollView = findViewById(R.id.scrollView);
 //        banner = findViewById(R.id.banner);
         homeBanner = findViewById(R.id.home_banner);
@@ -133,9 +143,28 @@ public class TbGoodDetailActivity extends LifecycleBaseActivity<TbGoodDetailPres
         btnLeft = findViewById(R.id.btnLeft);
         topView = findViewById(R.id.topView);
 
+        tv_price = findViewById(R.id.tv_price);
+        tv_tip_price = findViewById(R.id.tv_tip_price);
+        tv_taobao_price = findViewById(R.id.tv_taobao_price);
+
+        tv_sale_num = findViewById(R.id.tv_sale_num);
+        tv_good_title = findViewById(R.id.tv_good_title);
+        tv_coump_price = findViewById(R.id.tv_coump_price);
+        tv_shop_name = findViewById(R.id.tv_shop_name);
+
+
         onStatusBar();
         scrollHeight = homeBanner.getLayoutParams().height;
         initScrollView();
+
+        myBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+
     }
 
     private void initData() {
@@ -202,6 +231,16 @@ public class TbGoodDetailActivity extends LifecycleBaseActivity<TbGoodDetailPres
     @Override
     public void setGoodDetail(JsonResponse<GoodDetailEntity> goodDetailEntityJsonResponse, String tag) {
         Log.i("tag","111111111111111");
+        tv_price.setText("￥"+(Double.parseDouble(goodDetailEntityJsonResponse.getData().getZk_final_price()) -
+                Double.parseDouble(goodDetailEntityJsonResponse.getData().getCoupon_amount())));
+//        tv_tip_price.setText("");
+        tv_taobao_price.setText("淘宝价 ￥"+goodDetailEntityJsonResponse.getData().getZk_final_price());
+
+        tv_sale_num.setText("已售："+goodDetailEntityJsonResponse.getData().getVolume());
+        tv_good_title.setText(goodDetailEntityJsonResponse.getData().getTitle());
+        tv_coump_price.setText(goodDetailEntityJsonResponse.getData().getCoupon_amount()+"");
+        tv_shop_name.setText(goodDetailEntityJsonResponse.getData().getShop_title());
+
     }
 
     @Override

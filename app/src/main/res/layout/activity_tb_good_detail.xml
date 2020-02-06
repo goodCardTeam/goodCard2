@@ -32,6 +32,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp">
                 <TextView
+                    android:id="@+id/tv_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="￥19.9"
@@ -42,6 +43,7 @@
                     android:layout_height="1dp"
                     android:layout_weight="1"></View>
                 <TextView
+                    android:id="@+id/tv_tip_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="得价值2.09元闪电"
@@ -57,6 +59,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp">
                 <TextView
+                    android:id="@+id/tv_taobao_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="淘宝价 ￥49.9"
@@ -67,6 +70,7 @@
                     android:layout_height="1dp"
                     android:layout_weight="1"></View>
                 <TextView
+                    android:id="@+id/tv_sale_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="已售：567"
@@ -81,6 +85,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp">
                 <TextView
+                    android:id="@+id/tv_good_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
@@ -99,10 +104,17 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="￥30"
+                    android:text="￥"
                     android:textSize="26sp"
                     android:textStyle="bold"
                     android:layout_marginLeft="12dp"></TextView>
+                <TextView
+                    android:id="@+id/tv_coump_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="30"
+                    android:textSize="26sp"
+                    android:textStyle="bold"></TextView>
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -139,6 +151,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp">
                 <TextView
+                    android:id="@+id/tv_shop_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"

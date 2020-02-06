@@ -3,6 +3,7 @@ package com.dytj.goodcard.api;
 import com.dytj.goodcard.api.baseFile.BaseNetWork;
 import com.dytj.goodcard.model.BuyEntity;
 import com.dytj.goodcard.model.CreateTradeOrderEntity;
+import com.dytj.goodcard.model.GoodDetailEntity;
 import com.dytj.goodcard.model.GoodsListEntity;
 import com.dytj.goodcard.model.GoodsTypeEntity;
 import com.dytj.goodcard.model.LoginEntity;
@@ -174,6 +175,16 @@ public class UserNetWork extends BaseNetWork {
         @FormUrlEncoded
         @POST("api/tbk/products")
         Observable<JsonResponse<GoodsListEntity>> tbGoodsListRequest(@FieldMap HashMap<String, Object> modificationPassWordEntryMap);
+
+
+        /**
+         *
+         * @param map
+         * @return
+         */
+        @FormUrlEncoded
+        @POST("api/tbk/goods")
+        Observable<JsonResponse<GoodDetailEntity>> tbGoodDetailRequest(@FieldMap HashMap<String, Object> map);
 
 
         //获取消息列表
@@ -354,5 +365,14 @@ public class UserNetWork extends BaseNetWork {
      */
     public void tbGoodsListRequest(HashMap<String, Object> paramMap, Observer<JsonResponse<GoodsListEntity>> observer){
         setSubscribe(service.tbGoodsListRequest(paramMap),observer);
+    }
+
+    /**
+     * 获取淘宝客商品详情
+     * @param paramMap
+     * @param observer
+     */
+    public void tbGoodDetailRequest(HashMap<String, Object> paramMap, Observer<JsonResponse<GoodDetailEntity>> observer){
+        setSubscribe(service.tbGoodDetailRequest(paramMap),observer);
     }
 }

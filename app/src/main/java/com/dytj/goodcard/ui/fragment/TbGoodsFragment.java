@@ -1,7 +1,9 @@
 package com.dytj.goodcard.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -14,6 +16,7 @@ import com.dytj.goodcard.model.JsonResponse;
 import com.dytj.goodcard.presenter.TbGoodsContact;
 import com.dytj.goodcard.presenter.TbGoodsPresenter;
 import com.dytj.goodcard.presenter.TestContact;
+import com.dytj.goodcard.ui.activity.TbGoodDetailActivity;
 import com.dytj.goodcard.ui.adapter.CommonAdapter;
 import com.dytj.goodcard.ui.adapter.ViewHolder;
 import com.dytj.goodcard.utils.RecyclerViewSpacesItemDecoration;
@@ -97,6 +100,23 @@ public class TbGoodsFragment extends LifecycleBaseFragment<TbGoodsPresenter> imp
 
         goodsRv.addItemDecoration(new RecyclerViewSpacesItemDecoration(stringIntegerHashMap));
 //        textview.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG ); //中间横线
+
+//        goodsRv.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View view, MotionEvent motionEvent) {
+//                Intent intent = new Intent(TbGoodsFragment.this.getActivity(), TbGoodDetailActivity.class);
+//                TbGoodsFragment.this.getActivity().startActivity(intent);
+//                return true;
+//            }
+//        });
+//
+//        goodsRv.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(TbGoodsFragment.this.getActivity(), TbGoodDetailActivity.class);
+//                TbGoodsFragment.this.getActivity().startActivity(intent);
+//            }
+//        });
     }
 
     public static TbGoodsFragment newInstance(int goodsId) {
@@ -118,7 +138,7 @@ public class TbGoodsFragment extends LifecycleBaseFragment<TbGoodsPresenter> imp
             list.addAll(entity.getData().getData());
             goodsRv.setAdapter(new CommonAdapter<GoodsListEntity.DataBeanX>(getActivity(), R.layout.item_goods, list) {
                 @Override
-                public void convert(ViewHolder holder, GoodsListEntity.DataBeanX data) {
+                public void convert(ViewHolder holder,final GoodsListEntity.DataBeanX data) {
                     String title=data.getData().getTitle();
                     String shopTitle=data.getData().getShop_title();
                     String amount=data.getCommission_rate();
@@ -137,6 +157,15 @@ public class TbGoodsFragment extends LifecycleBaseFragment<TbGoodsPresenter> imp
                     holder.setTextLine(R.id.tv_goods_total,"￥"+totalPrice);
                     holder.setText(R.id.tv_goods_final,"￥"+p);
                     holder.setImageResource(R.id.iv_goods_pic,"https:"+picUrl);
+
+                    holder.setOnClickListener(R.id.root_layout, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(TbGoodsFragment.this.getActivity(), TbGoodDetailActivity.class);
+                            intent.putExtra("goodId",data.getId()+"");
+                            TbGoodsFragment.this.getActivity().startActivity(intent);
+                        }
+                    });
 
                 }
             });

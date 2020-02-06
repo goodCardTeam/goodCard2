@@ -4,7 +4,7 @@ android {
 
     signingConfigs {
         release {
-            storeFile file('/Users/mrf/Downloads/LeekBox/app/goodCard.jks')
+            storeFile file('goodCard.jks')
             storePassword '123456'
             keyAlias = 'goodcard'
             keyPassword '123456'
@@ -93,5 +93,7 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.6.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
     implementation 'jp.wasabeef:glide-transformations:2.0.2'//图形变换依赖库
+
+    implementation 'com.yanzhenjie:sofia:1.0.4'
 
 }

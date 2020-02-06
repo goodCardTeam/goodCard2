@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.lzj.gallery.library.views.BannerViewPager
+                android:id="@+id/home_banner"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:background="@color/gray_e6"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="￥19.9"
+                    android:textSize="20sp"
+                    android:textColor="@color/money_red"></TextView>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"></View>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="得价值2.09元闪电"
+                    android:textSize="14sp"
+                    android:textColor="@color/money_red"></TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="6dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="淘宝价 ￥49.9"
+                    android:textSize="14sp"
+                    android:textColor="@color/tv_b0"></TextView>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"></View>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="已售：567"
+                    android:textSize="12sp"
+                    android:textColor="@color/tv_b0"></TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="新鲜橘子包邮5-8斤现摘现发坏果包赔甜蜜爆汁 非常可口好吃"></TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/card_yellow"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="￥30"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="12dp"></TextView>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="12dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="优惠券使用期限"
+                        android:textSize="10sp"></TextView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2020.01.01~2020.05.05"
+                        android:textSize="10sp"></TextView>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="立即领券"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:layout_marginRight="12dp"></TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="富贵鸟男装旗舰店"></TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center">
+                <View
+                    android:layout_width="80dp"
+                    android:layout_height="0.4dp"
+                    android:background="@color/tv_d"></View>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:text="宝贝详情"></TextView>
+                <View
+                    android:layout_width="80dp"
+                    android:layout_height="0.4dp"
+                    android:background="@color/tv_d"></View>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="800dp"
+                android:background="@color/tv_a"></View>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <RelativeLayout
+        android:id="@+id/topView"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentTop="true"
+        android:background="@android:color/transparent"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp">
+
+        <TextView
+            android:id="@+id/txTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="商品详情"
+            android:textColor="@android:color/transparent"
+            android:textSize="16sp" />
+
+        <com.dytj.goodcard.view.CircleRelativeLayout
+            android:id="@+id/btnLeft"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"
+            app:background_color="#80000000">
+
+            <ImageButton
+                android:id="@+id/myBack"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@android:color/transparent"
+                android:scaleType="centerInside"
+                android:src="@mipmap/arrow_left"
+                android:visibility="visible" />
+
+        </com.dytj.goodcard.view.CircleRelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

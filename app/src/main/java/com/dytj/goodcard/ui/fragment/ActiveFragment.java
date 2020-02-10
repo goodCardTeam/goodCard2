@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -72,14 +73,18 @@ public class ActiveFragment extends LifecycleBaseFragment<RainbowPresenter> impl
         list.add("每日签到");
         activeRv.setAdapter(new CommonAdapter<String>(getActivity(), R.layout.item_active, list) {
             @Override
-            public void convert(ViewHolder holder, String s) {
+            public void convert(ViewHolder holder, final String s) {
                 holder.setText(R.id.item_active_name, s);
                 holder.setOnClickListener(R.id.item_active_layout, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 //                            RainbowActivity.start(getActivity());
+                        if(s.equals(list.get(0))){
+                            RainbowActivity.start(getActivity());
+                        }else if(s.equals(list.get(1))){
+                            SignActivity.start(getActivity());
+                        }
 
-                        SignActivity.start(getActivity());
                     }
 
                 });
@@ -90,7 +95,7 @@ public class ActiveFragment extends LifecycleBaseFragment<RainbowPresenter> impl
     private void initView() {
         activeRv = view.findViewById(R.id.active_rv);
         //设置LayoutManager为LinearLayoutManager
-        activeRv.setLayoutManager(new LinearLayoutManager(getActivity()));
+        activeRv.setLayoutManager(new GridLayoutManager(getActivity(),2));
     }
 
 

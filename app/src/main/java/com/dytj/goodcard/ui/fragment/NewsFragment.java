@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.dytj.goodcard.R;
 import com.dytj.goodcard.api.baseFile.PersistentCookieStore;
@@ -19,6 +20,7 @@ import com.dytj.goodcard.presenter.TbGoodsPresenter;
 import com.dytj.goodcard.presenter.TestContact;
 import com.dytj.goodcard.ui.activity.Main2Activity;
 import com.dytj.goodcard.ui.adapter.CardVpAdapter;
+import com.dytj.goodcard.utils.AnimationUtils;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.tabs.TabLayout;
 
@@ -47,6 +49,7 @@ public class NewsFragment extends LifecycleBaseFragment<TbGoodsPresenter> implem
     private List<Fragment> fragmentList=new ArrayList<>();
     private List<String> titleList=new ArrayList<>();
     private AppBarLayout appbarLayout;
+    private LinearLayout llSearch;
 
     @Nullable
     @Override
@@ -65,9 +68,14 @@ public class NewsFragment extends LifecycleBaseFragment<TbGoodsPresenter> implem
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
                 Log.e("aaa","偏移量："+i);
-                if(i<-50){
-
-                }else if(i>=-50){
+                if(i<-200){
+                    Log.e("aaa","偏移量：操作1------");
+//                    llSearch.setVisibility(View.VISIBLE);
+                    AnimationUtils.showAndHiddenAnimation(llSearch, AnimationUtils.AnimationState.STATE_SHOW,500);
+                }else if(i>=-200){
+                    Log.e("aaa","偏移量：操作2------");
+                    llSearch.setVisibility(View.GONE);
+//                    AnimationUtils.showAndHiddenAnimation(llSearch, AnimationUtils.AnimationState.STATE_HIDDEN,500);
 
                 }
             }
@@ -83,6 +91,7 @@ public class NewsFragment extends LifecycleBaseFragment<TbGoodsPresenter> implem
         appbarLayout=view.findViewById(R.id.appbar_layout);
         mTab=view.findViewById(R.id.goods_tab);
         mViewPager=view.findViewById(R.id.goods_vp);
+        llSearch=view.findViewById(R.id.news_ll_search);
     }
 
     @Override

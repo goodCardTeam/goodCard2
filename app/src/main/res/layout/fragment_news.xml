@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
     <!-- 第一部分:CoordinatorLayout -->
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -19,24 +19,76 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
-                app:contentScrim="?attr/colorPrimary"
+                app:contentScrim="@color/white"
                 app:expandedTitleMarginEnd="64dp"
                 app:expandedTitleMarginStart="48dp"
                 app:layout_scrollFlags="scroll">
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
-                    android:background="@color/red_6729"/>
+                    android:background="@color/white">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true">
+                        <EditText
+                            android:layout_width="250dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/search_half_borde_shape"
+                            android:lines="1"
+                            android:textSize="15sp"
+                            android:textColor="@color/gray_4a"
+                            android:ellipsize="end"/>
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/search_half_solid_shape"
+                            android:text="搜索"
+                            android:textSize="15sp"
+                            android:textColor="@color/white"/>
+                    </LinearLayout>
+                </RelativeLayout>
             </com.google.android.material.appbar.CollapsingToolbarLayout>
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/goods_tab"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:background="@color/white"
-                app:tabMode="scrollable"
-                app:tabTextColor="@color/gray_9"
-                app:tabSelectedTextColor="@color/gray_4a"
-                app:tabIndicatorColor="@color/gray_4a"/>
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:id="@+id/news_ll_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:visibility="gone"
+                    android:paddingBottom="5dp"
+                    android:background="@color/white"
+                    android:paddingTop="22dp">
+                    <EditText
+                        android:layout_width="250dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/search_half_borde_shape"
+                        android:lines="1"
+                        android:textSize="15sp"
+                        android:textColor="@color/gray_4a"
+                        android:ellipsize="end"/>
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/search_half_solid_shape"
+                        android:text="搜索"
+                        android:textSize="15sp"
+                        android:textColor="@color/white"/>
+                </LinearLayout>
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/goods_tab"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:background="@color/white"
+                    app:tabMode="scrollable"
+                    app:tabTextColor="@color/gray_9"
+                    app:tabSelectedTextColor="@color/gray_4a"
+                    app:tabIndicatorColor="@color/gray_4a"/>
+            </LinearLayout>
+
         </com.google.android.material.appbar.AppBarLayout>
         <!-- 第三部分:Your Scroll View-->
         <androidx.core.widget.NestedScrollView

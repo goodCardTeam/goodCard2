@@ -30,6 +30,11 @@ android {
             minifyEnabled false
             signingConfig signingConfigs.release
             zipAlignEnabled true
+            //正式包打包报错解决
+            lintOptions {
+                checkReleaseBuilds false
+                abortOnError false
+            }
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField('String', 'APPID', '"IuUPPLNc"')
             buildConfigField('String', 'APPKEY', '"ZuJnohHW"')

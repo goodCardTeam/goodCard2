@@ -24,9 +24,16 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import androidx.annotation.RequiresPermission;
 
@@ -243,9 +250,9 @@ public class SystemToolUtils {
      * 获取当前应用程序的版本号
      */
     public static String getAppVersionName(Context context) {
-      if (context==null){
-        return "0";
-      }
+        if (context == null) {
+            return "0";
+        }
         String version = "0";
         try {
             version = context.getPackageManager().getPackageInfo(
@@ -258,20 +265,18 @@ public class SystemToolUtils {
     }
 
     /**
-     *
      * @param context
      * @return 获取应用包名
      */
-    public static String getAppPackageName(Context context)
-    {
-        if(context==null)
-        {
+    public static String getAppPackageName(Context context) {
+        if (context == null) {
             return "";
         }
-        String packageName="";
-        packageName=context.getPackageName();
+        String packageName = "";
+        packageName = context.getPackageName();
         return packageName;
     }
+
     /**
      * 获取当前应用程序的版本号
      */
@@ -391,7 +396,7 @@ public class SystemToolUtils {
                     // pkgList 得到该进程下运行的包名
                     String[] pkgList = process.pkgList;
                     for (String pkgName : pkgList) {
-                      //  MyLog.e("======正在杀死包名：" + pkgName);
+                        //  MyLog.e("======正在杀死包名：" + pkgName);
                         try {
                             am.killBackgroundProcesses(pkgName);
                             count++;
@@ -402,9 +407,10 @@ public class SystemToolUtils {
                     }
                 }
             }
-       // MyLog.e("清理了" + (getDeviceUsableMemory(cxt) - i) + "M内存");
+        // MyLog.e("清理了" + (getDeviceUsableMemory(cxt) - i) + "M内存");
         return count;
     }
+
     /*************************获取渠道包的包名*************************/
     //key为渠道名的key，对应友盟的 UMENG_CHANNEL
     public static String getChannel(Context context, String key) {
@@ -417,53 +423,172 @@ public class SystemToolUtils {
         return "";
     }
 
-  /**
-   *获取当前手机的IP地址
-   * @param context
-   * @return
-   */
-  public static String getIPAddress(Context context) {
-    NetworkInfo info = ((ConnectivityManager) context
-      .getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
-    if (info != null && info.isConnected()) {
-      if (info.getType() == ConnectivityManager.TYPE_MOBILE) {//当前使用2G/3G/4G网络
-        try {
-          //Enumeration<NetworkInterface> en=NetworkInterface.getNetworkInterfaces();
-          for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements(); ) {
-            NetworkInterface intf = en.nextElement();
-            for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements(); ) {
-              InetAddress inetAddress = enumIpAddr.nextElement();
-              if (!inetAddress.isLoopbackAddress() && inetAddress instanceof Inet4Address) {
-                return inetAddress.getHostAddress();
-              }
+    /**
+     * 获取当前手机的IP地址
+     *
+     * @param context
+     * @return
+     */
+    public static String getIPAddress(Context context) {
+        NetworkInfo info = ((ConnectivityManager) context
+                .getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
+        if (info != null && info.isConnected()) {
+            if (info.getType() == ConnectivityManager.TYPE_MOBILE) {//当前使用2G/3G/4G网络
+                try {
+                    //Enumeration<NetworkInterface> en=NetworkInterface.getNetworkInterfaces();
+                    for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements(); ) {
+                        NetworkInterface intf = en.nextElement();
+                        for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements(); ) {
+                            InetAddress inetAddress = enumIpAddr.nextElement();
+                            if (!inetAddress.isLoopbackAddress() && inetAddress instanceof Inet4Address) {
+                                return inetAddress.getHostAddress();
+                            }
+                        }
+                    }
+                } catch (SocketException e) {
+                    e.printStackTrace();
+                }
+
+            } else if (info.getType() == ConnectivityManager.TYPE_WIFI) {//当前使用无线网络
+                WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+                String ipAddress = intIP2StringIP(wifiInfo.getIpAddress());//得到IPV4地址
+                return ipAddress;
             }
-          }
-        } catch (SocketException e) {
-          e.printStackTrace();
+        } else {
+            //当前无网络连接,请在设置中打开网络
+        }
+        return null;
+    }
+
+    /**
+     * 将得到的int类型的IP转换为String类型
+     *
+     * @param ip
+     * @return
+     */
+    public static String intIP2StringIP(int ip) {
+        return (ip & 0xFF) + "." +
+                ((ip >> 8) & 0xFF) + "." +
+                ((ip >> 16) & 0xFF) + "." +
+                (ip >> 24 & 0xFF);
+    }
+
+    /**
+     * 获取key=value字符串
+     * @param map
+     */
+    public static String getKeyValue(HashMap<String,Object> map){
+        StringBuilder stringBuilder=new StringBuilder();
+        List<String> sortList=new ArrayList<>();
+        Set<String> keys = map.keySet();   //此行可省略，直接将map.keySet()写在for-each循环的条件中
+        for(String key:keys){
+            sortList.add(key);
+        }
+        sortList=listSort(sortList);
+        for (String item :
+                sortList) {
+            stringBuilder.append(item+"="+map.get(item)+"&");
         }
 
-      } else if (info.getType() == ConnectivityManager.TYPE_WIFI) {//当前使用无线网络
-        WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-        WifiInfo wifiInfo = wifiManager.getConnectionInfo();
-        String ipAddress = intIP2StringIP(wifiInfo.getIpAddress());//得到IPV4地址
-        return ipAddress;
-      }
-    } else {
-      //当前无网络连接,请在设置中打开网络
+        return stringBuilder.toString();
     }
-    return null;
-  }
 
-  /**
-   * 将得到的int类型的IP转换为String类型
-   *
-   * @param ip
-   * @return
-   */
-  public static String intIP2StringIP(int ip) {
-    return (ip & 0xFF) + "." +
-      ((ip >> 8) & 0xFF) + "." +
-      ((ip >> 16) & 0xFF) + "." +
-      (ip >> 24 & 0xFF);
-  }
+    public static List<String> listSort(List<String> list) {
+        String[] array = (String[]) list.toArray(new String[list.size()]);
+        for (int i = 0; i < array.length - 1; i++) {
+            for (int j = i + 1; j < array.length; j++) {
+                if (singleSort(array[i], array[j]) == 1) {
+                    String temp = array[i];
+                    array[i] = array[j];
+                    array[j] = temp;
+                }
+            }
+        }
+        return Arrays.asList(array);
+    }
+
+    /**
+     * 比较两个字符
+     *
+     * @param one
+     * @param two
+     * @return
+     */
+    public static int singleSort(String one, String two) {
+        int[] left = stringToAscii(one);
+        int[] right = stringToAscii(two);
+        int size = left.length < right.length ? left.length : right.length;
+        for (int i = 0; i < size; i++) {
+            // 大于10000说明是汉字 并且在判断一下是否相等 不相等在判断 减少判断次数
+            if (left[i] > 10000 && right[i] > 10000 && left[i] != right[i]) {
+//                if (chineseCompare(one, two, i) != 0) {
+//                    return chineseCompare(one, two, i);
+//                }
+            } else {
+                if (intCompare(left[i], right[i]) != 0) {
+                    return intCompare(left[i], right[i]);
+                }
+            }
+        }
+        return intCompare(left.length, right.length);
+    }
+    /**
+     * 汉字比较
+     *
+     * @param one
+     * @param two
+     * @param i
+     * @return
+     */
+//    private static int chineseCompare(String one, String two, int i) {
+//        String substringleft;
+//        String substringright;
+//        if (i > 0) {
+//            substringleft = one.substring(i - 1, i);
+//            substringright = two.substring(i - 1, i);
+//        } else {
+//            substringleft = one.substring(0, i);
+//            substringright = two.substring(0, i);
+//        }
+//        // 获得汉字拼音首字母的ASCII码
+//        // 把他里面的CharacterParser.convert方法 改成 public static 不然会报错
+//        int subLeft = stringToAscii(CharacterParser.convert(substringleft)
+//                .substring(0, 1))[0];
+//        int subRight = stringToAscii(CharacterParser.convert(substringright)
+//                .substring(0, 1))[0];
+//        System.out.println(CharacterParser.convert(substringleft).substring(0,
+//                1));
+//        return intCompare(subLeft, subRight);
+//    }
+    /**
+     * 数字比较
+     * @param subLeft
+     * @param subRight
+     * @return
+     */
+    private static int intCompare(int subLeft, int subRight) {
+        if (subLeft > subRight) {
+            return 1;
+        } else if (subLeft < subRight) {
+            return -1;
+        } else {
+            return 0;
+        }
+    }
+    /**
+     * 获得ASCII码
+     * @param value
+     * @return
+     */
+    public static int[] stringToAscii(String value) {
+        char[] chars = value.toCharArray();
+        int j = chars.length;
+        int[] array = new int[j];
+        for (int i = 0; i < chars.length; i++) {
+            array[i] = (int) chars[i];
+        }
+        return array;
+    }
+
 }

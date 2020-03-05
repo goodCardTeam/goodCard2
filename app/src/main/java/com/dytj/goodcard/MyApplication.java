@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -143,5 +145,22 @@ public class MyApplication extends Application {
                 Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    /**
+     * 获取版本名
+     * @return
+     */
+    public static String getAppVersionName() {
+        String appVersionName = "";
+        try {
+            PackageInfo packageInfo = getInstance().getApplicationContext()
+                    .getPackageManager()
+                    .getPackageInfo(context.getPackageName(), 0);
+            appVersionName = packageInfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+
+        }
+        return appVersionName;
     }
 }

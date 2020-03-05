@@ -1,5 +1,12 @@
 package com.dytj.goodcard.api;
 
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.text.TextUtils;
+
+import com.dytj.goodcard.AppConfig;
+import com.dytj.goodcard.MyApplication;
 import com.dytj.goodcard.api.baseFile.BaseNetWork;
 import com.dytj.goodcard.model.BuyEntity;
 import com.dytj.goodcard.model.CreateTradeOrderEntity;
@@ -16,9 +23,13 @@ import com.dytj.goodcard.model.TradeListEntity;
 import com.dytj.goodcard.model.JsonResponse;
 import com.dytj.goodcard.model.TradeOrderInfoEntity;
 import com.dytj.goodcard.model.UserRechargeWay;
+import com.dytj.goodcard.utils.SystemToolUtils;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -211,16 +222,19 @@ public class UserNetWork extends BaseNetWork {
 
     //登录
     public void userLogin(HashMap<String, Object> paramMap, Observer<JsonResponse<LoginEntity>> observer) {
+        getSign(paramMap);
         setSubscribe(service.userLogin(paramMap), observer);
     }
 
     //注册
     public void userRegister(HashMap<String, Object> paramMap, Observer<RegisterEntity> observer) {
+        getSign(paramMap);
         setSubscribe(service.userRegister(paramMap), observer);
     }
 
     //获取验证码
     public void usergetSms(HashMap<String, Object> paramMap, Observer<JsonResponse> observer) {
+        getSign(paramMap);
         setSubscribe(service.userGetSms(paramMap), observer);
     }
 
@@ -256,6 +270,7 @@ public class UserNetWork extends BaseNetWork {
      * @param observer
      */
     public void tradeList(HashMap<String, Object> paramMap, Observer<JsonResponse<TradeListEntity>> observer){
+        getSign(paramMap);
         setSubscribe(service.tradeList(paramMap),observer);
     }
 
@@ -265,6 +280,7 @@ public class UserNetWork extends BaseNetWork {
      * @param observer
      */
     public void rainbowList(HashMap<String, Object> paramMap, Observer<JsonResponse<RainbowEntity>> observer){
+        getSign(paramMap);
         setSubscribe(service.rainbowList(paramMap),observer);
     }
 
@@ -274,6 +290,7 @@ public class UserNetWork extends BaseNetWork {
      * @param observer
      */
     public void refreshToken(HashMap<String, Object> paramMap, Observer<JsonResponse<LoginEntity>> observer){
+        getSign(paramMap);
         setSubscribe(service.refreshToken(paramMap),observer);
     }
 
@@ -283,6 +300,7 @@ public class UserNetWork extends BaseNetWork {
      * @param observer
      */
     public void buyPointRequest(HashMap<String, Object> paramMap, Observer<JsonResponse<BuyEntity>> observer){
+        getSign(paramMap);
         setSubscribe(service.buyPointRequest(paramMap),observer);
     }
 
@@ -292,6 +310,7 @@ public class UserNetWork extends BaseNetWork {
      * @param observer
      */
     public void myTradeOrderRequest(HashMap<String, Object> paramMap, Observer<JsonResponse<MyTradeOrderEntity>> observer){
+        getSign(paramMap);
         setSubscribe(service.myTradeOrderRequest(paramMap),observer);
     }
 
@@ -301,6 +320,7 @@ public class UserNetWork extends BaseNetWork {
      * @param observer
      */
     public void createTradeOrderRequest(HashMap<String, Object> paramMap, Observer<JsonResponse<CreateTradeOrderEntity>> observer){
+        getSign(paramMap);
         setSubscribe(service.createTradeOrderRequest(paramMap),observer);
     }
 
@@ -310,6 +330,7 @@ public class UserNetWork extends BaseNetWork {
      * @param observer
      */
     public void tradeOrderInfoRequest(HashMap<String, Object> paramMap, Observer<JsonResponse<TradeOrderInfoEntity>> observer){
+        getSign(paramMap);
         setSubscribe(service.tradeOrderInfoRequest(paramMap),observer);
     }
 
@@ -319,6 +340,7 @@ public class UserNetWork extends BaseNetWork {
      * @param observer
      */
     public void tradeOrderGetMoneyRequest(HashMap<String, Object> paramMap, Observer<JsonResponse> observer){
+        getSign(paramMap);
         setSubscribe(service.tradeOrderGetMoneyRequest(paramMap),observer);
     }
 
@@ -328,6 +350,7 @@ public class UserNetWork extends BaseNetWork {
      * @param observer
      */
     public void tradeOrderPayRequest(HashMap<String, Object> paramMap, Observer<JsonResponse> observer){
+        getSign(paramMap);
         setSubscribe(service.tradeOrderPayRequest(paramMap),observer);
     }
 
@@ -337,6 +360,7 @@ public class UserNetWork extends BaseNetWork {
      * @param observer
      */
     public void tradeOrderComplainRequest(HashMap<String, Object> paramMap, Observer<JsonResponse> observer){
+        getSign(paramMap);
         setSubscribe(service.tradeOrderComplainRequest(paramMap),observer);
     }
 
@@ -346,6 +370,7 @@ public class UserNetWork extends BaseNetWork {
      * @param observer
      */
     public void tradeOrderCancelRequest(HashMap<String, Object> paramMap, Observer<JsonResponse> observer){
+        getSign(paramMap);
         setSubscribe(service.tradeOrderCancelRequest(paramMap),observer);
     }
 
@@ -355,6 +380,7 @@ public class UserNetWork extends BaseNetWork {
      * @param observer
      */
     public void tbGoodsTypeRequest(HashMap<String, Object> paramMap, Observer<JsonResponse<List<GoodsTypeEntity>>> observer){
+        getSign(paramMap);
         setSubscribe(service.tbGoodsTypeRequest(paramMap),observer);
     }
 
@@ -364,6 +390,7 @@ public class UserNetWork extends BaseNetWork {
      * @param observer
      */
     public void tbGoodsListRequest(HashMap<String, Object> paramMap, Observer<JsonResponse<GoodsListEntity>> observer){
+        getSign(paramMap);
         setSubscribe(service.tbGoodsListRequest(paramMap),observer);
     }
 
@@ -373,6 +400,72 @@ public class UserNetWork extends BaseNetWork {
      * @param observer
      */
     public void tbGoodDetailRequest(HashMap<String, Object> paramMap, Observer<JsonResponse<GoodDetailEntity>> observer){
+        getSign(paramMap);
         setSubscribe(service.tbGoodDetailRequest(paramMap),observer);
     }
+
+    /**
+     * 获取签名
+     * @param paramMap
+     */
+    private void getSign(HashMap<String, Object> paramMap){
+        String timesTamp= String.valueOf(System.currentTimeMillis());
+        String randomString=getRandomString(16);
+        String versionName= MyApplication.getAppVersionName();
+        paramMap.put("timestamp",timesTamp);
+        paramMap.put("nonce_str",randomString);
+        paramMap.put("version",versionName);
+        String sign=SystemToolUtils.getKeyValue(paramMap);
+        String signMd5=md5(sign);
+        paramMap.put("sign",signMd5.toUpperCase());
+    }
+
+
+    /**
+     * 获取随机字符串
+     * @param length
+     * @return
+     */
+    public static String getRandomString(int length) { //length表示生成字符串的长度
+        String base = "abcdefghijklmnopqrstuvwxyz0123456789";
+        Random random = new Random();
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < length; i++) {
+            int number = random.nextInt(base.length());
+            sb.append(base.charAt(number));
+        }
+        return sb.toString();
+    }
+
+    /**
+     * MD5加密
+     * @param string
+     * @return
+     */
+    public static String md5(String string) {
+        if (TextUtils.isEmpty(string)) {
+            return "";
+        }
+        MessageDigest md5 = null;
+        try {
+            md5 = MessageDigest.getInstance("MD5");
+            byte[] bytes = md5.digest((string +"key="+ AppConfig.MD5_KEY).getBytes());
+            String result = "";
+            for (byte b : bytes) {
+                String temp = Integer.toHexString(b & 0xff);
+                if (temp.length() == 1) {
+                    temp = "0" + temp;
+                }
+                result += temp;
+            }
+            return result;
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+
+
+
 }

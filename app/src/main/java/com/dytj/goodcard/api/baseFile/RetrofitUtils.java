@@ -53,7 +53,7 @@ public abstract class RetrofitUtils {
                 mOkHttpClient = okHttp3Utils.getOkHttpClient();
             }
             mRetrofit2 = new Retrofit.Builder()
-                    .baseUrl(BaseUrlUtil.BaseServiceUrl2)
+                    .baseUrl(BaseUrlUtil.BaseServiceUrl)
                     .addConverterFactory(new NullOnEmptyConverterFactory())
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

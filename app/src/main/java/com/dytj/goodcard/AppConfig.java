@@ -108,6 +108,11 @@ public class AppConfig {
      */
     public static final String AD_VEDIO_ID="945010500";
 
+    /**
+     * MD5加密key
+     */
+    public static final String MD5_KEY="JT9UKBS9R2I7zbv7VzeP11paJ2I09vy9";
+
 
 
 

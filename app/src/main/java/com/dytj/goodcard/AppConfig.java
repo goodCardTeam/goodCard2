@@ -113,6 +113,10 @@ public class AppConfig {
      */
     public static final String MD5_KEY="JT9UKBS9R2I7zbv7VzeP11paJ2I09vy9";
 
+    /**
+     * mob分享隐私协议
+     */
+    public static final String H5_MOB_AGREEMENT="http://www.mob.com/about/policy";
 
 
 

@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'com.mob.sdk'
 android {
 
     signingConfigs {
@@ -19,6 +19,7 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         ndk {
             //设置支持的SO库架构
@@ -56,6 +57,36 @@ repositories {
     }
 }
 
+MobSDK {
+    appKey "2e02c08abd71a"
+    appSecret "21557f54e363da3e46a341c3cce3ff64"
+    ShareSDK {
+        //平台配置信息
+        devInfo {
+            Wechat {
+                appId "wxdb591f2a6d036b66"
+                appSecret "327861f5be0fc47148f46abd97b6562f"
+            }
+            QQ {
+                appId "100371282"
+                appKey "aed9b0303e3ed1e27bae87c33761161d"
+                shareByAppClient true
+            }
+            Facebook {
+                appKey "1412473428822331"
+                appSecret "a42f4f3f867dc947b9ed6020c2e93558"
+                callbackUri "https://mob.com"
+            }
+            SinaWeibo {
+                appKey "568898243"
+                appSecret "38a4f8204cc784f81f9f0daaf31e02e3"
+                callbackUri "http://www.sharesdk.cn"
+                shareByAppClient true
+            }
+        }
+    }
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.0.2'
@@ -73,6 +104,8 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     //轮播图
     implementation project(path: ':gallery')
+    //解决 Error: null, Cannot fit requested classes in a single dex file (# methods: 68426 > 65536)
+    implementation 'com.android.support:multidex:1.0.3'
 
     //    第三方刷新控件smartRefreshLayout
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'

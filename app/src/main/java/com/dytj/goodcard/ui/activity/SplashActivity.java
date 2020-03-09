@@ -27,6 +27,7 @@ import com.dytj.goodcard.presenter.LoginContact;
 import com.dytj.goodcard.presenter.LoginPresenter;
 import com.dytj.goodcard.utils.MyToast;
 import com.dytj.goodcard.utils.PreferenceHelper;
+import com.dytj.goodcard.utils.SystemToolUtils;
 import com.dytj.goodcard.utils.TTAdManagerHolder;
 import com.dytj.goodcard.utils.WeakHandler;
 
@@ -66,6 +67,9 @@ public class SplashActivity extends LifecycleBaseActivity<LoginPresenter>
         setContentView(R.layout.activity_splash);
         setDarkStatusIcon(true);
 //        setPermission(permissions);
+
+//        SystemToolUtils.getSignMd5Str();
+        Log.e("aaa","好卡md5:"+SystemToolUtils.getSignMd5Str());
         initData();
     }
 

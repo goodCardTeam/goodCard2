@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">好卡</string>
-    <string name="login_bottom">LeekBox</string>
     <string name="agreement_user">《注册协议》</string>
+    <string name="agreement_share">《第三方服务及隐私条款》</string>
     <string name="agreement_privacy">agreement_privacy</string>
     <string name="phone_login">登录</string>
     <string name="phone_register">注册</string>

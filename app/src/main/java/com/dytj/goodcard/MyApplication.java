@@ -31,6 +31,8 @@ import com.tencent.bugly.Bugly;
 
 import java.util.List;
 
+import androidx.multidex.MultiDex;
+
 
 /**
  * Created by zeng on 2019/4/9.
@@ -78,6 +80,8 @@ public class MyApplication extends Application {
         super.onCreate();
         this.instance = (MyApplication) getApplicationContext();
         context = (MyApplication) getApplicationContext();
+        // 解决 Error: null, Cannot fit requested classes in a single dex file (# methods: 68426 > 65536)
+        MultiDex.install(this);
         //初始化Bugly
         Bugly.init(getApplicationContext(), AppConfig.BUGLY_APP_ID, false);
         //初始化穿山甲

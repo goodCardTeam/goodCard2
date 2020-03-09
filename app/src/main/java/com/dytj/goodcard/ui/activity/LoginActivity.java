@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -138,6 +139,9 @@ public class LoginActivity extends LifecycleBaseActivity<LoginPresenter>
      * 登录密码
      */
     private String password;
+    private CheckBox cbAgree;
+    private TextView tvUser;
+    private TextView tvShare;
 
     @Override
     public LoginPresenter initPresenter() {
@@ -365,6 +369,12 @@ public class LoginActivity extends LifecycleBaseActivity<LoginPresenter>
         ivInviteClose = findViewById(R.id.iv_invite_close);
         ivInviteClose.setOnClickListener(this);
 
+        cbAgree=findViewById(R.id.checkbox_agree);
+        tvUser=findViewById(R.id.agreement_user);
+        tvUser.setOnClickListener(this);
+        tvShare=findViewById(R.id.agreement_share);
+        tvShare.setOnClickListener(this);
+
         /**
          * 抬高view1
          */
@@ -463,6 +473,12 @@ public class LoginActivity extends LifecycleBaseActivity<LoginPresenter>
                 break;
             case R.id.btn_send://发送验证码
                 sendSms();
+                break;
+            case R.id.agreement_user:
+
+                break;
+            case R.id.agreement_share:
+                WebActivity.start(LoginActivity.this,AppConfig.H5_MOB_AGREEMENT);
                 break;
         }
     }

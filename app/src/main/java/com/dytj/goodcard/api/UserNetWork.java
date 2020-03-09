@@ -22,6 +22,7 @@ import com.dytj.goodcard.model.RegisterEntity;
 import com.dytj.goodcard.model.TradeListEntity;
 import com.dytj.goodcard.model.JsonResponse;
 import com.dytj.goodcard.model.TradeOrderInfoEntity;
+import com.dytj.goodcard.model.UserInfoEntity;
 import com.dytj.goodcard.model.UserRechargeWay;
 import com.dytj.goodcard.utils.SystemToolUtils;
 
@@ -187,9 +188,8 @@ public class UserNetWork extends BaseNetWork {
         @POST("api/tbk/products")
         Observable<JsonResponse<GoodsListEntity>> tbGoodsListRequest(@FieldMap HashMap<String, Object> modificationPassWordEntryMap);
 
-
         /**
-         *
+         * 获取淘宝详情
          * @param map
          * @return
          */
@@ -197,6 +197,14 @@ public class UserNetWork extends BaseNetWork {
         @POST("api/tbk/goods")
         Observable<JsonResponse<GoodDetailEntity>> tbGoodDetailRequest(@FieldMap HashMap<String, Object> map);
 
+        /**
+         * 获取个人中心数据
+         * @param map
+         * @return
+         */
+        @FormUrlEncoded
+        @POST("api/info")
+        Observable<JsonResponse<UserInfoEntity>> getUserInfoRequest(@FieldMap HashMap<String, Object> map);
 
         //获取消息列表
         @GET("api/AppPrivate/get_messages")
@@ -463,6 +471,16 @@ public class UserNetWork extends BaseNetWork {
             e.printStackTrace();
         }
         return "";
+    }
+
+    /**
+     * 获取个人中心数据
+     * @param paramMap
+     * @param observer
+     */
+    public void getUserInfoRequest(HashMap<String, Object> paramMap, Observer<JsonResponse<UserInfoEntity>> observer){
+        getSign(paramMap);
+        setSubscribe(service.getUserInfoRequest(paramMap),observer);
     }
 
 
